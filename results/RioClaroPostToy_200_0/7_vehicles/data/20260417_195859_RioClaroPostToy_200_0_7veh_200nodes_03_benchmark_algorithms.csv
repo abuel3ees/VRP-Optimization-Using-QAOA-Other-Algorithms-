@@ -1,0 +1,7 @@
+Algorithm,k_used,Total_Distance,Distance_Std,Time_sec,Valid,Gap_vs_Best_Pct
+Recursive (NO 2-opt),7,131960.30,10527.49,0.0000,OK,44.0
+Recursive + 2-opt,7,110884.12,8348.07,0.0000,OK,21.0
+Nearest-Neighbour,7,133280.79,4388.22,0.0409,OK,45.5
+Clarke-Wright Savings,7,91625.06,29783.57,0.0156,OK,0.0
+Sweep,7,293366.19,4141.21,0.0066,OK,220.2
+OR-Tools (GLS),7,91625.06,29783.57,0.0489,OK,0.0

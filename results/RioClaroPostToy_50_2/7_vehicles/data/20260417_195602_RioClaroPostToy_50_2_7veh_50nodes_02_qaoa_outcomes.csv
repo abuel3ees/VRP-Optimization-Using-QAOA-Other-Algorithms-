@@ -1,0 +1,35 @@
+#,Nodes,Routes,Qubits,Status,QAOA_Cost,Optimal_Cost,Gap_Pct,Description
+1,"8, 16",2,4,OPTIMAL,4084.51,4084.51,0.000%,Solution found optimally
+2,"11, 36, 40",3,9,OPTIMAL,3287.04,3287.04,0.000%,Solution found optimally
+3,"-1, -2, -3",3,9,OPTIMAL,4586.98,4586.98,0.000%,Solution found optimally
+4,"10, 20",2,4,OPTIMAL,3734.27,3734.27,0.000%,Solution found optimally
+5,"37, 45",2,4,OPTIMAL,3939.77,3939.77,0.000%,Solution found optimally
+6,"3, 18",2,4,OPTIMAL,1723.93,1723.93,0.000%,Solution found optimally
+7,"-1, -2, -3",3,9,OPTIMAL,3493.43,3493.43,0.000%,Solution found optimally
+8,"17, 26, 38, 49",4,16,OPTIMAL,7547.71,7547.71,0.000%,Solution found optimally
+9,"2, 33",2,4,OPTIMAL,8025.87,8025.87,0.000%,Solution found optimally
+10,"24, 27, 46",3,9,OPTIMAL,7309.94,7309.94,0.000%,Solution found optimally
+11,"15, 21, 23, 25",4,16,OPTIMAL,10921.38,10921.38,0.000%,Solution found optimally
+12,"-1, -2, -3, -4",4,16,OPTIMAL,10242.12,10242.12,0.000%,Solution found optimally
+13,"9, 44",2,4,OPTIMAL,3700.35,3700.35,0.000%,Solution found optimally
+14,"12, 35",2,4,OPTIMAL,5487.97,5487.97,0.000%,Solution found optimally
+15,"28, 43, 50",3,9,OPTIMAL,5323.38,5323.38,0.000%,Solution found optimally
+16,"-1, -2, -3",3,9,OPTIMAL,5261.41,5261.41,0.000%,Solution found optimally
+17,"1, 14",2,4,OPTIMAL,7958.31,7958.31,0.000%,Solution found optimally
+18,"32, 39",2,4,OPTIMAL,7750.32,7750.32,0.000%,Solution found optimally
+19,"-1, -2, -3",3,9,OPTIMAL,7670.70,7670.70,0.000%,Solution found optimally
+20,"19, 22, 31, 41",4,16,OPTIMAL,11296.98,11296.98,0.000%,Solution found optimally
+21,"13, 34, 42",3,9,OPTIMAL,6746.23,6746.23,0.000%,Solution found optimally
+22,"7, 48",2,4,OPTIMAL,3938.37,3938.37,0.000%,Solution found optimally
+23,"4, 30, 47",3,9,OPTIMAL,4109.68,4109.68,0.000%,Solution found optimally
+24,"-1, -2, -3",3,9,OPTIMAL,3711.88,3711.88,0.000%,Solution found optimally
+25,"-6, -8",2,6,OPTIMAL,8215.10,8215.10,0.000%,Solution found optimally
+26,"-1, -2, -7",3,12,OPTIMAL,6931.61,6931.61,0.000%,Solution found optimally
+27,"-3, -4, -5",3,12,OPTIMAL,17645.18,17645.18,0.000%,Solution found optimally
+
+SUMMARY STATISTICS
+Metric,Value,Percentage
+Total Solver Calls,27,100.0%
+Optimal Solutions,27,100.0%
+Feasible Solutions,0,0.0%
+No Valid Solution,0,0.0%

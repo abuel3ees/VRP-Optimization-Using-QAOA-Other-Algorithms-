@@ -1,0 +1,58 @@
+#,Nodes,Routes,Qubits,Status,QAOA_Cost,Optimal_Cost,Gap_Pct,Description
+1,"2, 50, 79",3,9,OPTIMAL,5802.11,5802.11,0.000%,Solution found optimally
+2,"27, 55",2,4,OPTIMAL,5967.51,5967.51,0.000%,Solution found optimally
+3,"23, 28",2,4,OPTIMAL,5357.85,5357.85,0.000%,Solution found optimally
+4,"-1, -2, -3",3,9,OPTIMAL,5824.10,5824.10,0.000%,Solution found optimally
+5,"1, 80",2,4,OPTIMAL,6986.25,6986.25,0.000%,Solution found optimally
+6,"13, 31, 74",3,9,OPTIMAL,7727.26,7727.26,0.000%,Solution found optimally
+7,"-1, -2, -3, -4",4,16,OPTIMAL,7631.39,7631.39,0.000%,Solution found optimally
+8,"51, 53, 93",3,9,OPTIMAL,5108.74,5108.74,0.000%,Solution found optimally
+9,"20, 71",2,4,OPTIMAL,6630.48,6630.48,0.000%,Solution found optimally
+10,"9, 34",2,4,OPTIMAL,5707.80,5707.80,0.000%,Solution found optimally
+11,"-1, -2, -3",3,9,OPTIMAL,5615.39,5615.39,0.000%,Solution found optimally
+12,"8, 89, 95",3,9,OPTIMAL,3666.14,3666.14,0.000%,Solution found optimally
+13,"56, 92",2,4,OPTIMAL,4534.36,4534.36,0.000%,Solution found optimally
+14,"60, 47",2,4,OPTIMAL,4070.03,4070.03,0.000%,Solution found optimally
+15,"-1, -2, -3",3,9,OPTIMAL,3922.34,3922.34,0.000%,Solution found optimally
+16,"-1, -2, -3, -4",4,16,OPTIMAL,5601.58,5601.58,0.000%,Solution found optimally
+17,"57, 98, 100",3,9,OPTIMAL,1814.90,1814.90,0.000%,Solution found optimally
+18,"38, 88",2,4,OPTIMAL,2022.18,2022.18,0.000%,Solution found optimally
+19,"36, 75",2,4,OPTIMAL,3031.94,3031.94,0.000%,Solution found optimally
+20,"10, 26, 52",3,9,OPTIMAL,3962.35,3962.35,0.000%,Solution found optimally
+21,"-1, -2, -3, -4",4,16,OPTIMAL,3489.98,3489.98,0.000%,Solution found optimally
+22,"6, 84",2,4,OPTIMAL,8664.19,8664.19,0.000%,Solution found optimally
+23,"19, 61, 69, 99",4,16,OPTIMAL,6887.39,6887.39,0.000%,Solution found optimally
+24,"59, 65, 94",3,9,OPTIMAL,7278.08,7278.08,0.000%,Solution found optimally
+25,"12, 73, 96",3,9,OPTIMAL,7048.76,7048.76,0.000%,Solution found optimally
+26,"-1, -2, -3, -4",4,16,OPTIMAL,9068.83,9068.83,0.000%,Solution found optimally
+27,"4, 42, 70",3,9,OPTIMAL,6878.29,6878.29,0.000%,Solution found optimally
+28,"17, 40, 82, 83",4,16,OPTIMAL,6848.14,6848.14,0.000%,Solution found optimally
+29,"16, 48, 62, 63",4,16,OPTIMAL,6618.47,6618.47,0.000%,Solution found optimally
+30,"35, 64, 85",3,9,OPTIMAL,5248.88,5248.88,0.000%,Solution found optimally
+31,"-1, -2, -3, -4",4,16,OPTIMAL,7326.96,7326.96,0.000%,Solution found optimally
+32,"11, 45, 72, 81",4,16,OPTIMAL,8491.68,8491.68,0.000%,Solution found optimally
+33,"37, 39, 68",3,9,OPTIMAL,9618.61,9618.61,0.000%,Solution found optimally
+34,"14, 76",2,4,OPTIMAL,9473.76,9473.76,0.000%,Solution found optimally
+35,"-1, -2, -3",3,9,OPTIMAL,9964.31,9964.31,0.000%,Solution found optimally
+36,"25, 77, 86",3,9,OPTIMAL,6085.99,6085.99,0.000%,Solution found optimally
+37,"-1, -2, -3",3,9,OPTIMAL,8836.82,8836.82,0.000%,Solution found optimally
+38,"15, 30",2,4,OPTIMAL,8698.04,8698.04,0.000%,Solution found optimally
+39,"24, 87",2,4,OPTIMAL,10545.63,10545.63,0.000%,Solution found optimally
+40,"-1, -2, -3",3,9,OPTIMAL,13395.25,13395.25,0.000%,Solution found optimally
+41,"5, 18, 97",3,9,OPTIMAL,2448.28,2448.28,0.000%,Solution found optimally
+42,"3, 7, 22, 78",4,16,OPTIMAL,3612.59,3612.59,0.000%,Solution found optimally
+43,"32, 41, 67",3,9,OPTIMAL,2899.06,2899.06,0.000%,Solution found optimally
+44,"-1, -2, -3, -4",4,16,OPTIMAL,3849.96,3849.96,0.000%,Solution found optimally
+45,"21, 54",2,4,OPTIMAL,3813.78,3813.78,0.000%,Solution found optimally
+46,"66, 91",2,4,OPTIMAL,4663.88,4663.88,0.000%,Solution found optimally
+47,"-1, -2, -3",3,9,OPTIMAL,4196.29,4196.29,0.000%,Solution found optimally
+48,"-1, -2, -4, -9",4,20,OPTIMAL,13289.79,13289.79,0.000%,Solution found optimally
+49,"-3, -10",2,4,OPTIMAL,4145.08,4145.08,0.000%,Solution found optimally
+50,"-5, -6, -8",3,12,OPTIMAL,16879.12,16879.12,0.000%,Solution found optimally
+
+SUMMARY STATISTICS
+Metric,Value,Percentage
+Total Solver Calls,50,100.0%
+Optimal Solutions,50,100.0%
+Feasible Solutions,0,0.0%
+No Valid Solution,0,0.0%

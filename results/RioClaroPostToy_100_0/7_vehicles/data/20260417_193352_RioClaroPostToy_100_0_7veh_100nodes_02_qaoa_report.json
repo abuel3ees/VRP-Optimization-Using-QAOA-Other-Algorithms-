@@ -1,0 +1,742 @@
+{
+  "instance": "RioClaroPostToy_100_0",
+  "vehicles": 7,
+  "nodes": 100,
+  "summary": {
+    "total_calls": 52,
+    "optimal": {
+      "count": 51,
+      "percentage": 98.1
+    },
+    "feasible": {
+      "count": 1,
+      "percentage": 1.9
+    },
+    "failed": {
+      "count": 0,
+      "percentage": 0.0
+    }
+  },
+  "results": [
+    {
+      "index": 1,
+      "nodes": [
+        14,
+        38,
+        86
+      ],
+      "vehicles": 0,
+      "qubits": 9,
+      "status": "OPTIMAL",
+      "qaoa_cost": 4357.83,
+      "optimal_cost": 4357.83,
+      "gap_pct": 0.0
+    },
+    {
+      "index": 2,
+      "nodes": [
+        20,
+        23,
+        81
+      ],
+      "vehicles": 0,
+      "qubits": 9,
+      "status": "OPTIMAL",
+      "qaoa_cost": 5601.43,
+      "optimal_cost": 5601.43,
+      "gap_pct": 0.0
+    },
+    {
+      "index": 3,
+      "nodes": [
+        9,
+        99
+      ],
+      "vehicles": 0,
+      "qubits": 4,
+      "status": "OPTIMAL",
+      "qaoa_cost": 4888.99,
+      "optimal_cost": 4888.99,
+      "gap_pct": 0.0
+    },
+    {
+      "index": 4,
+      "nodes": [
+        12,
+        64
+      ],
+      "vehicles": 0,
+      "qubits": 4,
+      "status": "OPTIMAL",
+      "qaoa_cost": 5514.41,
+      "optimal_cost": 5514.41,
+      "gap_pct": 0.0
+    },
+    {
+      "index": 5,
+      "nodes": [
+        -1,
+        -2,
+        -3,
+        -4
+      ],
+      "vehicles": 4,
+      "qubits": 16,
+      "status": "OPTIMAL",
+      "qaoa_cost": 6332.75,
+      "optimal_cost": 6332.75,
+      "gap_pct": 0.0
+    },
+    {
+      "index": 6,
+      "nodes": [
+        2,
+        47
+      ],
+      "vehicles": 0,
+      "qubits": 4,
+      "status": "OPTIMAL",
+      "qaoa_cost": 6492.51,
+      "optimal_cost": 6492.51,
+      "gap_pct": 0.0
+    },
+    {
+      "index": 7,
+      "nodes": [
+        1,
+        68
+      ],
+      "vehicles": 0,
+      "qubits": 4,
+      "status": "OPTIMAL",
+      "qaoa_cost": 6950.2,
+      "optimal_cost": 6950.2,
+      "gap_pct": 0.0
+    },
+    {
+      "index": 8,
+      "nodes": [
+        -1,
+        -2,
+        -3
+      ],
+      "vehicles": 3,
+      "qubits": 9,
+      "status": "OPTIMAL",
+      "qaoa_cost": 6815.82,
+      "optimal_cost": 6815.82,
+      "gap_pct": 0.0
+    },
+    {
+      "index": 9,
+      "nodes": [
+        17,
+        39,
+        70,
+        82
+      ],
+      "vehicles": 0,
+      "qubits": 16,
+      "status": "FEASIBLE",
+      "qaoa_cost": 6123.89,
+      "optimal_cost": 6123.89,
+      "gap_pct": 0.0
+    },
+    {
+      "index": 10,
+      "nodes": [
+        18,
+        53,
+        50
+      ],
+      "vehicles": 0,
+      "qubits": 9,
+      "status": "OPTIMAL",
+      "qaoa_cost": 4180.71,
+      "optimal_cost": 4180.71,
+      "gap_pct": 0.0
+    },
+    {
+      "index": 11,
+      "nodes": [
+        21,
+        16,
+        15,
+        52
+      ],
+      "vehicles": 0,
+      "qubits": 16,
+      "status": "OPTIMAL",
+      "qaoa_cost": 4496.71,
+      "optimal_cost": 4496.71,
+      "gap_pct": 0.0
+    },
+    {
+      "index": 12,
+      "nodes": [
+        -1,
+        -2,
+        -3,
+        -4
+      ],
+      "vehicles": 4,
+      "qubits": 16,
+      "status": "OPTIMAL",
+      "qaoa_cost": 6289.49,
+      "optimal_cost": 6289.49,
+      "gap_pct": 0.0
+    },
+    {
+      "index": 13,
+      "nodes": [
+        33,
+        59
+      ],
+      "vehicles": 0,
+      "qubits": 4,
+      "status": "OPTIMAL",
+      "qaoa_cost": 4821.74,
+      "optimal_cost": 4821.74,
+      "gap_pct": 0.0
+    },
+    {
+      "index": 14,
+      "nodes": [
+        25,
+        40
+      ],
+      "vehicles": 0,
+      "qubits": 4,
+      "status": "OPTIMAL",
+      "qaoa_cost": 4173.92,
+      "optimal_cost": 4173.92,
+      "gap_pct": 0.0
+    },
+    {
+      "index": 15,
+      "nodes": [
+        83,
+        100
+      ],
+      "vehicles": 0,
+      "qubits": 4,
+      "status": "OPTIMAL",
+      "qaoa_cost": 4312.73,
+      "optimal_cost": 4312.73,
+      "gap_pct": 0.0
+    },
+    {
+      "index": 16,
+      "nodes": [
+        58,
+        78
+      ],
+      "vehicles": 0,
+      "qubits": 4,
+      "status": "OPTIMAL",
+      "qaoa_cost": 3656.76,
+      "optimal_cost": 3656.76,
+      "gap_pct": 0.0
+    },
+    {
+      "index": 17,
+      "nodes": [
+        -1,
+        -2,
+        -3
+      ],
+      "vehicles": 3,
+      "qubits": 9,
+      "status": "OPTIMAL",
+      "qaoa_cost": 4303.68,
+      "optimal_cost": 4303.68,
+      "gap_pct": 0.0
+    },
+    {
+      "index": 18,
+      "nodes": [
+        32,
+        85
+      ],
+      "vehicles": 0,
+      "qubits": 4,
+      "status": "OPTIMAL",
+      "qaoa_cost": 5486.14,
+      "optimal_cost": 5486.14,
+      "gap_pct": 0.0
+    },
+    {
+      "index": 19,
+      "nodes": [
+        -1,
+        -2,
+        -3,
+        -4
+      ],
+      "vehicles": 4,
+      "qubits": 16,
+      "status": "OPTIMAL",
+      "qaoa_cost": 5506.62,
+      "optimal_cost": 5506.62,
+      "gap_pct": 0.0
+    },
+    {
+      "index": 20,
+      "nodes": [
+        46,
+        65
+      ],
+      "vehicles": 0,
+      "qubits": 4,
+      "status": "OPTIMAL",
+      "qaoa_cost": 2993.43,
+      "optimal_cost": 2993.43,
+      "gap_pct": 0.0
+    },
+    {
+      "index": 21,
+      "nodes": [
+        51,
+        94
+      ],
+      "vehicles": 0,
+      "qubits": 4,
+      "status": "OPTIMAL",
+      "qaoa_cost": 2415.58,
+      "optimal_cost": 2415.58,
+      "gap_pct": 0.0
+    },
+    {
+      "index": 22,
+      "nodes": [
+        24,
+        75,
+        92
+      ],
+      "vehicles": 0,
+      "qubits": 9,
+      "status": "OPTIMAL",
+      "qaoa_cost": 3684.02,
+      "optimal_cost": 3684.02,
+      "gap_pct": 0.0
+    },
+    {
+      "index": 23,
+      "nodes": [
+        29,
+        36,
+        89
+      ],
+      "vehicles": 0,
+      "qubits": 9,
+      "status": "OPTIMAL",
+      "qaoa_cost": 2414.06,
+      "optimal_cost": 2414.06,
+      "gap_pct": 0.0
+    },
+    {
+      "index": 24,
+      "nodes": [
+        -1,
+        -2,
+        -3,
+        -4
+      ],
+      "vehicles": 4,
+      "qubits": 16,
+      "status": "OPTIMAL",
+      "qaoa_cost": 3664.36,
+      "optimal_cost": 3664.36,
+      "gap_pct": 0.0
+    },
+    {
+      "index": 25,
+      "nodes": [
+        27,
+        28,
+        43,
+        98
+      ],
+      "vehicles": 0,
+      "qubits": 16,
+      "status": "OPTIMAL",
+      "qaoa_cost": 13971.41,
+      "optimal_cost": 13971.41,
+      "gap_pct": 0.0
+    },
+    {
+      "index": 26,
+      "nodes": [
+        3,
+        88
+      ],
+      "vehicles": 0,
+      "qubits": 4,
+      "status": "OPTIMAL",
+      "qaoa_cost": 7175.7,
+      "optimal_cost": 7175.7,
+      "gap_pct": 0.0
+    },
+    {
+      "index": 27,
+      "nodes": [
+        26,
+        84,
+        90
+      ],
+      "vehicles": 0,
+      "qubits": 9,
+      "status": "OPTIMAL",
+      "qaoa_cost": 8368.77,
+      "optimal_cost": 8368.77,
+      "gap_pct": 0.0
+    },
+    {
+      "index": 28,
+      "nodes": [
+        -1,
+        -2,
+        -3
+      ],
+      "vehicles": 3,
+      "qubits": 9,
+      "status": "OPTIMAL",
+      "qaoa_cost": 7032.69,
+      "optimal_cost": 7032.69,
+      "gap_pct": 0.0
+    },
+    {
+      "index": 29,
+      "nodes": [
+        79,
+        95,
+        96
+      ],
+      "vehicles": 0,
+      "qubits": 9,
+      "status": "OPTIMAL",
+      "qaoa_cost": 7582.47,
+      "optimal_cost": 7582.47,
+      "gap_pct": 0.0
+    },
+    {
+      "index": 30,
+      "nodes": [
+        41,
+        72,
+        97
+      ],
+      "vehicles": 0,
+      "qubits": 9,
+      "status": "OPTIMAL",
+      "qaoa_cost": 6686.41,
+      "optimal_cost": 6686.41,
+      "gap_pct": 0.0
+    },
+    {
+      "index": 31,
+      "nodes": [
+        80,
+        91
+      ],
+      "vehicles": 0,
+      "qubits": 4,
+      "status": "OPTIMAL",
+      "qaoa_cost": 6654.92,
+      "optimal_cost": 6654.92,
+      "gap_pct": 0.0
+    },
+    {
+      "index": 32,
+      "nodes": [
+        56,
+        77,
+        87
+      ],
+      "vehicles": 0,
+      "qubits": 9,
+      "status": "OPTIMAL",
+      "qaoa_cost": 8915.31,
+      "optimal_cost": 8915.31,
+      "gap_pct": 0.0
+    },
+    {
+      "index": 33,
+      "nodes": [
+        -1,
+        -2,
+        -3,
+        -4
+      ],
+      "vehicles": 4,
+      "qubits": 16,
+      "status": "OPTIMAL",
+      "qaoa_cost": 8799.62,
+      "optimal_cost": 8799.62,
+      "gap_pct": 0.0
+    },
+    {
+      "index": 34,
+      "nodes": [
+        4,
+        55
+      ],
+      "vehicles": 0,
+      "qubits": 4,
+      "status": "OPTIMAL",
+      "qaoa_cost": 9257.53,
+      "optimal_cost": 9257.53,
+      "gap_pct": 0.0
+    },
+    {
+      "index": 35,
+      "nodes": [
+        7,
+        37
+      ],
+      "vehicles": 0,
+      "qubits": 4,
+      "status": "OPTIMAL",
+      "qaoa_cost": 8395.8,
+      "optimal_cost": 8395.8,
+      "gap_pct": 0.0
+    },
+    {
+      "index": 36,
+      "nodes": [
+        -1,
+        -2,
+        -3
+      ],
+      "vehicles": 3,
+      "qubits": 9,
+      "status": "OPTIMAL",
+      "qaoa_cost": 12362.71,
+      "optimal_cost": 12362.71,
+      "gap_pct": 0.0
+    },
+    {
+      "index": 37,
+      "nodes": [
+        6,
+        11,
+        57
+      ],
+      "vehicles": 0,
+      "qubits": 9,
+      "status": "OPTIMAL",
+      "qaoa_cost": 8977.03,
+      "optimal_cost": 8977.03,
+      "gap_pct": 0.0
+    },
+    {
+      "index": 38,
+      "nodes": [
+        8,
+        31
+      ],
+      "vehicles": 0,
+      "qubits": 4,
+      "status": "OPTIMAL",
+      "qaoa_cost": 8615.72,
+      "optimal_cost": 8615.72,
+      "gap_pct": 0.0
+    },
+    {
+      "index": 39,
+      "nodes": [
+        42,
+        54
+      ],
+      "vehicles": 0,
+      "qubits": 4,
+      "status": "OPTIMAL",
+      "qaoa_cost": 11415.24,
+      "optimal_cost": 11415.24,
+      "gap_pct": 0.0
+    },
+    {
+      "index": 40,
+      "nodes": [
+        -1,
+        -2,
+        -3,
+        -4
+      ],
+      "vehicles": 4,
+      "qubits": 16,
+      "status": "OPTIMAL",
+      "qaoa_cost": 13112.78,
+      "optimal_cost": 13112.78,
+      "gap_pct": 0.0
+    },
+    {
+      "index": 41,
+      "nodes": [
+        19,
+        69
+      ],
+      "vehicles": 0,
+      "qubits": 4,
+      "status": "OPTIMAL",
+      "qaoa_cost": 2400.89,
+      "optimal_cost": 2400.89,
+      "gap_pct": 0.0
+    },
+    {
+      "index": 42,
+      "nodes": [
+        45,
+        61,
+        63
+      ],
+      "vehicles": 0,
+      "qubits": 9,
+      "status": "OPTIMAL",
+      "qaoa_cost": 4324.49,
+      "optimal_cost": 4324.49,
+      "gap_pct": 0.0
+    },
+    {
+      "index": 43,
+      "nodes": [
+        44,
+        48,
+        60,
+        93
+      ],
+      "vehicles": 0,
+      "qubits": 16,
+      "status": "OPTIMAL",
+      "qaoa_cost": 1922.43,
+      "optimal_cost": 1922.43,
+      "gap_pct": 0.0
+    },
+    {
+      "index": 44,
+      "nodes": [
+        -1,
+        -2,
+        -3,
+        -4
+      ],
+      "vehicles": 4,
+      "qubits": 16,
+      "status": "OPTIMAL",
+      "qaoa_cost": 4388.76,
+      "optimal_cost": 4388.76,
+      "gap_pct": 0.0
+    },
+    {
+      "index": 45,
+      "nodes": [
+        34,
+        66,
+        73
+      ],
+      "vehicles": 0,
+      "qubits": 9,
+      "status": "OPTIMAL",
+      "qaoa_cost": 2343.84,
+      "optimal_cost": 2343.84,
+      "gap_pct": 0.0
+    },
+    {
+      "index": 46,
+      "nodes": [
+        5,
+        62,
+        67
+      ],
+      "vehicles": 0,
+      "qubits": 9,
+      "status": "OPTIMAL",
+      "qaoa_cost": 1576.0,
+      "optimal_cost": 1576.0,
+      "gap_pct": 0.0
+    },
+    {
+      "index": 47,
+      "nodes": [
+        10,
+        22,
+        49
+      ],
+      "vehicles": 0,
+      "qubits": 9,
+      "status": "OPTIMAL",
+      "qaoa_cost": 3844.38,
+      "optimal_cost": 3844.38,
+      "gap_pct": 0.0
+    },
+    {
+      "index": 48,
+      "nodes": [
+        -1,
+        -2,
+        -3,
+        -4
+      ],
+      "vehicles": 4,
+      "qubits": 16,
+      "status": "OPTIMAL",
+      "qaoa_cost": 4246.14,
+      "optimal_cost": 4246.14,
+      "gap_pct": 0.0
+    },
+    {
+      "index": 49,
+      "nodes": [
+        -1,
+        -4,
+        -9,
+        -10
+      ],
+      "vehicles": 4,
+      "qubits": 20,
+      "status": "OPTIMAL",
+      "qaoa_cost": 8007.02,
+      "optimal_cost": 8007.02,
+      "gap_pct": 0.0
+    },
+    {
+      "index": 50,
+      "nodes": [
+        -2,
+        -5
+      ],
+      "vehicles": 2,
+      "qubits": 6,
+      "status": "OPTIMAL",
+      "qaoa_cost": 12317.24,
+      "optimal_cost": 12317.24,
+      "gap_pct": 0.0
+    },
+    {
+      "index": 51,
+      "nodes": [
+        -3,
+        -6
+      ],
+      "vehicles": 2,
+      "qubits": 4,
+      "status": "OPTIMAL",
+      "qaoa_cost": 6261.81,
+      "optimal_cost": 6261.81,
+      "gap_pct": 0.0
+    },
+    {
+      "index": 52,
+      "nodes": [
+        -7,
+        -8
+      ],
+      "vehicles": 2,
+      "qubits": 4,
+      "status": "OPTIMAL",
+      "qaoa_cost": 9316.08,
+      "optimal_cost": 9316.08,
+      "gap_pct": 0.0
+    }
+  ]
+}
