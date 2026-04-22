@@ -1,4 +1,16 @@
-# 🚀 VRP QAOA Solver - Complete Guide
+# VRP QAOA Solver
+
+## Quick Start — Master Launcher
+
+The easiest way to run anything in this project:
+
+```bash
+python run.py
+```
+
+This opens an interactive menu listing every script with a short description.
+Pick a number, press Enter, and the script runs. You can pass extra flags
+(e.g. `--instance 2`) and they are forwarded to the chosen script.
 
 ## Table of Contents
 - [Project Overview](#project-overview)
@@ -97,9 +109,22 @@ jupyter lab instance_12_fixed\ with\ djt.ipynb
 
 ```
 vrptheo/
-├── README.md                              # ← You are here
+├── run.py                                # ← Master launcher (interactive menu)
+├── README.md                             # ← You are here
 ├── INSTANCE_SELECTOR_GUIDE.md            # Detailed instance selector guide
 ├── instance_12_fixed with djt.ipynb      # Main notebook (35 cells)
+│
+├── scripts/                              # All runnable Python scripts
+│   ├── QAOA.py                           # Notebook-exact QAOA solver
+│   ├── QAOA_polished.py                  # QAOA + Or-opt/2-opt* inter-route polish
+│   ├── classical_vrp_benchmark.py        # Classical algorithms vs recursive QAOA
+│   ├── inter_route_opt.py                # Or-opt + 2-opt* local search module
+│   ├── vrptoarray.py                     # Convert .vrp files → arrays/ Python files
+│   ├── main.py                           # Classic multi-algorithm VRP solver
+│   ├── analyze_benchmark_results.py      # Analyze saved benchmark CSVs
+│   ├── dashboard_generator.py            # Generate results dashboard
+│   ├── find_best_vehicles.py             # Sweep vehicle counts to find optimal K
+│   └── reorganize_results.py             # Reorganize results into hierarchy
 │
 ├── Instances/                            # VRP instance files
 │   ├── 50-Nodes/
@@ -133,8 +158,6 @@ vrptheo/
 │           ├── data/                    # CSV, JSON reports
 │           └── logs/                    # Text logs & traces
 │
-├── reorganize_results.py                 # Utility to reorganize existing results
-├── vrptoarray.py                         # Utility to convert VRP files to arrays
 └── main.py                               # Alternative entry point
 
 ```
