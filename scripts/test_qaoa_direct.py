@@ -6,7 +6,7 @@ import warnings
 warnings.filterwarnings('ignore')
 
 import numpy as np
-from classical_vrp_benchmark import _leaf_solve_qaoa, Node, route_distance
+from scripts.benchmark import _leaf_solve_qaoa, Node, route_distance
 
 # Create a small test instance
 depot = Node(0, 0, 0, 0)  # id, x, y, demand

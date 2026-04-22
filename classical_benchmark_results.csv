@@ -1,0 +1,29 @@
+Instance,Algorithm,k_used,Total_Distance,Distance_Std,Weighted_Fairness,Time_sec,Valid,Gap_vs_Best_Pct
+RioClaroPostToy_50_0,Recursive QAOA (NO 2-opt) [Qiskit at leaves],7,62215.98,2747.27,5817.63,35.0653,OK,57.20
+RioClaroPostToy_50_0,Recursive QAOA + 2-opt [Qiskit at leaves],7,59587.26,2746.10,5629.28,35.8696,OK,50.56
+RioClaroPostToy_50_0,Nearest-Neighbour,7,117283.12,4207.75,10481.24,0.0001,OK,196.35
+RioClaroPostToy_50_0,Nearest-Neighbour + 2-opt,7,103468.43,3208.00,8994.60,0.0004,OK,161.44
+RioClaroPostToy_50_0,Sweep,7,113814.13,4381.53,10320.34,0.0000,OK,187.58
+RioClaroPostToy_50_0,Sweep + 2-opt,7,103468.43,3208.00,8994.60,0.0002,OK,161.44
+RioClaroPostToy_50_0,Clarke-Wright (Parallel),7,44144.84,9343.05,7824.73,0.0004,OK,11.54
+RioClaroPostToy_50_0,Clarke-Wright (Parallel) + 2-opt,7,43341.36,9067.72,7629.67,0.0060,OK,9.51
+RioClaroPostToy_50_0,Clarke-Wright (Parallel) + Or-opt,7,43341.36,9067.72,7629.67,0.0170,OK,9.51
+RioClaroPostToy_50_0,Clarke-Wright (Sequential),7,67344.16,4159.58,6890.09,0.0016,OK,70.16
+RioClaroPostToy_50_0,Clarke-Wright (Sequential) + 2-opt,7,66296.63,4014.02,6742.48,0.0024,OK,67.52
+RioClaroPostToy_50_0,Nearest Insertion,7,104771.27,3425.30,9196.31,0.0002,OK,164.73
+RioClaroPostToy_50_0,Nearest Insertion + 2-opt,7,104074.58,3290.00,9078.90,0.0003,OK,162.97
+RioClaroPostToy_50_0,Farthest Insertion,7,103468.43,3208.00,8994.60,0.0002,OK,161.44
+RioClaroPostToy_50_0,Farthest Insertion + 2-opt,7,103468.43,3208.00,8994.60,0.0003,OK,161.44
+RioClaroPostToy_50_0,Cheapest Insertion,7,104074.58,3290.00,9078.90,0.0002,OK,162.97
+RioClaroPostToy_50_0,Cheapest Insertion + 2-opt,7,104074.58,3290.00,9078.90,0.0003,OK,162.97
+RioClaroPostToy_50_0,Simulated Annealing,3,40533.93,11848.05,12679.68,0.0258,OK,2.42
+RioClaroPostToy_50_0,Tabu Search,3,39576.34,11591.67,12391.89,0.1452,OK,0.00
+RioClaroPostToy_50_0,Iterated Local Search,3,40077.90,11076.84,12218.07,0.2052,OK,1.27
+RioClaroPostToy_50_0,Genetic Algorithm,7,44144.84,9343.05,7824.73,0.0296,OK,11.54
+RioClaroPostToy_50_0,OR-Tools (PATH_CHEAPEST_ARC + GLS),7,42457.38,7753.17,6909.26,3.1698,OK,7.28
+RioClaroPostToy_50_0,OR-Tools (SAVINGS + GLS),7,42457.38,7753.17,6909.26,5.0016,OK,7.28
+RioClaroPostToy_50_0,OR-Tools (Christofides + GLS),7,42457.38,7753.17,6909.26,5.0014,OK,7.28
+RioClaroPostToy_50_0,OR-Tools (Parallel Cheapest Ins. + GLS),7,42457.38,7753.17,6909.26,5.0014,OK,7.28
+RioClaroPostToy_50_0,OR-Tools (SA),7,42948.65,8455.99,7295.75,10.0009,OK,8.52
+RioClaroPostToy_50_0,OR-Tools (Tabu),7,42457.38,7753.17,6909.26,10.0011,OK,7.28
+RioClaroPostToy_50_0,"OR-Tools (GLS, 10s)",7,42457.38,7753.17,6909.26,10.0009,OK,7.28
