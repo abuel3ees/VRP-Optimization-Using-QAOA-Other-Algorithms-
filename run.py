@@ -305,6 +305,33 @@ class VRPLauncherApp:
         )
         self.k_spinbox.pack(side=tk.LEFT)
 
+        # Runs — only shown for benchmark_repeater
+        self._runs_sep = tk.Frame(grid, height=1, bg=C["sep"])
+        self._runs_sep.grid(row=5, column=0, columnspan=2, sticky=tk.EW)
+
+        self._runs_label = tk.Label(
+            grid, text="Runs (N)",
+            font=(FONT_UI, 10),
+            bg=C["card"], fg=C["text_muted"],
+            anchor=tk.W, width=14,
+        )
+        self._runs_label.grid(row=6, column=0, sticky=tk.W, padx=(0, 16), pady=(6, 6))
+
+        runs_wrap = tk.Frame(grid, bg=C["card"])
+        runs_wrap.grid(row=6, column=1, sticky=tk.W, pady=(6, 6))
+        self.runs_var = tk.StringVar(value="5")
+        self._runs_spinbox = ttk.Spinbox(
+            runs_wrap, from_=1, to=50, textvariable=self.runs_var,
+            width=9, font=(FONT_UI, 10),
+        )
+        self._runs_spinbox.pack(side=tk.LEFT)
+
+        # Show/hide runs row when script selection changes
+        self._runs_wrap = runs_wrap
+        self._toggle_runs_row()
+        self.script_combo.bind("<<ComboboxSelected>>",
+                               lambda _e: self._toggle_runs_row())
+
     # ── Button row ────────────────────────────────────────────────────────────
 
     def _build_button_row(self, parent):
@@ -398,6 +425,18 @@ class VRPLauncherApp:
 
     # ── Shared helpers ────────────────────────────────────────────────────────
 
+    def _toggle_runs_row(self):
+        """Show the Runs spinbox only when benchmark_repeater is selected."""
+        is_repeater = self.script_var.get() == "benchmark_repeater"
+        if is_repeater:
+            self._runs_sep.grid()
+            self._runs_label.grid()
+            self._runs_wrap.grid()
+        else:
+            self._runs_sep.grid_remove()
+            self._runs_label.grid_remove()
+            self._runs_wrap.grid_remove()
+
     def _log(self, message, tag=None):
         self.output_text.config(state=tk.NORMAL)
         if tag:
@@ -439,6 +478,10 @@ class VRPLauncherApp:
         k = self.k_var.get()
         if k:
             args += ["--k", k]
+        if self.script_var.get() == "benchmark_repeater":
+            runs = self.runs_var.get().strip()
+            if runs:
+                args += ["--runs", runs]
         return args
 
     # ── Run logic ─────────────────────────────────────────────────────────────
@@ -476,7 +519,7 @@ class VRPLauncherApp:
                 self._log(f"     {' '.join(args)}", "dim")
             self._log(f"  {'─' * 62}\n", "dim")
 
-            cmd = [sys.executable, path] + args
+            cmd = [sys.executable, "-u", path] + args
             self.current_process = subprocess.Popen(
                 cmd, cwd=ROOT, stdout=subprocess.PIPE,
                 stderr=subprocess.STDOUT, text=True, bufsize=1,
@@ -518,7 +561,7 @@ class VRPLauncherApp:
                     self._log(f"       {' '.join(args)}", "dim")
                 self._log(f"  {'─' * 62}\n", "dim")
 
-                cmd = [sys.executable, path] + args
+                cmd = [sys.executable, "-u", path] + args
                 self.current_process = subprocess.Popen(
                     cmd, cwd=ROOT, stdout=subprocess.PIPE,
                     stderr=subprocess.STDOUT, text=True, bufsize=1,

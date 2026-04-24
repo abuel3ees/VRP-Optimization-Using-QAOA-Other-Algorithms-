@@ -5,7 +5,7 @@ import warnings
 warnings.filterwarnings('ignore')
 
 import time
-from classical_vrp_benchmark import (
+from scripts.benchmark import (
     load_instance, build_dist_map, algo_recursive_qaoa
 )
 

@@ -937,7 +937,7 @@ def solve_brute_force(nodes, k, depot, dist_map):
         
     ]
     _SHOTS    = 50_000
-    _SEED     = 7
+    ##_SEED     = 7
     _DECODE_K = 100
     penalty_mul=2
     import hashlib as _hl
