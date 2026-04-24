@@ -1,7 +1,7 @@
 """
 vrp_solver.py
 =============
-Distance-Constrained VRP Solver with multiple algorithms.
+Capacity- and Distance-Constrained VRP Solver with multiple algorithms.
 Reads a .vrp file (FULL_MATRIX format) and runs:
   1. Recursive Cluster-then-Route (with optional 2-opt)
   2. Nearest Neighbour
@@ -11,6 +11,7 @@ Reads a .vrp file (FULL_MATRIX format) and runs:
 
 Usage:
     python vrp_solver.py <instance.vrp> [--k K] [--leaf LEAF_SIZE] [--no-2opt]
+                         [--capacity C] [--max-dist D]
 
 Arguments:
     instance.vrp   Path to the .vrp file
@@ -19,6 +20,8 @@ Arguments:
     --no-2opt      Skip 2-opt post-processing on the recursive solver
     --algo NAME    Run only one algorithm: recursive, nn, savings, sweep, ortools
     --quiet        Suppress per-algorithm verbose output
+    --capacity C   Max demand (nodes) per vehicle route (overrides CAPACITY in file)
+    --max-dist D   Max distance per vehicle route (overrides MAX_ALLOWED_ROUTE in file)
 """
 
 import argparse
@@ -92,10 +95,11 @@ def parse_vrp(path: str):
             k, _, v = ln.partition(':')
             meta[k.strip()] = v.strip()
 
-    name         = meta.get('NAME', path)
-    dimension    = int(meta.get('DIMENSION', 0))
-    max_vehicles = int(meta.get('MAX_VEHICLES', 1))
-    max_route    = float(meta.get('MAX_ALLOWED_ROUTE', float('inf')))
+    name             = meta.get('NAME', path)
+    dimension        = int(meta.get('DIMENSION', 0))
+    max_vehicles     = int(meta.get('MAX_VEHICLES', 1))
+    max_route        = float(meta.get('MAX_ALLOWED_ROUTE', float('inf')))
+    vehicle_capacity = float(meta.get('CAPACITY', float('inf')))
     # DIMENSION counts delivery nodes only; the matrix includes depot (node 0)
     # so total matrix size is (DIMENSION+1) x (DIMENSION+1)
     n_total = dimension + 1  # used for matrix reshape below
@@ -170,7 +174,7 @@ def parse_vrp(path: str):
         x, y = display_coords.get(nid, (0.0, 0.0))
         nodes.append(Node(id=nid, x=x, y=y, demand=1.0, is_depot=False))
 
-    return mat, nodes, depot, max_vehicles, max_route, name
+    return mat, nodes, depot, max_vehicles, max_route, vehicle_capacity, name
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -349,7 +353,9 @@ def _split_routes_to_k(routes_list, k, n_nodes, depot_id=None,
 # ─────────────────────────────────────────────────────────────────────────────
 
 def greedy_vrp_no_opt(nodes: List[Node], k: int, depot: Node,
-                      dist_map: Dict[tuple, float]) -> VRPSolution:
+                      dist_map: Dict[tuple, float],
+                      vehicle_capacity: float = float('inf'),
+                      max_route_dist: float = float('inf')) -> VRPSolution:
     if not nodes:
         return VRPSolution(routes=[])
     node_map = {n.id: n for n in nodes}
@@ -392,6 +398,12 @@ def greedy_vrp_no_opt(nodes: List[Node], k: int, depot: Node,
             merged = ri_r[::-1] + rj_r
         else:
             continue
+        # Reject merge if it would violate capacity or max-distance constraint
+        if route_load(merged) > vehicle_capacity + 1e-9:
+            continue
+        if (max_route_dist < float('inf') and
+                route_distance(merged, depot.id, dist_map) > max_route_dist + 1e-6):
+            continue
         routes_dict[ri] = merged
         if rj in routes_dict:
             del routes_dict[rj]
@@ -422,7 +434,9 @@ def greedy_vrp_no_opt(nodes: List[Node], k: int, depot: Node,
 # ─────────────────────────────────────────────────────────────────────────────
 
 def solve_leaf_classical(nodes: List[Node], k: int, depot: Node,
-                         dist_map: Dict[tuple, float]) -> VRPSolution:
+                         dist_map: Dict[tuple, float],
+                         vehicle_capacity: float = float('inf'),
+                         max_route_dist: float = float('inf')) -> VRPSolution:
     """Brute-force optimal for small leaves; Clarke-Wright fallback for larger ones."""
     if not nodes:
         return VRPSolution(routes=[])
@@ -431,7 +445,11 @@ def solve_leaf_classical(nodes: List[Node], k: int, depot: Node,
     node_map = {n.id: n for n in nodes}
     eff_k = min(k, len(node_ids))
 
-    # For very small leaves use brute-force
+    # If capacity is set and all nodes fit on one route, bump k up as needed
+    if vehicle_capacity < float('inf') and eff_k == 1 and len(node_ids) > vehicle_capacity:
+        eff_k = math.ceil(len(node_ids) / vehicle_capacity)
+
+    # For very small leaves use brute-force (k=1 only; constraints rarely binding here)
     if len(node_ids) <= 8 and eff_k == 1:
         best_dist = float('inf')
         best_perm = node_ids
@@ -445,7 +463,9 @@ def solve_leaf_classical(nodes: List[Node], k: int, depot: Node,
                                          distance=best_dist, load=load)])
 
     # Otherwise use Clarke-Wright (fast, good quality)
-    return greedy_vrp_no_opt(nodes, eff_k, depot, dist_map)
+    return greedy_vrp_no_opt(nodes, eff_k, depot, dist_map,
+                             vehicle_capacity=vehicle_capacity,
+                             max_route_dist=max_route_dist)
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -481,7 +501,9 @@ def _allocate_vehicles(cluster_sizes: List[int], k: int) -> List[int]:
 
 def vrp_recursive(k: int, nodes: List[Node], depot: Node,
                   dist_map: Dict[tuple, float],
-                  depth: int = 0) -> VRPSolution:
+                  depth: int = 0,
+                  vehicle_capacity: float = float('inf'),
+                  max_route_dist: float = float('inf')) -> VRPSolution:
     """Recursive cluster-then-route solver."""
     if not nodes:
         return VRPSolution(routes=[])
@@ -490,7 +512,9 @@ def vrp_recursive(k: int, nodes: List[Node], depot: Node,
 
     # ── Base case: leaf ───────────────────────────────────────────────────────
     if n <= LEAF_SIZE or k == 1:
-        sol = solve_leaf_classical(nodes, k, depot, dist_map)
+        sol = solve_leaf_classical(nodes, k, depot, dist_map,
+                                   vehicle_capacity=vehicle_capacity,
+                                   max_route_dist=max_route_dist)
         # Ensure we have exactly k routes if possible
         if len(nodes) >= k and len(sol.routes) != k:
             raw = _split_routes_to_k(
@@ -514,7 +538,9 @@ def vrp_recursive(k: int, nodes: List[Node], depot: Node,
 
     all_routes = []
     for cluster, alloc in zip(clusters, allocs):
-        sub_sol = vrp_recursive(alloc, cluster, depot, dist_map, depth + 1)
+        sub_sol = vrp_recursive(alloc, cluster, depot, dist_map, depth + 1,
+                                vehicle_capacity=vehicle_capacity,
+                                max_route_dist=max_route_dist)
         all_routes.extend(sub_sol.routes)
 
     return VRPSolution(routes=all_routes)
@@ -524,39 +550,83 @@ def vrp_recursive(k: int, nodes: List[Node], depot: Node,
 # Algorithm wrappers
 # ─────────────────────────────────────────────────────────────────────────────
 
-def algo_recursive(nodes, k, depot, dist_map, apply_2opt=True):
-    sol = vrp_recursive(k, nodes, depot, dist_map)
+def algo_recursive(nodes, k, depot, dist_map, apply_2opt=True,
+                   vehicle_capacity: float = float('inf'),
+                   max_route_dist: float = float('inf')):
+    sol = vrp_recursive(k, nodes, depot, dist_map,
+                        vehicle_capacity=vehicle_capacity,
+                        max_route_dist=max_route_dist)
     if apply_2opt:
         sol = two_opt_routes(sol, depot, dist_map)
     return sol
 
 
-def algo_nn(nodes, k, depot, dist_map):
-    """Nearest-Neighbour heuristic: build k routes greedily."""
+def algo_nn(nodes, k, depot, dist_map,
+            vehicle_capacity: float = float('inf'),
+            max_route_dist: float = float('inf')):
+    """Nearest-Neighbour heuristic: build k routes greedily, respecting capacity and distance."""
     all_ids = [n.id for n in nodes]
     node_map = {n.id: n for n in nodes}
     unvisited = set(all_ids)
-    routes = []
+    route_lists: List[List[int]] = []
+
     for i in range(k):
         if not unvisited:
             break
         remaining_routes = k - i
         share = math.ceil(len(unvisited) / remaining_routes)
-        route = []
+        # Cap share by vehicle capacity
+        if vehicle_capacity < float('inf'):
+            share = min(share, int(vehicle_capacity))
+        route: List[int] = []
         current = depot.id
         for _ in range(share):
             if not unvisited:
                 break
-            nearest = min(unvisited, key=lambda nid: dist_map[(current, nid)])
+            # Filter candidates that keep the route within max distance
+            if max_route_dist < float('inf'):
+                candidates = [
+                    nid for nid in unvisited
+                    if route_distance(route + [nid], depot.id, dist_map) <= max_route_dist + 1e-6
+                ]
+                if not candidates:
+                    break  # can't extend this route further
+            else:
+                candidates = list(unvisited)
+            nearest = min(candidates, key=lambda nid: dist_map[(current, nid)])
             route.append(nearest)
             unvisited.remove(nearest)
             current = nearest
         if route:
-            routes.append(Route(
-                node_ids=route,
-                distance=route_distance(route, depot.id, dist_map),
-                load=sum(node_map[nid].demand for nid in route),
-            ))
+            route_lists.append(route)
+
+    # Assign any leftover nodes (caused by early stops due to constraints)
+    if unvisited:
+        for nid in list(unvisited):
+            best_idx, best_cost = -1, float('inf')
+            for ri, r in enumerate(route_lists):
+                cap_ok = (vehicle_capacity == float('inf') or
+                          len(r) < vehicle_capacity)
+                new_r = r + [nid]
+                new_d = route_distance(new_r, depot.id, dist_map)
+                dist_ok = (max_route_dist == float('inf') or
+                           new_d <= max_route_dist + 1e-6)
+                if cap_ok and dist_ok and new_d < best_cost:
+                    best_cost, best_idx = new_d, ri
+            if best_idx == -1:
+                # Constraints can't be met — add to the shortest route anyway
+                best_idx = min(range(len(route_lists)),
+                               key=lambda i: len(route_lists[i])) if route_lists else 0
+                if not route_lists:
+                    route_lists.append([nid])
+                    continue
+            route_lists[best_idx].append(nid)
+
+    routes = [Route(
+        node_ids=r,
+        distance=route_distance(r, depot.id, dist_map),
+        load=sum(node_map[nid].demand for nid in r),
+    ) for r in route_lists if r]
 
     # Guarantee exactly k routes
     if len(routes) != k:
@@ -570,11 +640,17 @@ def algo_nn(nodes, k, depot, dist_map):
     return VRPSolution(routes=routes)
 
 
-def algo_savings(nodes, k, depot, dist_map):
-    return greedy_vrp_no_opt(nodes, k, depot, dist_map)
+def algo_savings(nodes, k, depot, dist_map,
+                 vehicle_capacity: float = float('inf'),
+                 max_route_dist: float = float('inf')):
+    return greedy_vrp_no_opt(nodes, k, depot, dist_map,
+                             vehicle_capacity=vehicle_capacity,
+                             max_route_dist=max_route_dist)
 
 
-def algo_sweep(nodes, k, depot, dist_map):
+def algo_sweep(nodes, k, depot, dist_map,
+               vehicle_capacity: float = float('inf'),
+               max_route_dist: float = float('inf')):
     """Angular sweep: sort nodes by polar angle, split into k sectors."""
     if not nodes:
         return VRPSolution(routes=[])
@@ -584,14 +660,34 @@ def algo_sweep(nodes, k, depot, dist_map):
         return math.atan2(n.y - depot.y, n.x - depot.x)
 
     sorted_nodes = sorted(nodes, key=angle)
-    chunk = math.ceil(len(sorted_nodes) / k)
+    # Compute the number of nodes per sector, capped by vehicle capacity
+    base_chunk = math.ceil(len(sorted_nodes) / k)
+    if vehicle_capacity < float('inf'):
+        base_chunk = min(base_chunk, int(vehicle_capacity))
     raw_routes = []
+    remaining = list(sorted_nodes)
     for i in range(k):
-        chunk_nodes = sorted_nodes[i * chunk:(i + 1) * chunk]
+        if not remaining:
+            break
+        routes_left = k - i
+        chunk = math.ceil(len(remaining) / routes_left)
+        if vehicle_capacity < float('inf'):
+            chunk = min(chunk, int(vehicle_capacity))
+        chunk_nodes = remaining[:chunk]
+        remaining = remaining[chunk:]
         if not chunk_nodes:
             continue
         ids = nearest_neighbor_route([n.id for n in chunk_nodes], depot.id, dist_map)
+        # If max_route_dist is set and the route is too long, split it
+        if max_route_dist < float('inf'):
+            while route_distance(ids, depot.id, dist_map) > max_route_dist + 1e-6 and len(ids) > 1:
+                mid = len(ids) // 2
+                raw_routes.append(ids[:mid])
+                ids = ids[mid:]
         raw_routes.append(ids)
+
+    # Dump any nodes left over due to splitting back into remaining
+    # (handled by fallback split below)
 
     # Ensure exactly k routes
     if len(raw_routes) != k:
@@ -625,7 +721,9 @@ def _check_ortools():
 
 def or_opt(sol: VRPSolution, depot: Node,
            dist_map: Dict[tuple, float],
-           segment_sizes=(1, 2, 3)) -> VRPSolution:
+           segment_sizes=(1, 2, 3),
+           vehicle_capacity: float = float('inf'),
+           max_route_dist: float = float('inf')) -> VRPSolution:
     """
     Or-opt: try relocating segments of 1, 2, or 3 nodes from one route
     into another route. Improves cross-route quality after clustering.
@@ -669,12 +767,18 @@ def or_opt(sol: VRPSolution, depot: Node,
                                 best_insert_pos = ins
 
                         gain_insert = before_j - best_insert_cost
-                        if gain_remove + gain_insert > 1e-6:
+                        candidate_j = (routes[j][:best_insert_pos] +
+                                       segment + routes[j][best_insert_pos:])
+                        # Check constraints on the receiving route
+                        cap_ok = (vehicle_capacity == float('inf') or
+                                  len(candidate_j) <= vehicle_capacity + 1e-9)
+                        dist_ok = (max_route_dist == float('inf') or
+                                   route_distance(candidate_j, depot.id, dist_map)
+                                   <= max_route_dist + 1e-6)
+                        if gain_remove + gain_insert > 1e-6 and cap_ok and dist_ok:
                             # Accept the move
                             routes[i] = new_i
-                            routes[j] = (routes[j][:best_insert_pos] +
-                                         segment +
-                                         routes[j][best_insert_pos:])
+                            routes[j] = candidate_j
                             improved = True
                             break
                     if improved:
@@ -698,8 +802,10 @@ def or_opt(sol: VRPSolution, depot: Node,
     return VRPSolution(routes=new_routes)
 
 
-def algo_ortools(nodes, k, depot, dist_map):
-    """OR-Tools guided local search."""
+def algo_ortools(nodes, k, depot, dist_map,
+                 vehicle_capacity: float = float('inf'),
+                 max_route_dist: float = float('inf')):
+    """OR-Tools guided local search with optional capacity and distance constraints."""
     if not _check_ortools():
         return None  # signals caller to skip this algorithm
     try:
@@ -710,15 +816,30 @@ def algo_ortools(nodes, k, depot, dist_map):
 
     node_map = {n.id: n for n in nodes}
     all_ids = [depot.id] + [n.id for n in nodes]
-    idx_of = {nid: i for i, nid in enumerate(all_ids)}
+
+    SCALE = 1000  # scale distances to integers for OR-Tools
 
     def dist_callback(from_idx, to_idx):
-        return int(dist_map[(all_ids[from_idx], all_ids[to_idx])])
+        return int(dist_map[(all_ids[from_idx], all_ids[to_idx])] * SCALE)
 
     manager = pywrapcp.RoutingIndexManager(len(all_ids), k, 0)
     routing = pywrapcp.RoutingModel(manager)
     cb_idx = routing.RegisterTransitCallback(dist_callback)
     routing.SetArcCostEvaluatorOfAllVehicles(cb_idx)
+
+    # ── Capacity dimension ────────────────────────────────────────────────────
+    def demand_callback(from_idx):
+        node_idx = manager.IndexToNode(from_idx)
+        return 0 if node_idx == 0 else 1  # unit demand per delivery node
+
+    d_cb = routing.RegisterUnaryTransitCallback(demand_callback)
+    cap = int(vehicle_capacity) if vehicle_capacity < float('inf') else len(nodes)
+    routing.AddDimensionWithVehicleCapacity(d_cb, 0, [cap] * k, True, "Capacity")
+
+    # ── Max-distance dimension ────────────────────────────────────────────────
+    if max_route_dist < float('inf'):
+        max_d_scaled = int(max_route_dist * SCALE)
+        routing.AddDimension(cb_idx, 0, max_d_scaled, True, "MaxDist")
 
     search_params = pywrapcp.DefaultRoutingSearchParameters()
     search_params.first_solution_strategy = (
@@ -754,7 +875,9 @@ def algo_ortools(nodes, k, depot, dist_map):
 # ─────────────────────────────────────────────────────────────────────────────
 
 def validate(sol: VRPSolution, nodes: List[Node], depot: Node,
-             k: int, dist_map: Dict[tuple, float]) -> dict:
+             k: int, dist_map: Dict[tuple, float],
+             vehicle_capacity: float = float('inf'),
+             max_route_dist: float = float('inf')) -> dict:
     issues = []
     all_ids = set(n.id for n in nodes)
     visited = set()
@@ -777,6 +900,12 @@ def validate(sol: VRPSolution, nodes: List[Node], depot: Node,
         actual = route_distance(r.node_ids, depot.id, dist_map)
         if abs(actual - r.distance) > 1.0:
             issues.append(f'Route {i} distance mismatch: stored {r.distance:.2f}, computed {actual:.2f}')
+        if r.load > vehicle_capacity + 1e-9:
+            issues.append(
+                f'Route {i} exceeds capacity: load {r.load:.0f} > {vehicle_capacity:.0f}')
+        if r.distance > max_route_dist + 1e-6:
+            issues.append(
+                f'Route {i} exceeds max distance: {r.distance:.2f} > {max_route_dist:.2f}')
     return {'valid': len(issues) == 0, 'issues': issues}
 
 
@@ -786,23 +915,41 @@ def validate(sol: VRPSolution, nodes: List[Node], depot: Node,
 
 def run_benchmark(dist_matrix, nodes, depot, k, instance_name,
                   apply_2opt=True, run_ortools=True, quiet=False,
-                  algo_filter=None):
+                  algo_filter=None,
+                  vehicle_capacity: float = float('inf'),
+                  max_route_dist: float = float('inf')):
     """Run all algorithms and print a comparison table."""
 
     global LEAF_SIZE
     dist_map = build_dist_map(nodes, depot, dist_matrix)
 
     # Build algorithm list — OR-Tools is last and skipped if not installed
-    _ortools_fn = algo_ortools  # capture after definition
+    _vc = vehicle_capacity
+    _md = max_route_dist
     ALGORITHMS = [
-        ('Recursive (no 2-opt)',  lambda: vrp_recursive(k, nodes, depot, dist_map)),
-        ('Recursive + 2-opt',     lambda: algo_recursive(nodes, k, depot, dist_map, apply_2opt=True)),
-        ('Recursive + or-opt',    lambda: or_opt(vrp_recursive(k, nodes, depot, dist_map),
-                                                  depot, dist_map)),
-        ('Nearest-Neighbour',     lambda: algo_nn(nodes, k, depot, dist_map)),
-        ('Clarke-Wright Savings', lambda: algo_savings(nodes, k, depot, dist_map)),
-        ('Sweep',                 lambda: algo_sweep(nodes, k, depot, dist_map)),
-        ('OR-Tools (GLS)',        lambda: _ortools_fn(nodes, k, depot, dist_map)),
+        ('Recursive (no 2-opt)',
+         lambda: vrp_recursive(k, nodes, depot, dist_map,
+                               vehicle_capacity=_vc, max_route_dist=_md)),
+        ('Recursive + 2-opt',
+         lambda: algo_recursive(nodes, k, depot, dist_map, apply_2opt=True,
+                                vehicle_capacity=_vc, max_route_dist=_md)),
+        ('Recursive + or-opt',
+         lambda: or_opt(vrp_recursive(k, nodes, depot, dist_map,
+                                      vehicle_capacity=_vc, max_route_dist=_md),
+                        depot, dist_map,
+                        vehicle_capacity=_vc, max_route_dist=_md)),
+        ('Nearest-Neighbour',
+         lambda: algo_nn(nodes, k, depot, dist_map,
+                         vehicle_capacity=_vc, max_route_dist=_md)),
+        ('Clarke-Wright Savings',
+         lambda: algo_savings(nodes, k, depot, dist_map,
+                              vehicle_capacity=_vc, max_route_dist=_md)),
+        ('Sweep',
+         lambda: algo_sweep(nodes, k, depot, dist_map,
+                            vehicle_capacity=_vc, max_route_dist=_md)),
+        ('OR-Tools (GLS)',
+         lambda: algo_ortools(nodes, k, depot, dist_map,
+                              vehicle_capacity=_vc, max_route_dist=_md)),
     ]
 
     if algo_filter:
@@ -812,9 +959,12 @@ def run_benchmark(dist_matrix, nodes, depot, k, instance_name,
     if not run_ortools:
         ALGORITHMS = [(n, fn) for n, fn in ALGORITHMS if 'ortools' not in n.lower()]
 
+    cap_str  = f'{int(vehicle_capacity)}' if vehicle_capacity < float('inf') else 'unlimited'
+    dist_str = f'{max_route_dist:.1f}' if max_route_dist < float('inf') else 'unlimited'
     print('=' * 110)
     print(f'  BENCHMARK — {instance_name}')
     print(f'  Nodes: {len(nodes)}   Vehicles (k): {k}   Leaf size: {LEAF_SIZE}')
+    print(f'  Capacity per vehicle: {cap_str}   Max route distance: {dist_str}')
     print('=' * 110)
 
     name_w, k_w, col_w, std_w = 28, 5, 14, 11
@@ -840,7 +990,9 @@ def run_benchmark(dist_matrix, nodes, depot, k, instance_name,
             if not quiet:
                 print(f'  {name:{name_w}s}  (skipped — dependency not available)')
             continue
-        v = validate(sol, nodes, depot, k, dist_map)
+        v = validate(sol, nodes, depot, k, dist_map,
+                     vehicle_capacity=vehicle_capacity,
+                     max_route_dist=max_route_dist)
         if not v['valid'] and not quiet:
             for issue in v['issues']:
                 print(f'    !! {issue}')
@@ -912,19 +1064,35 @@ def main():
                              'recursive, nn, savings, sweep, ortools')
     parser.add_argument('--quiet', action='store_true',
                         help='Suppress validation issue details')
+    parser.add_argument('--capacity', type=float, default=None,
+                        help='Max demand (nodes) per vehicle route '
+                             '(overrides CAPACITY in .vrp file; default: unlimited)')
+    parser.add_argument('--max-dist', type=float, default=None,
+                        help='Max distance per vehicle route '
+                             '(overrides MAX_ALLOWED_ROUTE in .vrp file; default: from file or unlimited)')
     args = parser.parse_args()
 
     global LEAF_SIZE
     LEAF_SIZE = args.leaf
 
     print(f'\nLoading instance: {args.instance}')
-    dist_matrix, nodes, depot, max_vehicles, max_route, name = parse_vrp(args.instance)
+    dist_matrix, nodes, depot, max_vehicles, max_route, file_capacity, name = parse_vrp(args.instance)
     k = args.k if args.k is not None else max_vehicles
+
+    # Resolve constraints: CLI > file > unlimited
+    vehicle_capacity = (args.capacity if args.capacity is not None
+                        else file_capacity)
+    max_route_dist   = (args.max_dist if args.max_dist is not None
+                        else max_route)
+
+    cap_str  = f'{int(vehicle_capacity)}' if vehicle_capacity < float('inf') else 'unlimited'
+    dist_str = f'{max_route_dist:.1f}' if max_route_dist < float('inf') else 'unlimited'
 
     print(f'  Instance : {name}')
     print(f'  Nodes    : {len(nodes)} delivery + 1 depot = {len(nodes) + 1} total')
     print(f'  Vehicles : {k}  (file max: {max_vehicles})')
-    print(f'  Max route: {max_route:.1f}')
+    print(f'  Capacity : {cap_str} nodes/vehicle')
+    print(f'  Max route: {dist_str}')
     print(f'  Dist mat : {dist_matrix.shape}  max={dist_matrix.max():.1f}\n')
 
     run_benchmark(
@@ -937,6 +1105,8 @@ def main():
         run_ortools=not args.no_ortools,
         quiet=args.quiet,
         algo_filter=args.algo,
+        vehicle_capacity=vehicle_capacity,
+        max_route_dist=max_route_dist,
     )
 
 

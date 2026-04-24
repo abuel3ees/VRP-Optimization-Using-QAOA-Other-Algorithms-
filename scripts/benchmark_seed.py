@@ -262,7 +262,8 @@ def _split_longest_to_k(routes_ids, k, depot_id, dist_map):
 
 
 def algo_savings_parallel(nodes, k, depot, dist_map, node_map):
-    """Classic Clarke-Wright (parallel) — merge highest savings until k routes."""
+    """Classic Clarke-Wright (parallel) — merge highest savings until k routes,
+    respecting VEHICLE_CAPACITY and MAX_ROUTE_DIST globals."""
     node_ids = [n.id for n in nodes]
     routes_dict = {nid: [nid] for nid in node_ids}
     route_of = {nid: nid for nid in node_ids}
@@ -295,12 +296,24 @@ def algo_savings_parallel(nodes, k, depot, dist_map, node_map):
             merged = rr[::-1] + sr
         else:
             continue
+        # Reject merge if it violates capacity or max-distance constraint
+        if sum(node_map[n].demand for n in merged) > VEHICLE_CAPACITY + 1e-9:
+            continue
+        if (MAX_ROUTE_DIST < float('inf') and
+                route_distance(merged, depot.id, dist_map) > MAX_ROUTE_DIST + 1e-6):
+            continue
         routes_dict[ri] = merged
         del routes_dict[rj]
         for nid in merged:
             route_of[nid] = ri
     final = list(routes_dict.values())
     while len(final) > target and len(final) > 1:
+        a_cand = final[0]; b_cand = final[1]
+        merged_cand = a_cand + b_cand
+        if (sum(node_map[n].demand for n in merged_cand) > VEHICLE_CAPACITY + 1e-9 or
+                (MAX_ROUTE_DIST < float('inf') and
+                 route_distance(merged_cand, depot.id, dist_map) > MAX_ROUTE_DIST + 1e-6)):
+            break  # can't merge further without violating constraints
         final.sort(key=lambda r: sum(node_map[n].demand for n in r))
         a, b = final.pop(0), final.pop(0)
         final.append(a + b)
@@ -310,7 +323,8 @@ def algo_savings_parallel(nodes, k, depot, dist_map, node_map):
 
 
 def algo_savings_sequential(nodes, k, depot, dist_map, node_map):
-    """Sequential Clarke-Wright: extend one route at a time along best savings."""
+    """Sequential Clarke-Wright: extend one route at a time along best savings,
+    respecting VEHICLE_CAPACITY and MAX_ROUTE_DIST globals."""
     node_ids = [n.id for n in nodes]
     savings = sorted(
         [(dist_map[(depot.id, i)] + dist_map[(depot.id, j)] - dist_map[(i, j)], i, j)
@@ -330,32 +344,57 @@ def algo_savings_sequential(nodes, k, depot, dist_map, node_map):
             for _, i, j in savings:
                 if (i in unassigned) ^ (j in unassigned):
                     inside, outside = (j, i) if i in unassigned else (i, j)
+                    candidate = None
                     if route[0] == inside:
-                        route.insert(0, outside)
-                        unassigned.remove(outside)
-                        extended = True
-                        break
-                    if route[-1] == inside:
-                        route.append(outside)
-                        unassigned.remove(outside)
-                        extended = True
-                        break
+                        candidate = [outside] + route
+                    elif route[-1] == inside:
+                        candidate = route + [outside]
+                    if candidate is None:
+                        continue
+                    # Check capacity and distance constraints
+                    cap_ok = (VEHICLE_CAPACITY == float('inf') or
+                              sum(node_map[n].demand for n in candidate)
+                              <= VEHICLE_CAPACITY + 1e-9)
+                    dist_ok = (MAX_ROUTE_DIST == float('inf') or
+                               route_distance(candidate, depot.id, dist_map)
+                               <= MAX_ROUTE_DIST + 1e-6)
+                    if not (cap_ok and dist_ok):
+                        continue
+                    route[:] = candidate
+                    unassigned.remove(outside)
+                    extended = True
+                    break
         routes.append(route)
-    # dump any leftovers into the shortest route
+    # dump any leftovers into the best-fit route under constraints
     if unassigned:
-        routes.sort(key=lambda r: route_distance(r, depot.id, dist_map))
-        routes[0].extend(list(unassigned))
+        for nid in list(unassigned):
+            placed = False
+            for r in sorted(routes, key=lambda r: route_distance(r, depot.id, dist_map)):
+                cand = r + [nid]
+                cap_ok = (VEHICLE_CAPACITY == float('inf') or
+                          sum(node_map[n].demand for n in cand) <= VEHICLE_CAPACITY + 1e-9)
+                dist_ok = (MAX_ROUTE_DIST == float('inf') or
+                           route_distance(cand, depot.id, dist_map) <= MAX_ROUTE_DIST + 1e-6)
+                if cap_ok and dist_ok:
+                    r.append(nid)
+                    placed = True
+                    break
+            if not placed:
+                # Constraints cannot be met — add to shortest route anyway
+                routes.sort(key=len)
+                routes[0].append(nid)
         unassigned.clear()
-    # without vehicle capacity, one route can swallow everything — split to k
     if len(routes) < target:
         routes = _split_longest_to_k(routes, target, depot.id, dist_map)
     return solution_from_routes(routes, depot.id, dist_map, node_map)
 
 
 def _insertion_base(nodes, k, depot, dist_map, node_map, pick_next):
-    """Shared scaffolding for NN/cheapest/farthest insertion heuristics."""
+    """Shared scaffolding for NN/cheapest/farthest insertion heuristics,
+    respecting VEHICLE_CAPACITY and MAX_ROUTE_DIST globals."""
     groups = partition_by_angle(nodes, depot, k)
     all_routes: List[List[int]] = []
+    overflow: List[int] = []  # nodes that couldn't be inserted due to constraints
     for group in groups:
         remaining = set(group)
         if not remaining:
@@ -366,18 +405,45 @@ def _insertion_base(nodes, k, depot, dist_map, node_map, pick_next):
         remaining.remove(seed)
         while remaining:
             nid = pick_next(route, remaining, dist_map, depot.id)
-            # insert at best position
-            best_pos, best_delta = 0, float("inf")
+            # insert at best feasible position
+            best_pos, best_delta = -1, float("inf")
             for pos in range(len(route) + 1):
+                candidate = route[:pos] + [nid] + route[pos:]
+                cap_ok = (VEHICLE_CAPACITY == float('inf') or
+                          sum(node_map[n].demand for n in candidate)
+                          <= VEHICLE_CAPACITY + 1e-9)
+                dist_ok = (MAX_ROUTE_DIST == float('inf') or
+                           route_distance(candidate, depot.id, dist_map)
+                           <= MAX_ROUTE_DIST + 1e-6)
+                if not (cap_ok and dist_ok):
+                    continue
                 prev = depot.id if pos == 0 else route[pos - 1]
                 nxt = depot.id if pos == len(route) else route[pos]
                 delta = (dist_map[(prev, nid)] + dist_map[(nid, nxt)]
                          - dist_map[(prev, nxt)])
                 if delta < best_delta:
                     best_delta, best_pos = delta, pos
-            route.insert(best_pos, nid)
+            if best_pos == -1:
+                overflow.append(nid)  # can't insert without violating constraints
+            else:
+                route.insert(best_pos, nid)
             remaining.remove(nid)
         all_routes.append(route)
+    # Assign overflow nodes to whichever route best accommodates them
+    for nid in overflow:
+        best_ri, best_d = -1, float('inf')
+        for ri, r in enumerate(all_routes):
+            cand = r + [nid]
+            cap_ok = (VEHICLE_CAPACITY == float('inf') or
+                      sum(node_map[n].demand for n in cand) <= VEHICLE_CAPACITY + 1e-9)
+            dist_ok = (MAX_ROUTE_DIST == float('inf') or
+                       route_distance(cand, depot.id, dist_map) <= MAX_ROUTE_DIST + 1e-6)
+            d = route_distance(cand, depot.id, dist_map)
+            if cap_ok and dist_ok and d < best_d:
+                best_d, best_ri = d, ri
+        if best_ri == -1:
+            best_ri = min(range(len(all_routes)), key=lambda i: len(all_routes[i]))
+        all_routes[best_ri].append(nid)
     return solution_from_routes(all_routes, depot.id, dist_map, node_map)
 
 
@@ -453,8 +519,21 @@ def _random_neighbor(routes: List[List[int]], rng: random.Random
     return routes
 
 
-def _cost(routes: List[List[int]], depot_id: int, dist_map) -> float:
-    return sum(route_distance(r, depot_id, dist_map) for r in routes)
+def _cost(routes: List[List[int]], depot_id: int, dist_map,
+          node_map: dict = None) -> float:
+    """Total route distance plus heavy penalties for constraint violations."""
+    total = sum(route_distance(r, depot_id, dist_map) for r in routes)
+    if VEHICLE_CAPACITY < float('inf') and node_map:
+        for r in routes:
+            excess = sum(node_map[n].demand for n in r) - VEHICLE_CAPACITY
+            if excess > 1e-9:
+                total += excess * GLOBAL_MAX_DIST * 10
+    if MAX_ROUTE_DIST < float('inf'):
+        for r in routes:
+            d = route_distance(r, depot_id, dist_map)
+            if d > MAX_ROUTE_DIST + 1e-6:
+                total += (d - MAX_ROUTE_DIST) * 10
+    return total
 
 
 def algo_simulated_annealing(nodes, k, depot, dist_map, node_map,
@@ -462,12 +541,12 @@ def algo_simulated_annealing(nodes, k, depot, dist_map, node_map,
     rng = random.Random(seed)
     init = algo_savings_parallel(nodes, k, depot, dist_map, node_map)
     current = _flatten(init)
-    current_cost = _cost(current, depot.id, dist_map)
+    current_cost = _cost(current, depot.id, dist_map, node_map)
     best, best_cost = current, current_cost
     T = T0
     for _ in range(iters):
         cand = _random_neighbor(current, rng)
-        cc = _cost(cand, depot.id, dist_map)
+        cc = _cost(cand, depot.id, dist_map, node_map)
         if cc < current_cost or rng.random() < math.exp(-(cc - current_cost) / max(T, 1e-9)):
             current, current_cost = cand, cc
             if cc < best_cost:
@@ -481,13 +560,13 @@ def algo_tabu_search(nodes, k, depot, dist_map, node_map,
     rng = random.Random(seed)
     init = algo_savings_parallel(nodes, k, depot, dist_map, node_map)
     current = _flatten(init)
-    current_cost = _cost(current, depot.id, dist_map)
+    current_cost = _cost(current, depot.id, dist_map, node_map)
     best, best_cost = current, current_cost
     tabu: List[Tuple] = []
     for _ in range(iters):
         candidates = [_random_neighbor(current, rng) for _ in range(30)]
         scored = sorted(
-            ((_cost(c, depot.id, dist_map), c) for c in candidates),
+            ((_cost(c, depot.id, dist_map, node_map), c) for c in candidates),
             key=lambda t: t[0],
         )
         chosen = None
@@ -514,15 +593,13 @@ def algo_iterated_local_search(nodes, k, depot, dist_map, node_map,
     init = algo_savings_parallel(nodes, k, depot, dist_map, node_map)
     current = apply_local_search(init, depot.id, dist_map, node_map, two_opt)
     current_r = _flatten(current)
-    best_r, best_cost = current_r, _cost(current_r, depot.id, dist_map)
+    best_r, best_cost = current_r, _cost(current_r, depot.id, dist_map, node_map)
     for _ in range(iters):
-        # perturb: a few random moves
         cand = current_r
         for _ in range(4):
             cand = _random_neighbor(cand, rng)
-        # local search via 2-opt on each route
         improved = [two_opt(r, depot.id, dist_map) for r in cand]
-        cost_i = _cost(improved, depot.id, dist_map)
+        cost_i = _cost(improved, depot.id, dist_map, node_map)
         if cost_i < best_cost:
             best_r, best_cost = improved, cost_i
             current_r = improved
@@ -536,7 +613,6 @@ def algo_genetic(nodes, k, depot, dist_map, node_map,
     def random_individual():
         ids = [n.id for n in nodes]
         rng.shuffle(ids)
-        # split into k contiguous chunks
         sz = max(1, len(ids) // max(1, k))
         chunks = [ids[i:i + sz] for i in range(0, len(ids), sz)]
         while len(chunks) > k and len(chunks) > 1:
@@ -547,14 +623,13 @@ def algo_genetic(nodes, k, depot, dist_map, node_map,
         return chunks
 
     pop = []
-    # seed population with good constructions
     for f in (algo_savings_parallel, algo_nearest_neighbour, algo_sweep,
               algo_cheapest_insertion):
         pop.append(_flatten(f(nodes, k, depot, dist_map, node_map)))
     while len(pop) < pop_size:
         pop.append(random_individual())
 
-    def fitness(ind): return _cost(ind, depot.id, dist_map)
+    def fitness(ind): return _cost(ind, depot.id, dist_map, node_map)
 
     for _ in range(generations):
         pop.sort(key=fitness)
@@ -562,17 +637,14 @@ def algo_genetic(nodes, k, depot, dist_map, node_map,
         children = list(elite)
         while len(children) < pop_size:
             p1, p2 = rng.sample(elite, 2) if len(elite) >= 2 else (elite[0], elite[0])
-            # one-point crossover on flattened sequence
             flat1 = [nid for r in p1 for nid in r]
             flat2 = [nid for r in p2 for nid in r]
             cut = rng.randint(1, max(1, len(flat1) - 1))
             child_flat = flat1[:cut] + [nid for nid in flat2 if nid not in flat1[:cut]]
-            # re-split to k chunks
             sz = max(1, len(child_flat) // max(1, k))
             child = [child_flat[i:i + sz] for i in range(0, len(child_flat), sz)]
             while len(child) > k and len(child) > 1:
                 child[-2].extend(child.pop(-1))
-            # mutate
             if rng.random() < mutation:
                 child = _random_neighbor(child, rng)
             children.append(child)
@@ -613,8 +685,11 @@ def _run_ortools(nodes, k, depot, dist_map, node_map,
         return 0 if node == 0 else 1
 
     d_idx = routing.RegisterUnaryTransitCallback(demand_cb)
+    # Use global VEHICLE_CAPACITY if set, otherwise allow each vehicle to carry all nodes
+    cap_per_vehicle = (int(VEHICLE_CAPACITY) if VEHICLE_CAPACITY < float('inf')
+                       else len(nodes))
     routing.AddDimensionWithVehicleCapacity(
-        d_idx, 0, [len(nodes)] * eff_k, True, "Count"
+        d_idx, 0, [cap_per_vehicle] * eff_k, True, "Count"
     )
     count_dim = routing.GetDimensionOrDie("Count")
     if hard_k:
@@ -626,6 +701,11 @@ def _run_ortools(nodes, k, depot, dist_map, node_map,
         big_penalty = int(max(dist_map.values()) * SCALE * 100)
         for v in range(eff_k):
             count_dim.SetCumulVarSoftLowerBound(routing.End(v), 1, big_penalty)
+
+    # Max-distance dimension
+    if MAX_ROUTE_DIST < float('inf'):
+        max_d_scaled = int(MAX_ROUTE_DIST * SCALE)
+        routing.AddDimension(cb_idx, 0, max_d_scaled, True, "MaxDist")
 
     sp = pywrapcp.DefaultRoutingSearchParameters()
     sp.first_solution_strategy = first_solution
@@ -740,6 +820,8 @@ def algo_ortools_parallel_cheapest(nodes, k, depot, dist_map, node_map):
 # so the benchmark and the notebook produce identical results.
 LEAF_SIZE = 4
 GLOBAL_MAX_DIST: float = 1.0
+VEHICLE_CAPACITY: float = float('inf')   # max demand (nodes) per route; inf = unlimited
+MAX_ROUTE_DIST: float = float('inf')     # max distance per route; inf = unlimited
 QAOA_STATS: Dict[str, int] = {"success": 0, "fallback": 0}
 QAOA_LOG: List[dict] = []
 
@@ -852,6 +934,10 @@ def solve_brute_force(nodes, k, depot, dist_map):
     node_ids = [n.id for n in nodes]
     node_map = {n.id: n for n in nodes}
     eff_k    = min(k, len(node_ids))
+
+    # If all nodes would exceed capacity on one route, bump eff_k up
+    if VEHICLE_CAPACITY < float('inf') and eff_k == 1 and len(node_ids) > VEHICLE_CAPACITY:
+        eff_k = math.ceil(len(node_ids) / VEHICLE_CAPACITY)
 
     _PREFIX = f"  [QAOA leaf n={len(node_ids)} k={eff_k}]"
 
@@ -1054,6 +1140,12 @@ def solve_brute_force(nodes, k, depot, dist_map):
                 route_ids = [all_ids[pi + 1] for pi in perm]  # customer indices to node IDs
                 cost = float(route_distance(route_ids, depot.id, dist_map))
 
+                # Enforce capacity and distance constraints
+                if len(route_ids) > VEHICLE_CAPACITY + 1e-9:
+                    continue
+                if MAX_ROUTE_DIST < float('inf') and cost > MAX_ROUTE_DIST + 1e-6:
+                    continue
+
                 lbl = str(perm)
                 valid_costs[lbl] = valid_costs.get(lbl, 0) + int(cnt)
                 valid_routes_[lbl] = route_ids
@@ -1194,6 +1286,24 @@ def solve_brute_force(nodes, k, depot, dist_map):
                 if _degree_ok(b):
                     edges = _bits_to_edges(b)
                     if not _has_subtour(edges):
+                        # Extract routes and check capacity / max-distance constraints
+                        if VEHICLE_CAPACITY < float('inf') or MAX_ROUTE_DIST < float('inf'):
+                            non_depot_e = [(a, b_) for a, b_ in edges if a != 0]
+                            succ_nd = {a: b_ for a, b_ in non_depot_e}
+                            starts = [b_ for a, b_ in edges if a == 0]
+                            constraint_ok = True
+                            for s in starts:
+                                r_qi = []; cur = s; steps = 0
+                                while cur != 0 and steps <= m1 + 1:
+                                    r_qi.append(cur); cur = succ_nd.get(cur, 0); steps += 1
+                                if VEHICLE_CAPACITY < float('inf') and len(r_qi) > VEHICLE_CAPACITY + 1e-9:
+                                    constraint_ok = False; break
+                                if MAX_ROUTE_DIST < float('inf'):
+                                    r_real = [all_ids[qi] for qi in r_qi]
+                                    if route_distance(r_real, depot.id, dist_map) > MAX_ROUTE_DIST + 1e-6:
+                                        constraint_ok = False; break
+                            if not constraint_ok:
+                                continue
                         lbl = "".join("1" if x else "0" for x in b)
                         valid_costs[lbl]  = valid_costs.get(lbl, 0) + int(cnt)
                         valid_edges_[lbl] = edges
@@ -1689,8 +1799,34 @@ def read_vrp_k(name: str) -> int | None:
     return None
 
 
+def read_vrp_constraints(name: str) -> Tuple[float, float]:
+    """Return (vehicle_capacity, max_route_dist) from the matching .vrp file.
+    Returns (inf, inf) if the file is missing or the keys are absent.
+    """
+    m = re.match(r"RioClaroPostToy_(\d+)_(\d+)", name)
+    if not m:
+        return float('inf'), float('inf')
+    n_nodes = int(m.group(1))
+    vrp_path = INSTANCES_DIR / f"{n_nodes}-Nodes" / f"{name}.vrp"
+    if not vrp_path.exists():
+        return float('inf'), float('inf')
+    cap = float('inf')
+    max_d = float('inf')
+    try:
+        for line in vrp_path.read_text().splitlines():
+            if line.startswith("CAPACITY"):
+                cap = float(line.split(":")[1].strip())
+            elif line.startswith("MAX_ALLOWED_ROUTE"):
+                max_d = float(line.split(":")[1].strip())
+    except Exception:
+        pass
+    return cap, max_d
+
+
 # ───────────────────── validation ───────────────────────────────────────
 def validate(sol: VRPSolution, nodes: List[Node]) -> bool:
+    """Return True iff every node is visited exactly once and all
+    capacity / max-distance constraints are satisfied."""
     expected = {n.id for n in nodes}
     seen: set[int] = set()
     for r in sol.routes:
@@ -1698,7 +1834,14 @@ def validate(sol: VRPSolution, nodes: List[Node]) -> bool:
             if nid in seen:
                 return False
             seen.add(nid)
-    return seen == expected
+    if seen != expected:
+        return False
+    for r in sol.routes:
+        if r.load > VEHICLE_CAPACITY + 1e-9:
+            return False
+        if r.distance > MAX_ROUTE_DIST + 1e-6:
+            return False
+    return True
 
 
 # ───────────────────── registry + runner ────────────────────────────────
@@ -2135,7 +2278,10 @@ def run_one_instance(name: str, k: int, save_outputs: bool = True,
     for n in nodes:
         coords[n.id] = (n.x, n.y)
 
-    print(f"\n=== {name}  (n={len(nodes)}, k={k}) ===")
+    cap_str  = f'{int(VEHICLE_CAPACITY)}' if VEHICLE_CAPACITY < float('inf') else 'unlimited'
+    dist_str = f'{MAX_ROUTE_DIST:.1f}'    if MAX_ROUTE_DIST < float('inf')    else 'unlimited'
+    print(f"\n=== {name}  (n={len(nodes)}, k={k})  "
+          f"capacity={cap_str}  max_dist={dist_str} ===")
     header = f"{'Algorithm':<42}{'k':>4}{'Total':>15}{'Std':>12}{'W_Fair':>10}{'Time_s':>10}  Valid   Gap%"
     print(header)
     print("-" * len(header))
@@ -2372,6 +2518,12 @@ def main():
                     help="Run only algorithms whose names contain any of these "
                          "substrings (case-insensitive). "
                          "E.g. --algos recursive qaoa")
+    ap.add_argument("--capacity", type=float, default=None,
+                    help="Max demand (nodes) per vehicle route. "
+                         "Overrides CAPACITY in .vrp file. Default: unlimited.")
+    ap.add_argument("--max-dist", type=float, default=None,
+                    help="Max distance per vehicle route. "
+                         "Overrides MAX_ALLOWED_ROUTE in .vrp file. Default: from file or unlimited.")
     args = ap.parse_args()
 
     # Set global run timestamp
@@ -2405,10 +2557,18 @@ def main():
     else:
         active_algos = ALGORITHMS
 
+    global VEHICLE_CAPACITY, MAX_ROUTE_DIST
+
     all_results: List[dict] = []
     instance_k_pairs: List[Tuple[str, int]] = []
     for name in names:
         k = args.k or read_vrp_k(name) or 7
+
+        # Resolve constraints: CLI > vrp file > unlimited
+        file_cap, file_max_d = read_vrp_constraints(name)
+        VEHICLE_CAPACITY = (args.capacity if args.capacity is not None else file_cap)
+        MAX_ROUTE_DIST   = (args.max_dist if args.max_dist is not None  else file_max_d)
+
         instance_k_pairs.append((name, k))
         all_results.extend(run_one_instance(name, k, active_algorithms=active_algos))
 
