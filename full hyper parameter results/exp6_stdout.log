@@ -1,0 +1,2393 @@
+================================================================================
+EXPERIMENT 6: WARM-START QAOA
+================================================================================
+
+── Classical optimal tours ──
+  Instance A (nodes [0,1,2,3,4]): optimal = 9947.085, tour = [2, 1, 3, 4]
+  Instance B (nodes [0,7,14,21,35]): optimal = 9572.532, tour = [2, 4, 1, 3]
+  Instance C (nodes [0,8,10,29,45]): optimal = 6013.839, tour = [1, 2, 3, 4]
+  Instance D (compact-center [16,23,28,38]): optimal = 3620.242, tour = [3, 1, 2, 4]
+  Instance E (compact-east [3,15,37,42]): optimal = 6180.703, tour = [1, 2, 4, 3]
+  Instance F (compact-NW [39,40,43,47]): optimal = 6250.218, tour = [2, 3, 1, 4]
+  Instance G (spread-corners [1,10,46,47]): optimal = 20344.013, tour = [2, 3, 1, 4]
+  Instance H (spread-diagonal [20,13,36,40]): optimal = 17376.131, tour = [3, 2, 4, 1]
+  Instance I (near-depot [17,26,31,49]): optimal = 2751.863, tour = [1, 2, 3, 4]
+  Instance J (far-depot [9,13,24,46]): optimal = 14140.530, tour = [1, 4, 3, 2]
+  Instance K (mixed-dist [17,7,44,20]): optimal = 12112.874, tour = [4, 2, 3, 1]
+  Instance L (mixed-quadrant [5,41,14,22]): optimal = 13170.943, tour = [1, 4, 3, 2]
+  Instance M (random-spread [2,33,36,19]): optimal = 12286.228, tour = [3, 2, 1, 4]
+  Instance S1 (2cust-near [17,26]): optimal = 1321.644, tour = [1, 2]
+  Instance S2 (2cust-far [9,46]): optimal = 12323.023, tour = [2, 1]
+  Instance S3 (2cust-mid [4,11]): optimal = 3927.866, tour = [1, 2]
+  Instance T1 (3cust-compact [16,23,28]): optimal = 3611.981, tour = [2, 1, 3]
+  Instance T2 (3cust-spread [1,46,20]): optimal = 18874.387, tour = [2, 1, 3]
+  Instance T3 (3cust-mixed [7,36,43]): optimal = 13458.699, tour = [2, 1, 3]
+
+── Building QUBOs (position-indexed, subtour-free) ──
+  Instance A: 4 customers, 16 qubits (was 20 edge-based)
+  Instance B: 4 customers, 16 qubits (was 20 edge-based)
+  Instance C: 4 customers, 16 qubits (was 20 edge-based)
+  Instance D: 4 customers, 16 qubits (was 20 edge-based)
+  Instance E: 4 customers, 16 qubits (was 20 edge-based)
+  Instance F: 4 customers, 16 qubits (was 20 edge-based)
+  Instance G: 4 customers, 16 qubits (was 20 edge-based)
+  Instance H: 4 customers, 16 qubits (was 20 edge-based)
+  Instance I: 4 customers, 16 qubits (was 20 edge-based)
+  Instance J: 4 customers, 16 qubits (was 20 edge-based)
+  Instance K: 4 customers, 16 qubits (was 20 edge-based)
+  Instance L: 4 customers, 16 qubits (was 20 edge-based)
+  Instance M: 4 customers, 16 qubits (was 20 edge-based)
+  Instance S1: 2 customers, 4 qubits (was 6 edge-based)
+  Instance S2: 2 customers, 4 qubits (was 6 edge-based)
+  Instance S3: 2 customers, 4 qubits (was 6 edge-based)
+  Instance T1: 3 customers, 9 qubits (was 12 edge-based)
+  Instance T2: 3 customers, 9 qubits (was 12 edge-based)
+  Instance T3: 3 customers, 9 qubits (was 12 edge-based)
+
+================================================================================
+PHASE 1: COLD-START (random initial point)
+================================================================================
+
+  Config 1/7: reps=2_ADAM_maxiter=30
+    Instance A: cost=9947.085  OPTIMAL  valid=0.0020  time=0.5s  evals=6
+    Instance B: cost=9572.532  OPTIMAL  valid=0.0013  time=0.5s  evals=6
+    Instance C: cost=6013.839  OPTIMAL  valid=0.0013  time=0.5s  evals=6
+    Instance D: cost=3620.242  OPTIMAL  valid=0.0009  time=0.5s  evals=6
+    Instance E: cost=6180.703  OPTIMAL  valid=0.0008  time=0.5s  evals=6
+    Instance F: cost=6250.218  OPTIMAL  valid=0.0008  time=0.6s  evals=6
+    Instance G: cost=20344.013  OPTIMAL  valid=0.0025  time=0.5s  evals=6
+    Instance H: cost=17376.131  OPTIMAL  valid=0.0029  time=0.5s  evals=6
+    Instance I: cost=2751.863  OPTIMAL  valid=0.0008  time=0.5s  evals=6
+    Instance J: cost=14140.530  OPTIMAL  valid=0.0015  time=0.5s  evals=6
+    Instance K: cost=12112.874  OPTIMAL  valid=0.0020  time=0.5s  evals=6
+    Instance L: cost=13170.943  OPTIMAL  valid=0.0020  time=0.5s  evals=6
+    Instance M: cost=12286.228  OPTIMAL  valid=0.0016  time=0.5s  evals=6
+    Instance S1: cost=1321.644  OPTIMAL  valid=0.3187  time=0.1s  evals=6
+    Instance S2: cost=12323.023  OPTIMAL  valid=0.0524  time=0.1s  evals=6
+    Instance S3: cost=3927.866  OPTIMAL  valid=0.2723  time=0.1s  evals=6
+    Instance T1: cost=3611.981  OPTIMAL  valid=0.0683  time=0.2s  evals=6
+    Instance T2: cost=18874.387  OPTIMAL  valid=0.0627  time=0.1s  evals=6
+    Instance T3: cost=13458.699  OPTIMAL  valid=0.0821  time=0.2s  evals=6
+
+  Config 2/7: reps=5_ADAM_maxiter=30
+    Instance A: cost=9947.085  OPTIMAL  valid=0.0050  time=1.3s  evals=12
+    Instance B: cost=9572.532  OPTIMAL  valid=0.0046  time=1.3s  evals=12
+    Instance C: cost=6013.839  OPTIMAL  valid=0.0052  time=1.3s  evals=12
+    Instance D: cost=3620.242  OPTIMAL  valid=0.0054  time=1.4s  evals=12
+    Instance E: cost=6180.703  OPTIMAL  valid=0.0054  time=1.4s  evals=12
+    Instance F: cost=6250.218  OPTIMAL  valid=0.0058  time=1.4s  evals=12
+    Instance G: cost=20344.013  OPTIMAL  valid=0.0012  time=1.4s  evals=12
+    Instance H: cost=17376.131  OPTIMAL  valid=0.0019  time=1.5s  evals=12
+    Instance I: cost=2751.863  OPTIMAL  valid=0.0056  time=1.4s  evals=12
+    Instance J: cost=14140.530  OPTIMAL  valid=0.0031  time=1.5s  evals=12
+    Instance K: cost=12112.874  OPTIMAL  valid=0.0030  time=1.4s  evals=12
+    Instance L: cost=13170.943  OPTIMAL  valid=0.0029  time=1.4s  evals=12
+    Instance M: cost=12286.228  OPTIMAL  valid=0.0017  time=1.4s  evals=12
+    Instance S1: cost=1321.644  OPTIMAL  valid=0.1640  time=0.2s  evals=12
+    Instance S2: cost=12323.023  OPTIMAL  valid=0.3484  time=0.2s  evals=12
+    Instance S3: cost=3927.866  OPTIMAL  valid=0.0900  time=0.1s  evals=12
+    Instance T1: cost=3611.981  OPTIMAL  valid=0.0139  time=0.4s  evals=12
+    Instance T2: cost=18874.387  OPTIMAL  valid=0.0168  time=0.4s  evals=12
+    Instance T3: cost=13458.699  OPTIMAL  valid=0.0378  time=0.3s  evals=12
+
+  Config 3/7: reps=2_COBYLA_maxiter=100
+    Instance A: cost=11102.844  gap=11.62%  valid=0.0001  time=3.9s  evals=50
+    Instance B: cost=9572.532  OPTIMAL  valid=0.0001  time=4.2s  evals=53
+    Instance C: cost=6013.839  OPTIMAL  valid=0.0057  time=3.5s  evals=44
+    Instance D: cost=3620.242  OPTIMAL  valid=0.0022  time=3.5s  evals=44
+    Instance E: cost=6180.703  OPTIMAL  valid=0.0022  time=3.8s  evals=49
+    Instance F: cost=6259.608  gap=0.15%  valid=0.0002  time=4.2s  evals=52
+    Instance G: cost=20344.013  OPTIMAL  valid=0.0013  time=3.6s  evals=44
+    Instance H: cost=17376.131  OPTIMAL  valid=0.0046  time=3.5s  evals=44
+    Instance I: cost=2751.863  OPTIMAL  valid=0.0019  time=3.5s  evals=46
+    Instance J: cost=14140.530  OPTIMAL  valid=0.0010  time=3.3s  evals=43
+    Instance K: cost=12112.874  OPTIMAL  valid=0.0019  time=3.9s  evals=49
+    Instance L: cost=13170.943  OPTIMAL  valid=0.0050  time=4.0s  evals=51
+    Instance M: cost=12286.228  OPTIMAL  valid=0.0046  time=3.7s  evals=47
+    Instance S1: cost=1321.644  OPTIMAL  valid=0.6159  time=0.6s  evals=50
+    Instance S2: cost=12323.023  OPTIMAL  valid=0.4872  time=0.6s  evals=54
+    Instance S3: cost=3927.866  OPTIMAL  valid=0.5090  time=0.6s  evals=55
+    Instance T1: cost=3611.981  OPTIMAL  valid=0.0668  time=1.1s  evals=52
+    Instance T2: cost=18874.387  OPTIMAL  valid=0.1239  time=1.2s  evals=55
+    Instance T3: cost=13458.699  OPTIMAL  valid=0.1444  time=1.2s  evals=58
+
+  Config 4/7: reps=2_ADAM_maxiter=80
+    Instance A: cost=9947.085  OPTIMAL  valid=0.0020  time=1.0s  evals=12
+    Instance B: cost=9572.532  OPTIMAL  valid=0.0013  time=1.0s  evals=12
+    Instance C: cost=6013.839  OPTIMAL  valid=0.0013  time=1.0s  evals=12
+    Instance D: cost=3620.242  OPTIMAL  valid=0.0009  time=0.9s  evals=12
+    Instance E: cost=6180.703  OPTIMAL  valid=0.0008  time=0.9s  evals=12
+    Instance F: cost=6250.218  OPTIMAL  valid=0.0008  time=1.0s  evals=12
+    Instance G: cost=20344.013  OPTIMAL  valid=0.0025  time=0.9s  evals=12
+    Instance H: cost=17376.131  OPTIMAL  valid=0.0029  time=0.9s  evals=12
+    Instance I: cost=2751.863  OPTIMAL  valid=0.0008  time=1.0s  evals=12
+    Instance J: cost=14140.530  OPTIMAL  valid=0.0015  time=0.9s  evals=12
+    Instance K: cost=12112.874  OPTIMAL  valid=0.0020  time=1.0s  evals=12
+    Instance L: cost=13170.943  OPTIMAL  valid=0.0020  time=1.0s  evals=12
+    Instance M: cost=12286.228  OPTIMAL  valid=0.0016  time=0.9s  evals=12
+    Instance S1: cost=1321.644  OPTIMAL  valid=0.6833  time=0.2s  evals=12
+    Instance S2: cost=12323.023  OPTIMAL  valid=0.1817  time=0.1s  evals=12
+    Instance S3: cost=3927.866  OPTIMAL  valid=0.5220  time=0.2s  evals=12
+    Instance T1: cost=3611.981  OPTIMAL  valid=0.0399  time=0.3s  evals=12
+    Instance T2: cost=18874.387  OPTIMAL  valid=0.0285  time=0.3s  evals=12
+    Instance T3: cost=13458.699  OPTIMAL  valid=0.0032  time=0.3s  evals=12
+
+  Config 5/7: reps=5_COBYLA_maxiter=100
+    Instance A: cost=9947.085  OPTIMAL  valid=0.0103  time=10.5s  evals=100
+    Instance B: cost=9572.532  OPTIMAL  valid=0.0177  time=10.8s  evals=100
+    Instance C: cost=6013.839  OPTIMAL  valid=0.0837  time=11.0s  evals=100
+    Instance D: cost=3620.242  OPTIMAL  valid=0.0110  time=11.8s  evals=100
+    Instance E: cost=6180.703  OPTIMAL  valid=0.1270  time=10.7s  evals=100
+    Instance F: cost=6250.218  OPTIMAL  valid=0.1309  time=11.0s  evals=100
+    Instance G: cost=20344.013  OPTIMAL  valid=0.0349  time=11.6s  evals=100
+    Instance H: cost=17376.131  OPTIMAL  valid=0.0146  time=10.9s  evals=100
+    Instance I: cost=2751.863  OPTIMAL  valid=0.1910  time=11.0s  evals=100
+    Instance J: cost=14140.530  OPTIMAL  valid=0.1290  time=10.7s  evals=100
+    Instance K: cost=12112.874  OPTIMAL  valid=0.0346  time=10.6s  evals=100
+    Instance L: cost=13170.943  OPTIMAL  valid=0.1734  time=10.4s  evals=100
+    Instance M: cost=12286.228  OPTIMAL  valid=0.0061  time=11.9s  evals=100
+    Instance S1: cost=1321.644  OPTIMAL  valid=0.9848  time=1.6s  evals=100
+    Instance S2: cost=12323.023  OPTIMAL  valid=0.8317  time=1.4s  evals=100
+    Instance S3: cost=3927.866  OPTIMAL  valid=0.9293  time=1.6s  evals=100
+    Instance T1: cost=3611.981  OPTIMAL  valid=0.3852  time=3.8s  evals=100
+    Instance T2: cost=18874.387  OPTIMAL  valid=0.1071  time=3.1s  evals=100
+    Instance T3: cost=13458.699  OPTIMAL  valid=0.0372  time=3.4s  evals=100
+
+  Config 6/7: reps=2_COBYLA_maxiter=50
+    Instance A: cost=9947.085  OPTIMAL  valid=0.0212  time=10.8s  evals=150
+    Instance B: cost=9572.532  OPTIMAL  valid=0.0186  time=9.6s  evals=147
+    Instance C: cost=6013.839  OPTIMAL  valid=0.0308  time=11.8s  evals=141
+    Instance D: cost=3620.242  OPTIMAL  valid=0.0200  time=45.1s  evals=144
+    Instance E: cost=6180.703  OPTIMAL  valid=0.0248  time=10.8s  evals=149
+    Instance F: cost=6250.218  OPTIMAL  valid=0.0269  time=10.2s  evals=150
+    Instance G: cost=20344.013  OPTIMAL  valid=0.0388  time=9.8s  evals=141
+    Instance H: cost=17376.131  OPTIMAL  valid=0.0247  time=10.1s  evals=144
+    Instance I: cost=2751.863  OPTIMAL  valid=0.0295  time=11.1s  evals=141
+    Instance J: cost=14140.530  OPTIMAL  valid=0.0459  time=10.8s  evals=142
+    Instance K: cost=12112.874  OPTIMAL  valid=0.0314  time=11.2s  evals=148
+    Instance L: cost=13170.943  OPTIMAL  valid=0.0253  time=11.5s  evals=150
+    Instance M: cost=12286.228  OPTIMAL  valid=0.0425  time=10.7s  evals=147
+    Instance S1: cost=1321.644  OPTIMAL  valid=0.9561  time=1.8s  evals=150
+    Instance S2: cost=12323.023  OPTIMAL  valid=0.7250  time=1.8s  evals=148
+    Instance S3: cost=3927.866  OPTIMAL  valid=0.7016  time=1.8s  evals=150
+    Instance T1: cost=3611.981  OPTIMAL  valid=0.1403  time=3.2s  evals=148
+    Instance T2: cost=18874.387  OPTIMAL  valid=0.3566  time=3.3s  evals=150
+    Instance T3: cost=13458.699  OPTIMAL  valid=0.3802  time=3.4s  evals=150
+
+  Config 7/7: reps=5_COBYLA_maxiter=50
+    Instance A: cost=9947.085  OPTIMAL  valid=0.2762  time=16.5s  evals=150
+    Instance B: cost=9572.532  OPTIMAL  valid=0.1385  time=18.9s  evals=150
+    Instance C: cost=6013.839  OPTIMAL  valid=0.2861  time=17.7s  evals=150
+    Instance D: cost=3620.242  OPTIMAL  valid=0.0972  time=17.8s  evals=150
+    Instance E: cost=6180.703  OPTIMAL  valid=0.1555  time=17.0s  evals=150
+    Instance F: cost=6250.218  OPTIMAL  valid=0.3834  time=16.9s  evals=150
+    Instance G: cost=20344.013  OPTIMAL  valid=0.1266  time=17.7s  evals=150
+    Instance H: cost=17376.131  OPTIMAL  valid=0.0046  time=16.9s  evals=150
+    Instance I: cost=2751.863  OPTIMAL  valid=0.2876  time=17.3s  evals=150
+    Instance J: cost=14140.530  OPTIMAL  valid=0.2564  time=17.6s  evals=150
+    Instance K: cost=12112.874  OPTIMAL  valid=0.1570  time=16.9s  evals=150
+    Instance L: cost=13170.943  OPTIMAL  valid=0.1417  time=16.3s  evals=150
+    Instance M: cost=12286.228  OPTIMAL  valid=0.1069  time=16.9s  evals=150
+    Instance S1: cost=1321.644  OPTIMAL  valid=0.9829  time=2.0s  evals=150
+    Instance S2: cost=12323.023  OPTIMAL  valid=0.8098  time=2.1s  evals=150
+    Instance S3: cost=3927.866  OPTIMAL  valid=0.9419  time=2.1s  evals=150
+    Instance T1: cost=3611.981  OPTIMAL  valid=0.1059  time=4.2s  evals=150
+    Instance T2: cost=18874.387  OPTIMAL  valid=0.1011  time=4.4s  evals=150
+    Instance T3: cost=13458.699  OPTIMAL  valid=0.2459  time=4.3s  evals=150
+
+================================================================================
+PHASE 2: WARM-START (transfer gamma/beta from another instance)
+================================================================================
+
+  Config 1/7: reps=2_ADAM_maxiter=30
+    [1/36] D → E: cost=6180.703  OPTIMAL  valid=0.0008  time=0.5s  evals=6
+    [2/36] E → D: cost=3620.242  OPTIMAL  valid=0.0009  time=0.6s  evals=6
+    [3/36] D → F: cost=6250.218  OPTIMAL  valid=0.0008  time=0.5s  evals=6
+    [4/36] G → H: cost=17376.131  OPTIMAL  valid=0.0029  time=0.5s  evals=6
+    [5/36] H → G: cost=20344.013  OPTIMAL  valid=0.0025  time=0.5s  evals=6
+    [6/36] I → D: cost=3620.242  OPTIMAL  valid=0.0009  time=0.5s  evals=6
+    [7/36] D → G: cost=20344.013  OPTIMAL  valid=0.0025  time=0.5s  evals=6
+    [8/36] G → D: cost=3620.242  OPTIMAL  valid=0.0009  time=0.5s  evals=6
+    [9/36] I → J: cost=14140.530  OPTIMAL  valid=0.0015  time=0.5s  evals=6
+    [10/36] J → I: cost=2751.863  OPTIMAL  valid=0.0008  time=0.6s  evals=6
+    [11/36] F → J: cost=14140.530  OPTIMAL  valid=0.0015  time=0.5s  evals=6
+    [12/36] E → H: cost=17376.131  OPTIMAL  valid=0.0029  time=0.5s  evals=6
+    [13/36] A → B: cost=9572.532  OPTIMAL  valid=0.0013  time=0.6s  evals=6
+    [14/36] B → A: cost=9947.085  OPTIMAL  valid=0.0020  time=0.5s  evals=6
+    [15/36] A → D: cost=3620.242  OPTIMAL  valid=0.0009  time=0.5s  evals=6
+    [16/36] K → L: cost=13170.943  OPTIMAL  valid=0.0020  time=0.5s  evals=6
+    [17/36] L → M: cost=12286.228  OPTIMAL  valid=0.0016  time=0.5s  evals=6
+    [18/36] M → A: cost=9947.085  OPTIMAL  valid=0.0020  time=0.5s  evals=6
+    [19/36] I → K: cost=12112.874  OPTIMAL  valid=0.0020  time=0.5s  evals=6
+    [20/36] C → G: cost=20344.013  OPTIMAL  valid=0.0025  time=0.5s  evals=6
+    [21/36] S1 → S2: cost=12323.023  OPTIMAL  valid=0.0524  time=0.1s  evals=6
+    [22/36] S2 → S1: cost=1321.644  OPTIMAL  valid=0.3187  time=0.1s  evals=6
+    [23/36] S1 → S3: cost=3927.866  OPTIMAL  valid=0.2723  time=0.1s  evals=6
+    [24/36] S3 → S2: cost=12323.023  OPTIMAL  valid=0.0524  time=0.1s  evals=6
+    [25/36] T1 → T2: cost=18874.387  OPTIMAL  valid=0.0627  time=0.1s  evals=6
+    [26/36] T2 → T1: cost=3611.981  OPTIMAL  valid=0.0683  time=0.1s  evals=6
+    [27/36] T1 → T3: cost=13458.699  OPTIMAL  valid=0.0821  time=0.2s  evals=6
+    [28/36] T3 → T2: cost=18874.387  OPTIMAL  valid=0.0627  time=0.3s  evals=6
+    [29/36] S1 → T1: cost=3611.981  OPTIMAL  valid=0.0683  time=0.1s  evals=6
+    [30/36] S1 → D: cost=3620.242  OPTIMAL  valid=0.0009  time=0.5s  evals=6
+    [31/36] T1 → D: cost=3620.242  OPTIMAL  valid=0.0009  time=0.6s  evals=6
+    [32/36] T2 → G: cost=20344.013  OPTIMAL  valid=0.0025  time=0.6s  evals=6
+    [33/36] D → T1: cost=3611.981  OPTIMAL  valid=0.0683  time=0.1s  evals=6
+    [34/36] G → T2: cost=18874.387  OPTIMAL  valid=0.0627  time=0.1s  evals=6
+    [35/36] D → S1: cost=1321.644  OPTIMAL  valid=0.3187  time=0.1s  evals=6
+    [36/36] T1 → S1: cost=1321.644  OPTIMAL  valid=0.3187  time=0.1s  evals=6
+
+  Config 2/7: reps=5_ADAM_maxiter=30
+    [1/36] D → E: cost=6180.703  OPTIMAL  valid=0.0054  time=1.5s  evals=12
+    [2/36] E → D: cost=3620.242  OPTIMAL  valid=0.0054  time=1.3s  evals=12
+    [3/36] D → F: cost=6250.218  OPTIMAL  valid=0.0058  time=1.3s  evals=12
+    [4/36] G → H: cost=17376.131  OPTIMAL  valid=0.0019  time=1.5s  evals=12
+    [5/36] H → G: cost=20344.013  OPTIMAL  valid=0.0012  time=1.5s  evals=12
+    [6/36] I → D: cost=3620.242  OPTIMAL  valid=0.0054  time=1.3s  evals=12
+    [7/36] D → G: cost=20344.013  OPTIMAL  valid=0.0012  time=1.4s  evals=12
+    [8/36] G → D: cost=3620.242  OPTIMAL  valid=0.0054  time=1.7s  evals=12
+    [9/36] I → J: cost=14140.530  OPTIMAL  valid=0.0031  time=1.3s  evals=12
+    [10/36] J → I: cost=2751.863  OPTIMAL  valid=0.0056  time=1.2s  evals=12
+    [11/36] F → J: cost=14140.530  OPTIMAL  valid=0.0031  time=1.4s  evals=12
+    [12/36] E → H: cost=17376.131  OPTIMAL  valid=0.0019  time=1.2s  evals=12
+    [13/36] A → B: cost=9572.532  OPTIMAL  valid=0.0046  time=1.3s  evals=12
+    [14/36] B → A: cost=9947.085  OPTIMAL  valid=0.0050  time=1.4s  evals=12
+    [15/36] A → D: cost=3620.242  OPTIMAL  valid=0.0054  time=1.5s  evals=12
+    [16/36] K → L: cost=13170.943  OPTIMAL  valid=0.0029  time=1.3s  evals=12
+    [17/36] L → M: cost=12286.228  OPTIMAL  valid=0.0017  time=1.4s  evals=12
+    [18/36] M → A: cost=9947.085  OPTIMAL  valid=0.0050  time=1.3s  evals=12
+    [19/36] I → K: cost=12112.874  OPTIMAL  valid=0.0030  time=1.4s  evals=12
+    [20/36] C → G: cost=20344.013  OPTIMAL  valid=0.0012  time=1.3s  evals=12
+    [21/36] S1 → S2: cost=12323.023  OPTIMAL  valid=0.3484  time=0.2s  evals=12
+    [22/36] S2 → S1: cost=1321.644  OPTIMAL  valid=0.1640  time=0.1s  evals=12
+    [23/36] S1 → S3: cost=3927.866  OPTIMAL  valid=0.0900  time=0.2s  evals=12
+    [24/36] S3 → S2: cost=12323.023  OPTIMAL  valid=0.3484  time=0.2s  evals=12
+    [25/36] T1 → T2: cost=18874.387  OPTIMAL  valid=0.0168  time=0.4s  evals=12
+    [26/36] T2 → T1: cost=3611.981  OPTIMAL  valid=0.0139  time=0.3s  evals=12
+    [27/36] T1 → T3: cost=13458.699  OPTIMAL  valid=0.0378  time=0.4s  evals=12
+    [28/36] T3 → T2: cost=18874.387  OPTIMAL  valid=0.0168  time=0.3s  evals=12
+    [29/36] S1 → T1: cost=3611.981  OPTIMAL  valid=0.0139  time=0.4s  evals=12
+    [30/36] S1 → D: cost=3620.242  OPTIMAL  valid=0.0054  time=1.3s  evals=12
+    [31/36] T1 → D: cost=3620.242  OPTIMAL  valid=0.0054  time=1.2s  evals=12
+    [32/36] T2 → G: cost=20344.013  OPTIMAL  valid=0.0012  time=1.3s  evals=12
+    [33/36] D → T1: cost=3611.981  OPTIMAL  valid=0.0139  time=0.4s  evals=12
+    [34/36] G → T2: cost=18874.387  OPTIMAL  valid=0.0168  time=0.4s  evals=12
+    [35/36] D → S1: cost=1321.644  OPTIMAL  valid=0.1640  time=0.2s  evals=12
+    [36/36] T1 → S1: cost=1321.644  OPTIMAL  valid=0.1640  time=0.2s  evals=12
+
+  Config 3/7: reps=2_COBYLA_maxiter=100
+    [1/36] D → E: cost=6180.703  OPTIMAL  valid=0.0013  time=4.0s  evals=54
+    [2/36] E → D: cost=3620.242  OPTIMAL  valid=0.0049  time=3.6s  evals=47
+    [3/36] D → F: cost=6250.218  OPTIMAL  valid=0.0015  time=2.8s  evals=39
+    [4/36] G → H: cost=17376.131  OPTIMAL  valid=0.0025  time=3.4s  evals=46
+    [5/36] H → G: cost=20344.013  OPTIMAL  valid=0.0045  time=3.3s  evals=46
+    [6/36] I → D: cost=3620.242  OPTIMAL  valid=0.0052  time=3.1s  evals=42
+    [7/36] D → G: cost=20344.013  OPTIMAL  valid=0.0021  time=3.2s  evals=54
+    [8/36] G → D: cost=3620.242  OPTIMAL  valid=0.0232  time=4.1s  evals=60
+    [9/36] I → J: cost=14140.530  OPTIMAL  valid=0.0005  time=3.6s  evals=50
+    [10/36] J → I: cost=2751.863  OPTIMAL  valid=0.0229  time=3.7s  evals=52
+    [11/36] F → J: cost=14140.530  OPTIMAL  valid=0.0002  time=3.0s  evals=40
+    [12/36] E → H: cost=17376.131  OPTIMAL  valid=0.0022  time=3.4s  evals=48
+    [13/36] A → B: cost=9572.532  OPTIMAL  valid=0.0001  time=3.3s  evals=45
+    [14/36] B → A: cost=9947.085  OPTIMAL  valid=0.0001  time=3.0s  evals=41
+    [15/36] A → D: cost=3620.242  OPTIMAL  valid=0.0025  time=3.1s  evals=42
+    [16/36] K → L: cost=13170.943  OPTIMAL  valid=0.0323  time=4.1s  evals=64
+    [17/36] L → M: cost=12286.228  OPTIMAL  valid=0.0048  time=3.1s  evals=42
+    [18/36] M → A: cost=9947.085  OPTIMAL  valid=0.0218  time=3.6s  evals=59
+    [19/36] I → K: cost=12112.874  OPTIMAL  valid=0.0032  time=3.6s  evals=50
+    [20/36] C → G: cost=20344.013  OPTIMAL  valid=0.0152  time=4.2s  evals=65
+    [21/36] S1 → S2: cost=12323.023  OPTIMAL  valid=0.7409  time=0.6s  evals=52
+    [22/36] S2 → S1: cost=1321.644  OPTIMAL  valid=0.9061  time=0.5s  evals=46
+    [23/36] S1 → S3: cost=3927.866  OPTIMAL  valid=0.7086  time=0.6s  evals=55
+    [24/36] S3 → S2: cost=12323.023  OPTIMAL  valid=0.7127  time=0.5s  evals=49
+    [25/36] T1 → T2: cost=18874.387  OPTIMAL  valid=0.0058  time=1.1s  evals=49
+    [26/36] T2 → T1: cost=3611.981  OPTIMAL  valid=0.2154  time=1.2s  evals=60
+    [27/36] T1 → T3: cost=13458.699  OPTIMAL  valid=0.2773  time=1.0s  evals=50
+    [28/36] T3 → T2: cost=18874.387  OPTIMAL  valid=0.3276  time=1.1s  evals=53
+    [29/36] S1 → T1: cost=3611.981  OPTIMAL  valid=0.1311  time=1.3s  evals=62
+    [30/36] S1 → D: cost=3620.242  OPTIMAL  valid=0.1157  time=4.3s  evals=70
+    [31/36] T1 → D: cost=3620.242  OPTIMAL  valid=0.0004  time=2.8s  evals=49
+    [32/36] T2 → G: cost=20344.013  OPTIMAL  valid=0.0401  time=4.0s  evals=64
+    [33/36] D → T1: cost=3611.981  OPTIMAL  valid=0.2416  time=0.9s  evals=47
+    [34/36] G → T2: cost=18874.387  OPTIMAL  valid=0.0744  time=1.1s  evals=53
+    [35/36] D → S1: cost=1321.644  OPTIMAL  valid=0.6503  time=0.6s  evals=57
+    [36/36] T1 → S1: cost=1321.644  OPTIMAL  valid=0.8298  time=0.7s  evals=55
+
+  Config 4/7: reps=2_ADAM_maxiter=80
+    [1/36] D → E: cost=6180.703  OPTIMAL  valid=0.0008  time=0.9s  evals=12
+    [2/36] E → D: cost=3620.242  OPTIMAL  valid=0.0009  time=1.0s  evals=12
+    [3/36] D → F: cost=6250.218  OPTIMAL  valid=0.0008  time=1.0s  evals=12
+    [4/36] G → H: cost=17376.131  OPTIMAL  valid=0.0029  time=1.0s  evals=12
+    [5/36] H → G: cost=20344.013  OPTIMAL  valid=0.0025  time=0.8s  evals=12
+    [6/36] I → D: cost=3620.242  OPTIMAL  valid=0.0009  time=0.9s  evals=12
+    [7/36] D → G: cost=20344.013  OPTIMAL  valid=0.0025  time=1.0s  evals=12
+    [8/36] G → D: cost=3620.242  OPTIMAL  valid=0.0009  time=0.9s  evals=12
+    [9/36] I → J: cost=14140.530  OPTIMAL  valid=0.0015  time=0.9s  evals=12
+    [10/36] J → I: cost=2751.863  OPTIMAL  valid=0.0008  time=1.0s  evals=12
+    [11/36] F → J: cost=14140.530  OPTIMAL  valid=0.0015  time=0.9s  evals=12
+    [12/36] E → H: cost=17376.131  OPTIMAL  valid=0.0029  time=0.9s  evals=12
+    [13/36] A → B: cost=9572.532  OPTIMAL  valid=0.0013  time=0.9s  evals=12
+    [14/36] B → A: cost=9947.085  OPTIMAL  valid=0.0020  time=0.9s  evals=12
+    [15/36] A → D: cost=3620.242  OPTIMAL  valid=0.0009  time=0.9s  evals=12
+    [16/36] K → L: cost=13170.943  OPTIMAL  valid=0.0020  time=1.0s  evals=12
+    [17/36] L → M: cost=12286.228  OPTIMAL  valid=0.0016  time=0.9s  evals=12
+    [18/36] M → A: cost=9947.085  OPTIMAL  valid=0.0020  time=0.9s  evals=12
+    [19/36] I → K: cost=12112.874  OPTIMAL  valid=0.0020  time=0.9s  evals=12
+    [20/36] C → G: cost=20344.013  OPTIMAL  valid=0.0025  time=0.8s  evals=12
+    [21/36] S1 → S2: cost=12323.023  OPTIMAL  valid=0.1817  time=0.1s  evals=12
+    [22/36] S2 → S1: cost=1321.644  OPTIMAL  valid=0.6833  time=0.1s  evals=12
+    [23/36] S1 → S3: cost=3927.866  OPTIMAL  valid=0.5220  time=0.1s  evals=12
+    [24/36] S3 → S2: cost=12323.023  OPTIMAL  valid=0.1817  time=0.1s  evals=12
+    [25/36] T1 → T2: cost=18874.387  OPTIMAL  valid=0.0285  time=0.2s  evals=12
+    [26/36] T2 → T1: cost=3611.981  OPTIMAL  valid=0.0399  time=0.2s  evals=12
+    [27/36] T1 → T3: cost=13458.699  OPTIMAL  valid=0.0032  time=0.3s  evals=12
+    [28/36] T3 → T2: cost=18874.387  OPTIMAL  valid=0.0285  time=0.3s  evals=12
+    [29/36] S1 → T1: cost=3611.981  OPTIMAL  valid=0.0399  time=0.2s  evals=12
+    [30/36] S1 → D: cost=3620.242  OPTIMAL  valid=0.0009  time=0.8s  evals=12
+    [31/36] T1 → D: cost=3620.242  OPTIMAL  valid=0.0009  time=0.9s  evals=12
+    [32/36] T2 → G: cost=20344.013  OPTIMAL  valid=0.0025  time=0.9s  evals=12
+    [33/36] D → T1: cost=3611.981  OPTIMAL  valid=0.0683  time=0.2s  evals=12
+    [34/36] G → T2: cost=18874.387  OPTIMAL  valid=0.0627  time=0.2s  evals=12
+    [35/36] D → S1: cost=1321.644  OPTIMAL  valid=0.3187  time=0.2s  evals=12
+    [36/36] T1 → S1: cost=1321.644  OPTIMAL  valid=0.6833  time=0.1s  evals=12
+
+  Config 5/7: reps=5_COBYLA_maxiter=100
+    [1/36] D → E: cost=6180.703  OPTIMAL  valid=0.0044  time=11.0s  evals=100
+    [2/36] E → D: cost=3620.242  OPTIMAL  valid=0.2129  time=9.4s  evals=100
+    [3/36] D → F: cost=6250.218  OPTIMAL  valid=0.0112  time=11.2s  evals=100
+    [4/36] G → H: cost=17376.131  OPTIMAL  valid=0.0451  time=9.7s  evals=92
+    [5/36] H → G: cost=20344.013  OPTIMAL  valid=0.0231  time=10.0s  evals=96
+    [6/36] I → D: cost=3620.242  OPTIMAL  valid=0.1830  time=8.6s  evals=90
+    [7/36] D → G: cost=20344.013  OPTIMAL  valid=0.0059  time=10.8s  evals=100
+    [8/36] G → D: cost=3620.242  OPTIMAL  valid=0.0837  time=10.1s  evals=100
+    [9/36] I → J: cost=14140.530  OPTIMAL  valid=0.1865  time=9.8s  evals=100
+    [10/36] J → I: cost=2751.863  OPTIMAL  valid=0.1068  time=9.6s  evals=99
+    [11/36] F → J: cost=14140.530  OPTIMAL  valid=0.1676  time=10.2s  evals=100
+    [12/36] E → H: cost=17376.131  OPTIMAL  valid=0.0869  time=9.6s  evals=100
+    [13/36] A → B: cost=9572.532  OPTIMAL  valid=0.0124  time=9.6s  evals=99
+    [14/36] B → A: cost=9947.085  OPTIMAL  valid=0.0975  time=10.1s  evals=100
+    [15/36] A → D: cost=3620.242  OPTIMAL  valid=0.0138  time=9.3s  evals=95
+    [16/36] K → L: cost=13170.943  OPTIMAL  valid=0.0330  time=9.6s  evals=97
+    [17/36] L → M: cost=12286.228  OPTIMAL  valid=0.1143  time=9.3s  evals=93
+    [18/36] M → A: cost=9947.085  OPTIMAL  valid=0.0131  time=10.7s  evals=100
+    [19/36] I → K: cost=12112.874  OPTIMAL  valid=0.1581  time=11.1s  evals=96
+    [20/36] C → G: cost=20344.013  OPTIMAL  valid=0.0381  time=12.0s  evals=100
+    [21/36] S1 → S2: cost=12323.023  OPTIMAL  valid=0.8731  time=1.4s  evals=100
+    [22/36] S2 → S1: cost=1321.644  OPTIMAL  valid=0.9412  time=1.4s  evals=100
+    [23/36] S1 → S3: cost=3927.866  OPTIMAL  valid=0.9384  time=1.3s  evals=100
+    [24/36] S3 → S2: cost=12323.023  OPTIMAL  valid=0.6885  time=1.4s  evals=100
+    [25/36] T1 → T2: cost=18874.387  OPTIMAL  valid=0.1437  time=3.0s  evals=100
+    [26/36] T2 → T1: cost=3611.981  OPTIMAL  valid=0.2915  time=2.8s  evals=100
+    [27/36] T1 → T3: cost=13458.699  OPTIMAL  valid=0.1212  time=3.0s  evals=100
+    [28/36] T3 → T2: cost=18874.387  OPTIMAL  valid=0.2684  time=2.6s  evals=100
+    [29/36] S1 → T1: cost=3611.981  OPTIMAL  valid=0.7640  time=2.8s  evals=100
+    [30/36] S1 → D: cost=3620.242  OPTIMAL  valid=0.2133  time=10.6s  evals=100
+    [31/36] T1 → D: cost=3620.242  OPTIMAL  valid=0.0113  time=11.1s  evals=100
+    [32/36] T2 → G: cost=20344.013  OPTIMAL  valid=0.0163  time=10.6s  evals=100
+    [33/36] D → T1: cost=3611.981  OPTIMAL  valid=0.0618  time=2.9s  evals=100
+    [34/36] G → T2: cost=18874.387  OPTIMAL  valid=0.1223  time=3.0s  evals=100
+    [35/36] D → S1: cost=1321.644  OPTIMAL  valid=0.9260  time=1.4s  evals=100
+    [36/36] T1 → S1: cost=1321.644  OPTIMAL  valid=0.9741  time=1.3s  evals=100
+
+  Config 6/7: reps=2_COBYLA_maxiter=50
+    [1/36] D → E: cost=6180.703  OPTIMAL  valid=0.0248  time=10.3s  evals=145
+    [2/36] E → D: cost=3620.242  OPTIMAL  valid=0.0267  time=9.8s  evals=143
+    [3/36] D → F: cost=6250.218  OPTIMAL  valid=0.0204  time=10.4s  evals=149
+    [4/36] G → H: cost=17376.131  OPTIMAL  valid=0.0398  time=9.7s  evals=138
+    [5/36] H → G: cost=20344.013  OPTIMAL  valid=0.0388  time=9.9s  evals=144
+    [6/36] I → D: cost=3620.242  OPTIMAL  valid=0.0252  time=9.6s  evals=143
+    [7/36] D → G: cost=20344.013  OPTIMAL  valid=0.0388  time=10.0s  evals=144
+    [8/36] G → D: cost=3620.242  OPTIMAL  valid=0.0331  time=10.5s  evals=135
+    [9/36] I → J: cost=14140.530  OPTIMAL  valid=0.0459  time=10.4s  evals=139
+    [10/36] J → I: cost=2751.863  OPTIMAL  valid=0.0315  time=10.5s  evals=142
+    [11/36] F → J: cost=14140.530  OPTIMAL  valid=0.0459  time=10.2s  evals=140
+    [12/36] E → H: cost=17376.131  OPTIMAL  valid=0.0189  time=9.7s  evals=137
+    [13/36] A → B: cost=9572.532  OPTIMAL  valid=0.0280  time=10.3s  evals=143
+    [14/36] B → A: cost=9947.085  OPTIMAL  valid=0.0212  time=10.7s  evals=146
+    [15/36] A → D: cost=3620.242  OPTIMAL  valid=0.0287  time=10.1s  evals=141
+    [16/36] K → L: cost=13170.943  OPTIMAL  valid=0.0345  time=10.0s  evals=145
+    [17/36] L → M: cost=12286.228  OPTIMAL  valid=0.0211  time=9.2s  evals=140
+    [18/36] M → A: cost=9947.085  OPTIMAL  valid=0.0212  time=9.8s  evals=143
+    [19/36] I → K: cost=12112.874  OPTIMAL  valid=0.0314  time=9.8s  evals=143
+    [20/36] C → G: cost=20344.013  OPTIMAL  valid=0.0388  time=9.3s  evals=137
+    [21/36] S1 → S2: cost=12323.023  OPTIMAL  valid=0.7250  time=1.7s  evals=150
+    [22/36] S2 → S1: cost=1321.644  OPTIMAL  valid=0.9579  time=1.7s  evals=150
+    [23/36] S1 → S3: cost=3927.866  OPTIMAL  valid=0.7415  time=1.7s  evals=150
+    [24/36] S3 → S2: cost=12323.023  OPTIMAL  valid=0.7229  time=1.7s  evals=150
+    [25/36] T1 → T2: cost=18874.387  OPTIMAL  valid=0.1923  time=3.0s  evals=148
+    [26/36] T2 → T1: cost=3611.981  OPTIMAL  valid=0.1711  time=3.0s  evals=148
+    [27/36] T1 → T3: cost=13458.699  OPTIMAL  valid=0.2201  time=2.9s  evals=150
+    [28/36] T3 → T2: cost=18874.387  OPTIMAL  valid=0.3230  time=3.0s  evals=150
+    [29/36] S1 → T1: cost=3611.981  OPTIMAL  valid=0.2505  time=2.9s  evals=148
+    [30/36] S1 → D: cost=3620.242  OPTIMAL  valid=0.1379  time=9.7s  evals=144
+    [31/36] T1 → D: cost=3620.242  OPTIMAL  valid=0.0990  time=9.7s  evals=144
+    [32/36] T2 → G: cost=20344.013  OPTIMAL  valid=0.0603  time=9.8s  evals=144
+    [33/36] D → T1: cost=3611.981  OPTIMAL  valid=0.1944  time=3.2s  evals=148
+    [34/36] G → T2: cost=18874.387  OPTIMAL  valid=0.1923  time=3.2s  evals=145
+    [35/36] D → S1: cost=1321.644  OPTIMAL  valid=0.9561  time=1.8s  evals=150
+    [36/36] T1 → S1: cost=1321.644  OPTIMAL  valid=0.9561  time=1.8s  evals=150
+
+  Config 7/7: reps=5_COBYLA_maxiter=50
+    [1/36] D → E: cost=6180.703  OPTIMAL  valid=0.1910  time=17.3s  evals=150
+    [2/36] E → D: cost=3620.242  OPTIMAL  valid=0.2018  time=16.6s  evals=150
+    [3/36] D → F: cost=6250.218  OPTIMAL  valid=0.2871  time=16.0s  evals=150
+    [4/36] G → H: cost=17376.131  OPTIMAL  valid=0.2678  time=17.3s  evals=150
+    [5/36] H → G: cost=20344.013  OPTIMAL  valid=0.0521  time=17.8s  evals=150
+    [6/36] I → D: cost=3620.242  OPTIMAL  valid=0.3532  time=16.2s  evals=150
+    [7/36] D → G: cost=20344.013  OPTIMAL  valid=0.2182  time=16.3s  evals=150
+    [8/36] G → D: cost=3620.242  OPTIMAL  valid=0.2381  time=17.1s  evals=150
+    [9/36] I → J: cost=14140.530  OPTIMAL  valid=0.3793  time=16.1s  evals=150
+    [10/36] J → I: cost=2751.863  OPTIMAL  valid=0.3950  time=15.8s  evals=150
+    [11/36] F → J: cost=14140.530  OPTIMAL  valid=0.3759  time=16.3s  evals=150
+    [12/36] E → H: cost=17376.131  OPTIMAL  valid=0.3258  time=16.4s  evals=150
+    [13/36] A → B: cost=9572.532  OPTIMAL  valid=0.2051  time=16.1s  evals=150
+    [14/36] B → A: cost=9947.085  OPTIMAL  valid=0.2762  time=15.7s  evals=150
+    [15/36] A → D: cost=3620.242  OPTIMAL  valid=0.3241  time=16.8s  evals=150
+    [16/36] K → L: cost=13170.943  OPTIMAL  valid=0.2941  time=15.5s  evals=150
+    [17/36] L → M: cost=12286.228  OPTIMAL  valid=0.1623  time=16.0s  evals=150
+    [18/36] M → A: cost=9947.085  OPTIMAL  valid=0.2762  time=14.4s  evals=150
+    [19/36] I → K: cost=12112.874  OPTIMAL  valid=0.4280  time=14.3s  evals=150
+    [20/36] C → G: cost=20344.013  OPTIMAL  valid=0.4063  time=16.5s  evals=150
+    [21/36] S1 → S2: cost=12323.023  OPTIMAL  valid=0.8010  time=1.9s  evals=150
+    [22/36] S2 → S1: cost=1321.644  OPTIMAL  valid=0.9829  time=2.0s  evals=150
+    [23/36] S1 → S3: cost=3927.866  OPTIMAL  valid=0.9544  time=1.9s  evals=150
+    [24/36] S3 → S2: cost=12323.023  OPTIMAL  valid=0.8675  time=1.9s  evals=150
+    [25/36] T1 → T2: cost=18874.387  OPTIMAL  valid=0.1650  time=4.2s  evals=150
+    [26/36] T2 → T1: cost=3611.981  OPTIMAL  valid=0.4621  time=4.3s  evals=150
+    [27/36] T1 → T3: cost=13458.699  OPTIMAL  valid=0.3988  time=4.3s  evals=150
+    [28/36] T3 → T2: cost=18874.387  OPTIMAL  valid=0.1011  time=4.4s  evals=150
+    [29/36] S1 → T1: cost=3611.981  OPTIMAL  valid=0.2210  time=4.4s  evals=150
+    [30/36] S1 → D: cost=3620.242  OPTIMAL  valid=0.1160  time=16.7s  evals=150
+    [31/36] T1 → D: cost=3620.242  OPTIMAL  valid=0.0943  time=16.6s  evals=150
+    [32/36] T2 → G: cost=20344.013  OPTIMAL  valid=0.0063  time=16.2s  evals=150
+    [33/36] D → T1: cost=3611.981  OPTIMAL  valid=0.4403  time=4.1s  evals=150
+    [34/36] G → T2: cost=18874.387  OPTIMAL  valid=0.0917  time=4.4s  evals=150
+    [35/36] D → S1: cost=1321.644  OPTIMAL  valid=0.9829  time=2.0s  evals=150
+    [36/36] T1 → S1: cost=1321.644  OPTIMAL  valid=0.9829  time=1.9s  evals=150
+
+================================================================================
+SUMMARY: COLD vs WARM
+================================================================================
+
+  Config: reps=2_ADAM_maxiter=30
+  Target        Cold Cost   Cold Gap  Cold Time    Warm Cost   Warm Gap  Warm Time   Source
+  ----------------------------------------------------------------------------------
+  A              9947.085        OPT       0.5s     9947.085        OPT       0.5s        B
+  B              9572.532        OPT       0.5s     9572.532        OPT       0.6s        A
+  D              3620.242        OPT       0.5s     3620.242        OPT       0.6s        E
+  E              6180.703        OPT       0.5s     6180.703        OPT       0.5s        D
+  F              6250.218        OPT       0.6s     6250.218        OPT       0.5s        D
+  G             20344.013        OPT       0.5s    20344.013        OPT       0.5s        H
+  H             17376.131        OPT       0.5s    17376.131        OPT       0.5s        G
+  I              2751.863        OPT       0.5s     2751.863        OPT       0.6s        J
+  J             14140.530        OPT       0.5s    14140.530        OPT       0.5s        I
+  K             12112.874        OPT       0.5s    12112.874        OPT       0.5s        I
+  L             13170.943        OPT       0.5s    13170.943        OPT       0.5s        K
+  M             12286.228        OPT       0.5s    12286.228        OPT       0.5s        L
+  S1             1321.644        OPT       0.1s     1321.644        OPT       0.1s       S2
+  S2            12323.023        OPT       0.1s    12323.023        OPT       0.1s       S1
+  S3             3927.866        OPT       0.1s     3927.866        OPT       0.1s       S1
+  T1             3611.981        OPT       0.2s     3611.981        OPT       0.1s       T2
+  T2            18874.387        OPT       0.1s    18874.387        OPT       0.1s       T1
+  T3            13458.699        OPT       0.2s    13458.699        OPT       0.2s       T1
+
+  Config: reps=5_ADAM_maxiter=30
+  Target        Cold Cost   Cold Gap  Cold Time    Warm Cost   Warm Gap  Warm Time   Source
+  ----------------------------------------------------------------------------------
+  A              9947.085        OPT       1.3s     9947.085        OPT       1.4s        B
+  B              9572.532        OPT       1.3s     9572.532        OPT       1.3s        A
+  D              3620.242        OPT       1.4s     3620.242        OPT       1.3s        E
+  E              6180.703        OPT       1.4s     6180.703        OPT       1.5s        D
+  F              6250.218        OPT       1.4s     6250.218        OPT       1.3s        D
+  G             20344.013        OPT       1.4s    20344.013        OPT       1.5s        H
+  H             17376.131        OPT       1.5s    17376.131        OPT       1.5s        G
+  I              2751.863        OPT       1.4s     2751.863        OPT       1.2s        J
+  J             14140.530        OPT       1.5s    14140.530        OPT       1.3s        I
+  K             12112.874        OPT       1.4s    12112.874        OPT       1.4s        I
+  L             13170.943        OPT       1.4s    13170.943        OPT       1.3s        K
+  M             12286.228        OPT       1.4s    12286.228        OPT       1.4s        L
+  S1             1321.644        OPT       0.2s     1321.644        OPT       0.1s       S2
+  S2            12323.023        OPT       0.2s    12323.023        OPT       0.2s       S1
+  S3             3927.866        OPT       0.1s     3927.866        OPT       0.2s       S1
+  T1             3611.981        OPT       0.4s     3611.981        OPT       0.3s       T2
+  T2            18874.387        OPT       0.4s    18874.387        OPT       0.4s       T1
+  T3            13458.699        OPT       0.3s    13458.699        OPT       0.4s       T1
+
+  Config: reps=2_COBYLA_maxiter=100
+  Target        Cold Cost   Cold Gap  Cold Time    Warm Cost   Warm Gap  Warm Time   Source
+  ----------------------------------------------------------------------------------
+  A             11102.844      11.6%       3.9s     9947.085        OPT       3.0s        B
+  B              9572.532        OPT       4.2s     9572.532        OPT       3.3s        A
+  D              3620.242        OPT       3.5s     3620.242        OPT       3.6s        E
+  E              6180.703        OPT       3.8s     6180.703        OPT       4.0s        D
+  F              6259.608       0.2%       4.2s     6250.218        OPT       2.8s        D
+  G             20344.013        OPT       3.6s    20344.013        OPT       3.3s        H
+  H             17376.131        OPT       3.5s    17376.131        OPT       3.4s        G
+  I              2751.863        OPT       3.5s     2751.863        OPT       3.7s        J
+  J             14140.530        OPT       3.3s    14140.530        OPT       3.6s        I
+  K             12112.874        OPT       3.9s    12112.874        OPT       3.6s        I
+  L             13170.943        OPT       4.0s    13170.943        OPT       4.1s        K
+  M             12286.228        OPT       3.7s    12286.228        OPT       3.1s        L
+  S1             1321.644        OPT       0.6s     1321.644        OPT       0.5s       S2
+  S2            12323.023        OPT       0.6s    12323.023        OPT       0.6s       S1
+  S3             3927.866        OPT       0.6s     3927.866        OPT       0.6s       S1
+  T1             3611.981        OPT       1.1s     3611.981        OPT       1.2s       T2
+  T2            18874.387        OPT       1.2s    18874.387        OPT       1.1s       T1
+  T3            13458.699        OPT       1.2s    13458.699        OPT       1.0s       T1
+
+  Config: reps=2_ADAM_maxiter=80
+  Target        Cold Cost   Cold Gap  Cold Time    Warm Cost   Warm Gap  Warm Time   Source
+  ----------------------------------------------------------------------------------
+  A              9947.085        OPT       1.0s     9947.085        OPT       0.9s        B
+  B              9572.532        OPT       1.0s     9572.532        OPT       0.9s        A
+  D              3620.242        OPT       0.9s     3620.242        OPT       1.0s        E
+  E              6180.703        OPT       0.9s     6180.703        OPT       0.9s        D
+  F              6250.218        OPT       1.0s     6250.218        OPT       1.0s        D
+  G             20344.013        OPT       0.9s    20344.013        OPT       0.8s        H
+  H             17376.131        OPT       0.9s    17376.131        OPT       1.0s        G
+  I              2751.863        OPT       1.0s     2751.863        OPT       1.0s        J
+  J             14140.530        OPT       0.9s    14140.530        OPT       0.9s        I
+  K             12112.874        OPT       1.0s    12112.874        OPT       0.9s        I
+  L             13170.943        OPT       1.0s    13170.943        OPT       1.0s        K
+  M             12286.228        OPT       0.9s    12286.228        OPT       0.9s        L
+  S1             1321.644        OPT       0.2s     1321.644        OPT       0.1s       S2
+  S2            12323.023        OPT       0.1s    12323.023        OPT       0.1s       S1
+  S3             3927.866        OPT       0.2s     3927.866        OPT       0.1s       S1
+  T1             3611.981        OPT       0.3s     3611.981        OPT       0.2s       T2
+  T2            18874.387        OPT       0.3s    18874.387        OPT       0.2s       T1
+  T3            13458.699        OPT       0.3s    13458.699        OPT       0.3s       T1
+
+  Config: reps=5_COBYLA_maxiter=100
+  Target        Cold Cost   Cold Gap  Cold Time    Warm Cost   Warm Gap  Warm Time   Source
+  ----------------------------------------------------------------------------------
+  A              9947.085        OPT      10.5s     9947.085        OPT      10.1s        B
+  B              9572.532        OPT      10.8s     9572.532        OPT       9.6s        A
+  D              3620.242        OPT      11.8s     3620.242        OPT       9.4s        E
+  E              6180.703        OPT      10.7s     6180.703        OPT      11.0s        D
+  F              6250.218        OPT      11.0s     6250.218        OPT      11.2s        D
+  G             20344.013        OPT      11.6s    20344.013        OPT      10.0s        H
+  H             17376.131        OPT      10.9s    17376.131        OPT       9.7s        G
+  I              2751.863        OPT      11.0s     2751.863        OPT       9.6s        J
+  J             14140.530        OPT      10.7s    14140.530        OPT       9.8s        I
+  K             12112.874        OPT      10.6s    12112.874        OPT      11.1s        I
+  L             13170.943        OPT      10.4s    13170.943        OPT       9.6s        K
+  M             12286.228        OPT      11.9s    12286.228        OPT       9.3s        L
+  S1             1321.644        OPT       1.6s     1321.644        OPT       1.4s       S2
+  S2            12323.023        OPT       1.4s    12323.023        OPT       1.4s       S1
+  S3             3927.866        OPT       1.6s     3927.866        OPT       1.3s       S1
+  T1             3611.981        OPT       3.8s     3611.981        OPT       2.8s       T2
+  T2            18874.387        OPT       3.1s    18874.387        OPT       3.0s       T1
+  T3            13458.699        OPT       3.4s    13458.699        OPT       3.0s       T1
+
+  Config: reps=2_COBYLA_maxiter=50
+  Target        Cold Cost   Cold Gap  Cold Time    Warm Cost   Warm Gap  Warm Time   Source
+  ----------------------------------------------------------------------------------
+  A              9947.085        OPT      10.8s     9947.085        OPT      10.7s        B
+  B              9572.532        OPT       9.6s     9572.532        OPT      10.3s        A
+  D              3620.242        OPT      45.1s     3620.242        OPT       9.8s        E
+  E              6180.703        OPT      10.8s     6180.703        OPT      10.3s        D
+  F              6250.218        OPT      10.2s     6250.218        OPT      10.4s        D
+  G             20344.013        OPT       9.8s    20344.013        OPT       9.9s        H
+  H             17376.131        OPT      10.1s    17376.131        OPT       9.7s        G
+  I              2751.863        OPT      11.1s     2751.863        OPT      10.5s        J
+  J             14140.530        OPT      10.8s    14140.530        OPT      10.4s        I
+  K             12112.874        OPT      11.2s    12112.874        OPT       9.8s        I
+  L             13170.943        OPT      11.5s    13170.943        OPT      10.0s        K
+  M             12286.228        OPT      10.7s    12286.228        OPT       9.2s        L
+  S1             1321.644        OPT       1.8s     1321.644        OPT       1.7s       S2
+  S2            12323.023        OPT       1.8s    12323.023        OPT       1.7s       S1
+  S3             3927.866        OPT       1.8s     3927.866        OPT       1.7s       S1
+  T1             3611.981        OPT       3.2s     3611.981        OPT       3.0s       T2
+  T2            18874.387        OPT       3.3s    18874.387        OPT       3.0s       T1
+  T3            13458.699        OPT       3.4s    13458.699        OPT       2.9s       T1
+
+  Config: reps=5_COBYLA_maxiter=50
+  Target        Cold Cost   Cold Gap  Cold Time    Warm Cost   Warm Gap  Warm Time   Source
+  ----------------------------------------------------------------------------------
+  A              9947.085        OPT      16.5s     9947.085        OPT      15.7s        B
+  B              9572.532        OPT      18.9s     9572.532        OPT      16.1s        A
+  D              3620.242        OPT      17.8s     3620.242        OPT      16.6s        E
+  E              6180.703        OPT      17.0s     6180.703        OPT      17.3s        D
+  F              6250.218        OPT      16.9s     6250.218        OPT      16.0s        D
+  G             20344.013        OPT      17.7s    20344.013        OPT      17.8s        H
+  H             17376.131        OPT      16.9s    17376.131        OPT      17.3s        G
+  I              2751.863        OPT      17.3s     2751.863        OPT      15.8s        J
+  J             14140.530        OPT      17.6s    14140.530        OPT      16.1s        I
+  K             12112.874        OPT      16.9s    12112.874        OPT      14.3s        I
+  L             13170.943        OPT      16.3s    13170.943        OPT      15.5s        K
+  M             12286.228        OPT      16.9s    12286.228        OPT      16.0s        L
+  S1             1321.644        OPT       2.0s     1321.644        OPT       2.0s       S2
+  S2            12323.023        OPT       2.1s    12323.023        OPT       1.9s       S1
+  S3             3927.866        OPT       2.1s     3927.866        OPT       1.9s       S1
+  T1             3611.981        OPT       4.2s     3611.981        OPT       4.3s       T2
+  T2            18874.387        OPT       4.4s    18874.387        OPT       4.2s       T1
+  T3            13458.699        OPT       4.3s    13458.699        OPT       4.3s       T1
+
+================================================================================
+PAIR-BY-PAIR: WARM vs COLD (averaged across configs)
+================================================================================
+  Pair         Category             Avg Cold Gap Avg Warm Gap    Delta
+  ----------------------------------------------------------------------
+  D→E        similar-4c                  0.00%        0.00%   +0.00%
+  E→D        similar-4c                  0.00%        0.00%   +0.00%
+  D→F        similar-4c                  0.02%        0.00%   -0.02%
+  G→H        similar-4c                  0.00%        0.00%   +0.00%
+  H→G        similar-4c                  0.00%        0.00%   +0.00%
+  I→D        similar-4c                  0.00%        0.00%   +0.00%
+  D→G        dissimilar-4c               0.00%        0.00%   +0.00%
+  G→D        dissimilar-4c               0.00%        0.00%   +0.00%
+  I→J        dissimilar-4c               0.00%        0.00%   +0.00%
+  J→I        dissimilar-4c               0.00%        0.00%   +0.00%
+  F→J        dissimilar-4c               0.00%        0.00%   +0.00%
+  E→H        dissimilar-4c               0.00%        0.00%   +0.00%
+  A→B        original-4c                 0.00%        0.00%   -0.00%
+  B→A        original-4c                 1.66%        0.00%   -1.66%
+  A→D        cross-4c                    0.00%        0.00%   +0.00%
+  K→L        cross-4c                    0.00%        0.00%   +0.00%
+  L→M        cross-4c                    0.00%        0.00%   +0.00%
+  M→A        cross-4c                    1.66%        0.00%   -1.66%
+  I→K        overlap-4c                  0.00%        0.00%   +0.00%
+  C→G        cross-4c                    0.00%        0.00%   +0.00%
+  S1→S2       dissimilar-2c               0.00%        0.00%   +0.00%
+  S2→S1       dissimilar-2c               0.00%        0.00%   +0.00%
+  S1→S3       similar-2c                  0.00%        0.00%   +0.00%
+  S3→S2       dissimilar-2c               0.00%        0.00%   +0.00%
+  T1→T2       dissimilar-3c               0.00%        0.00%   +0.00%
+  T2→T1       dissimilar-3c               0.00%        0.00%   +0.00%
+  T1→T3       cross-3c                    0.00%        0.00%   +0.00%
+  T3→T2       cross-3c                    0.00%        0.00%   +0.00%
+  S1→T1       scale-up-2→3                0.00%        0.00%   +0.00%
+  S1→D        scale-up-2→4                0.00%        0.00%   +0.00%
+  T1→D        scale-up-3→4                0.00%        0.00%   +0.00%
+  T2→G        scale-up-3→4                0.00%        0.00%   +0.00%
+  D→T1       scale-down-4→3              0.00%        0.00%   +0.00%
+  G→T2       scale-down-4→3              0.00%        0.00%   +0.00%
+  D→S1       scale-down-4→2              0.00%        0.00%   +0.00%
+  T1→S1       scale-down-3→2              0.00%        0.00%   +0.00%
+
+  ── Aggregate by category (negative delta = warm-start helps) ──
+  cross-3c            : avg delta = +0.00%  (n=2 pairs)
+  cross-4c            : avg delta = -0.33%  (n=5 pairs)
+  dissimilar-2c       : avg delta = +0.00%  (n=3 pairs)
+  dissimilar-3c       : avg delta = +0.00%  (n=2 pairs)
+  dissimilar-4c       : avg delta = +0.00%  (n=6 pairs)
+  original-4c         : avg delta = -0.83%  (n=2 pairs)
+  overlap-4c          : avg delta = +0.00%  (n=1 pairs)
+  scale-down-3→2      : avg delta = +0.00%  (n=1 pairs)
+  scale-down-4→2      : avg delta = +0.00%  (n=1 pairs)
+  scale-down-4→3      : avg delta = +0.00%  (n=2 pairs)
+  scale-up-2→3        : avg delta = +0.00%  (n=1 pairs)
+  scale-up-2→4        : avg delta = +0.00%  (n=1 pairs)
+  scale-up-3→4        : avg delta = +0.00%  (n=2 pairs)
+  similar-2c          : avg delta = +0.00%  (n=1 pairs)
+  similar-4c          : avg delta = -0.00%  (n=6 pairs)
+
+  ALL similar pairs:    -0.00%
+/Users/malakalshawish/coding_with_qiskit/miniconda3/envs/grove_env/lib/python3.8/site-packages/numpy/core/fromnumeric.py:3464: RuntimeWarning: Mean of empty slice.
+  return _methods._mean(a, axis=axis, dtype=dtype,
+/Users/malakalshawish/coding_with_qiskit/miniconda3/envs/grove_env/lib/python3.8/site-packages/numpy/core/_methods.py:192: RuntimeWarning: invalid value encountered in scalar divide
+  ret = ret.dtype.type(ret / rcount)
+  ALL dissimilar pairs: +nan%
+
+================================================================================
+PHASE 3: PARAMETER UNIVERSALITY (direct evaluation, no re-optimisation)
+================================================================================
+
+  Config 1/7: reps=2_ADAM_maxiter=30
+
+    2-customer group (4 qubits): ['S1', 'S2', 'S3']
+      S1 params → S2: cost=12323.023  OPTIMAL  valid=0.0524
+      S1 params → S3: cost=3927.866  OPTIMAL  valid=0.2723
+      S2 params → S1: cost=1321.644  OPTIMAL  valid=0.3187
+      S2 params → S3: cost=3927.866  OPTIMAL  valid=0.2723
+      S3 params → S1: cost=1321.644  OPTIMAL  valid=0.3187
+      S3 params → S2: cost=12323.023  OPTIMAL  valid=0.0524
+
+    3-customer group (9 qubits): ['T1', 'T2', 'T3']
+      T1 params → T2: cost=18874.387  OPTIMAL  valid=0.0627
+      T1 params → T3: cost=13458.699  OPTIMAL  valid=0.0821
+      T2 params → T1: cost=3611.981  OPTIMAL  valid=0.0683
+      T2 params → T3: cost=13458.699  OPTIMAL  valid=0.0821
+      T3 params → T1: cost=3611.981  OPTIMAL  valid=0.0683
+      T3 params → T2: cost=18874.387  OPTIMAL  valid=0.0627
+
+    4-customer group (16 qubits): ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M']
+      A params → B: cost=9572.532  OPTIMAL  valid=0.0013
+      A params → C: cost=6013.839  OPTIMAL  valid=0.0013
+      A params → D: cost=3620.242  OPTIMAL  valid=0.0009
+      A params → E: cost=6180.703  OPTIMAL  valid=0.0008
+      A params → F: cost=6250.218  OPTIMAL  valid=0.0008
+      A params → G: cost=20344.013  OPTIMAL  valid=0.0025
+      A params → H: cost=17376.131  OPTIMAL  valid=0.0029
+      A params → I: cost=2751.863  OPTIMAL  valid=0.0008
+      A params → J: cost=14140.530  OPTIMAL  valid=0.0015
+      A params → K: cost=12112.874  OPTIMAL  valid=0.0020
+      A params → L: cost=13170.943  OPTIMAL  valid=0.0020
+      A params → M: cost=12286.228  OPTIMAL  valid=0.0016
+      B params → A: cost=9947.085  OPTIMAL  valid=0.0020
+      B params → C: cost=6013.839  OPTIMAL  valid=0.0013
+      B params → D: cost=3620.242  OPTIMAL  valid=0.0009
+      B params → E: cost=6180.703  OPTIMAL  valid=0.0008
+      B params → F: cost=6250.218  OPTIMAL  valid=0.0008
+      B params → G: cost=20344.013  OPTIMAL  valid=0.0025
+      B params → H: cost=17376.131  OPTIMAL  valid=0.0029
+      B params → I: cost=2751.863  OPTIMAL  valid=0.0008
+      B params → J: cost=14140.530  OPTIMAL  valid=0.0015
+      B params → K: cost=12112.874  OPTIMAL  valid=0.0020
+      B params → L: cost=13170.943  OPTIMAL  valid=0.0020
+      B params → M: cost=12286.228  OPTIMAL  valid=0.0016
+      C params → A: cost=9947.085  OPTIMAL  valid=0.0020
+      C params → B: cost=9572.532  OPTIMAL  valid=0.0013
+      C params → D: cost=3620.242  OPTIMAL  valid=0.0009
+      C params → E: cost=6180.703  OPTIMAL  valid=0.0008
+      C params → F: cost=6250.218  OPTIMAL  valid=0.0008
+      C params → G: cost=20344.013  OPTIMAL  valid=0.0025
+      C params → H: cost=17376.131  OPTIMAL  valid=0.0029
+      C params → I: cost=2751.863  OPTIMAL  valid=0.0008
+      C params → J: cost=14140.530  OPTIMAL  valid=0.0015
+      C params → K: cost=12112.874  OPTIMAL  valid=0.0020
+      C params → L: cost=13170.943  OPTIMAL  valid=0.0020
+      C params → M: cost=12286.228  OPTIMAL  valid=0.0016
+      D params → A: cost=9947.085  OPTIMAL  valid=0.0020
+      D params → B: cost=9572.532  OPTIMAL  valid=0.0013
+      D params → C: cost=6013.839  OPTIMAL  valid=0.0013
+      D params → E: cost=6180.703  OPTIMAL  valid=0.0008
+      D params → F: cost=6250.218  OPTIMAL  valid=0.0008
+      D params → G: cost=20344.013  OPTIMAL  valid=0.0025
+      D params → H: cost=17376.131  OPTIMAL  valid=0.0029
+      D params → I: cost=2751.863  OPTIMAL  valid=0.0008
+      D params → J: cost=14140.530  OPTIMAL  valid=0.0015
+      D params → K: cost=12112.874  OPTIMAL  valid=0.0020
+      D params → L: cost=13170.943  OPTIMAL  valid=0.0020
+      D params → M: cost=12286.228  OPTIMAL  valid=0.0016
+      E params → A: cost=9947.085  OPTIMAL  valid=0.0020
+      E params → B: cost=9572.532  OPTIMAL  valid=0.0013
+      E params → C: cost=6013.839  OPTIMAL  valid=0.0013
+      E params → D: cost=3620.242  OPTIMAL  valid=0.0009
+      E params → F: cost=6250.218  OPTIMAL  valid=0.0008
+      E params → G: cost=20344.013  OPTIMAL  valid=0.0025
+      E params → H: cost=17376.131  OPTIMAL  valid=0.0029
+      E params → I: cost=2751.863  OPTIMAL  valid=0.0008
+      E params → J: cost=14140.530  OPTIMAL  valid=0.0015
+      E params → K: cost=12112.874  OPTIMAL  valid=0.0020
+      E params → L: cost=13170.943  OPTIMAL  valid=0.0020
+      E params → M: cost=12286.228  OPTIMAL  valid=0.0016
+      F params → A: cost=9947.085  OPTIMAL  valid=0.0020
+      F params → B: cost=9572.532  OPTIMAL  valid=0.0013
+      F params → C: cost=6013.839  OPTIMAL  valid=0.0013
+      F params → D: cost=3620.242  OPTIMAL  valid=0.0009
+      F params → E: cost=6180.703  OPTIMAL  valid=0.0008
+      F params → G: cost=20344.013  OPTIMAL  valid=0.0025
+      F params → H: cost=17376.131  OPTIMAL  valid=0.0029
+      F params → I: cost=2751.863  OPTIMAL  valid=0.0008
+      F params → J: cost=14140.530  OPTIMAL  valid=0.0015
+      F params → K: cost=12112.874  OPTIMAL  valid=0.0020
+      F params → L: cost=13170.943  OPTIMAL  valid=0.0020
+      F params → M: cost=12286.228  OPTIMAL  valid=0.0016
+      G params → A: cost=9947.085  OPTIMAL  valid=0.0020
+      G params → B: cost=9572.532  OPTIMAL  valid=0.0013
+      G params → C: cost=6013.839  OPTIMAL  valid=0.0013
+      G params → D: cost=3620.242  OPTIMAL  valid=0.0009
+      G params → E: cost=6180.703  OPTIMAL  valid=0.0008
+      G params → F: cost=6250.218  OPTIMAL  valid=0.0008
+      G params → H: cost=17376.131  OPTIMAL  valid=0.0029
+      G params → I: cost=2751.863  OPTIMAL  valid=0.0008
+      G params → J: cost=14140.530  OPTIMAL  valid=0.0015
+      G params → K: cost=12112.874  OPTIMAL  valid=0.0020
+      G params → L: cost=13170.943  OPTIMAL  valid=0.0020
+      G params → M: cost=12286.228  OPTIMAL  valid=0.0016
+      H params → A: cost=9947.085  OPTIMAL  valid=0.0020
+      H params → B: cost=9572.532  OPTIMAL  valid=0.0013
+      H params → C: cost=6013.839  OPTIMAL  valid=0.0013
+      H params → D: cost=3620.242  OPTIMAL  valid=0.0009
+      H params → E: cost=6180.703  OPTIMAL  valid=0.0008
+      H params → F: cost=6250.218  OPTIMAL  valid=0.0008
+      H params → G: cost=20344.013  OPTIMAL  valid=0.0025
+      H params → I: cost=2751.863  OPTIMAL  valid=0.0008
+      H params → J: cost=14140.530  OPTIMAL  valid=0.0015
+      H params → K: cost=12112.874  OPTIMAL  valid=0.0020
+      H params → L: cost=13170.943  OPTIMAL  valid=0.0020
+      H params → M: cost=12286.228  OPTIMAL  valid=0.0016
+      I params → A: cost=9947.085  OPTIMAL  valid=0.0020
+      I params → B: cost=9572.532  OPTIMAL  valid=0.0013
+      I params → C: cost=6013.839  OPTIMAL  valid=0.0013
+      I params → D: cost=3620.242  OPTIMAL  valid=0.0009
+      I params → E: cost=6180.703  OPTIMAL  valid=0.0008
+      I params → F: cost=6250.218  OPTIMAL  valid=0.0008
+      I params → G: cost=20344.013  OPTIMAL  valid=0.0025
+      I params → H: cost=17376.131  OPTIMAL  valid=0.0029
+      I params → J: cost=14140.530  OPTIMAL  valid=0.0015
+      I params → K: cost=12112.874  OPTIMAL  valid=0.0020
+      I params → L: cost=13170.943  OPTIMAL  valid=0.0020
+      I params → M: cost=12286.228  OPTIMAL  valid=0.0016
+      J params → A: cost=9947.085  OPTIMAL  valid=0.0020
+      J params → B: cost=9572.532  OPTIMAL  valid=0.0013
+      J params → C: cost=6013.839  OPTIMAL  valid=0.0013
+      J params → D: cost=3620.242  OPTIMAL  valid=0.0009
+      J params → E: cost=6180.703  OPTIMAL  valid=0.0008
+      J params → F: cost=6250.218  OPTIMAL  valid=0.0008
+      J params → G: cost=20344.013  OPTIMAL  valid=0.0025
+      J params → H: cost=17376.131  OPTIMAL  valid=0.0029
+      J params → I: cost=2751.863  OPTIMAL  valid=0.0008
+      J params → K: cost=12112.874  OPTIMAL  valid=0.0020
+      J params → L: cost=13170.943  OPTIMAL  valid=0.0020
+      J params → M: cost=12286.228  OPTIMAL  valid=0.0016
+      K params → A: cost=9947.085  OPTIMAL  valid=0.0020
+      K params → B: cost=9572.532  OPTIMAL  valid=0.0013
+      K params → C: cost=6013.839  OPTIMAL  valid=0.0013
+      K params → D: cost=3620.242  OPTIMAL  valid=0.0009
+      K params → E: cost=6180.703  OPTIMAL  valid=0.0008
+      K params → F: cost=6250.218  OPTIMAL  valid=0.0008
+      K params → G: cost=20344.013  OPTIMAL  valid=0.0025
+      K params → H: cost=17376.131  OPTIMAL  valid=0.0029
+      K params → I: cost=2751.863  OPTIMAL  valid=0.0008
+      K params → J: cost=14140.530  OPTIMAL  valid=0.0015
+      K params → L: cost=13170.943  OPTIMAL  valid=0.0020
+      K params → M: cost=12286.228  OPTIMAL  valid=0.0016
+      L params → A: cost=9947.085  OPTIMAL  valid=0.0020
+      L params → B: cost=9572.532  OPTIMAL  valid=0.0013
+      L params → C: cost=6013.839  OPTIMAL  valid=0.0013
+      L params → D: cost=3620.242  OPTIMAL  valid=0.0009
+      L params → E: cost=6180.703  OPTIMAL  valid=0.0008
+      L params → F: cost=6250.218  OPTIMAL  valid=0.0008
+      L params → G: cost=20344.013  OPTIMAL  valid=0.0025
+      L params → H: cost=17376.131  OPTIMAL  valid=0.0029
+      L params → I: cost=2751.863  OPTIMAL  valid=0.0008
+      L params → J: cost=14140.530  OPTIMAL  valid=0.0015
+      L params → K: cost=12112.874  OPTIMAL  valid=0.0020
+      L params → M: cost=12286.228  OPTIMAL  valid=0.0016
+      M params → A: cost=9947.085  OPTIMAL  valid=0.0020
+      M params → B: cost=9572.532  OPTIMAL  valid=0.0013
+      M params → C: cost=6013.839  OPTIMAL  valid=0.0013
+      M params → D: cost=3620.242  OPTIMAL  valid=0.0009
+      M params → E: cost=6180.703  OPTIMAL  valid=0.0008
+      M params → F: cost=6250.218  OPTIMAL  valid=0.0008
+      M params → G: cost=20344.013  OPTIMAL  valid=0.0025
+      M params → H: cost=17376.131  OPTIMAL  valid=0.0029
+      M params → I: cost=2751.863  OPTIMAL  valid=0.0008
+      M params → J: cost=14140.530  OPTIMAL  valid=0.0015
+      M params → K: cost=12112.874  OPTIMAL  valid=0.0020
+      M params → L: cost=13170.943  OPTIMAL  valid=0.0020
+
+  Config 2/7: reps=5_ADAM_maxiter=30
+
+    2-customer group (4 qubits): ['S1', 'S2', 'S3']
+      S1 params → S2: cost=12323.023  OPTIMAL  valid=0.3484
+      S1 params → S3: cost=3927.866  OPTIMAL  valid=0.0900
+      S2 params → S1: cost=1321.644  OPTIMAL  valid=0.1640
+      S2 params → S3: cost=3927.866  OPTIMAL  valid=0.0900
+      S3 params → S1: cost=1321.644  OPTIMAL  valid=0.1640
+      S3 params → S2: cost=12323.023  OPTIMAL  valid=0.3484
+
+    3-customer group (9 qubits): ['T1', 'T2', 'T3']
+      T1 params → T2: cost=18874.387  OPTIMAL  valid=0.0168
+      T1 params → T3: cost=13458.699  OPTIMAL  valid=0.0378
+      T2 params → T1: cost=3611.981  OPTIMAL  valid=0.0139
+      T2 params → T3: cost=13458.699  OPTIMAL  valid=0.0378
+      T3 params → T1: cost=3611.981  OPTIMAL  valid=0.0139
+      T3 params → T2: cost=18874.387  OPTIMAL  valid=0.0168
+
+    4-customer group (16 qubits): ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M']
+      A params → B: cost=9572.532  OPTIMAL  valid=0.0046
+      A params → C: cost=6013.839  OPTIMAL  valid=0.0052
+      A params → D: cost=3620.242  OPTIMAL  valid=0.0054
+      A params → E: cost=6180.703  OPTIMAL  valid=0.0054
+      A params → F: cost=6250.218  OPTIMAL  valid=0.0058
+      A params → G: cost=20344.013  OPTIMAL  valid=0.0012
+      A params → H: cost=17376.131  OPTIMAL  valid=0.0019
+      A params → I: cost=2751.863  OPTIMAL  valid=0.0056
+      A params → J: cost=14140.530  OPTIMAL  valid=0.0031
+      A params → K: cost=12112.874  OPTIMAL  valid=0.0030
+      A params → L: cost=13170.943  OPTIMAL  valid=0.0029
+      A params → M: cost=12286.228  OPTIMAL  valid=0.0017
+      B params → A: cost=9947.085  OPTIMAL  valid=0.0050
+      B params → C: cost=6013.839  OPTIMAL  valid=0.0052
+      B params → D: cost=3620.242  OPTIMAL  valid=0.0054
+      B params → E: cost=6180.703  OPTIMAL  valid=0.0054
+      B params → F: cost=6250.218  OPTIMAL  valid=0.0058
+      B params → G: cost=20344.013  OPTIMAL  valid=0.0012
+      B params → H: cost=17376.131  OPTIMAL  valid=0.0019
+      B params → I: cost=2751.863  OPTIMAL  valid=0.0056
+      B params → J: cost=14140.530  OPTIMAL  valid=0.0031
+      B params → K: cost=12112.874  OPTIMAL  valid=0.0030
+      B params → L: cost=13170.943  OPTIMAL  valid=0.0029
+      B params → M: cost=12286.228  OPTIMAL  valid=0.0017
+      C params → A: cost=9947.085  OPTIMAL  valid=0.0050
+      C params → B: cost=9572.532  OPTIMAL  valid=0.0046
+      C params → D: cost=3620.242  OPTIMAL  valid=0.0054
+      C params → E: cost=6180.703  OPTIMAL  valid=0.0054
+      C params → F: cost=6250.218  OPTIMAL  valid=0.0058
+      C params → G: cost=20344.013  OPTIMAL  valid=0.0012
+      C params → H: cost=17376.131  OPTIMAL  valid=0.0019
+      C params → I: cost=2751.863  OPTIMAL  valid=0.0056
+      C params → J: cost=14140.530  OPTIMAL  valid=0.0031
+      C params → K: cost=12112.874  OPTIMAL  valid=0.0030
+      C params → L: cost=13170.943  OPTIMAL  valid=0.0029
+      C params → M: cost=12286.228  OPTIMAL  valid=0.0017
+      D params → A: cost=9947.085  OPTIMAL  valid=0.0050
+      D params → B: cost=9572.532  OPTIMAL  valid=0.0046
+      D params → C: cost=6013.839  OPTIMAL  valid=0.0052
+      D params → E: cost=6180.703  OPTIMAL  valid=0.0054
+      D params → F: cost=6250.218  OPTIMAL  valid=0.0058
+      D params → G: cost=20344.013  OPTIMAL  valid=0.0012
+      D params → H: cost=17376.131  OPTIMAL  valid=0.0019
+      D params → I: cost=2751.863  OPTIMAL  valid=0.0056
+      D params → J: cost=14140.530  OPTIMAL  valid=0.0031
+      D params → K: cost=12112.874  OPTIMAL  valid=0.0030
+      D params → L: cost=13170.943  OPTIMAL  valid=0.0029
+      D params → M: cost=12286.228  OPTIMAL  valid=0.0017
+      E params → A: cost=9947.085  OPTIMAL  valid=0.0050
+      E params → B: cost=9572.532  OPTIMAL  valid=0.0046
+      E params → C: cost=6013.839  OPTIMAL  valid=0.0052
+      E params → D: cost=3620.242  OPTIMAL  valid=0.0054
+      E params → F: cost=6250.218  OPTIMAL  valid=0.0058
+      E params → G: cost=20344.013  OPTIMAL  valid=0.0012
+      E params → H: cost=17376.131  OPTIMAL  valid=0.0019
+      E params → I: cost=2751.863  OPTIMAL  valid=0.0056
+      E params → J: cost=14140.530  OPTIMAL  valid=0.0031
+      E params → K: cost=12112.874  OPTIMAL  valid=0.0030
+      E params → L: cost=13170.943  OPTIMAL  valid=0.0029
+      E params → M: cost=12286.228  OPTIMAL  valid=0.0017
+      F params → A: cost=9947.085  OPTIMAL  valid=0.0050
+      F params → B: cost=9572.532  OPTIMAL  valid=0.0046
+      F params → C: cost=6013.839  OPTIMAL  valid=0.0052
+      F params → D: cost=3620.242  OPTIMAL  valid=0.0054
+      F params → E: cost=6180.703  OPTIMAL  valid=0.0054
+      F params → G: cost=20344.013  OPTIMAL  valid=0.0012
+      F params → H: cost=17376.131  OPTIMAL  valid=0.0019
+      F params → I: cost=2751.863  OPTIMAL  valid=0.0056
+      F params → J: cost=14140.530  OPTIMAL  valid=0.0031
+      F params → K: cost=12112.874  OPTIMAL  valid=0.0030
+      F params → L: cost=13170.943  OPTIMAL  valid=0.0029
+      F params → M: cost=12286.228  OPTIMAL  valid=0.0017
+      G params → A: cost=9947.085  OPTIMAL  valid=0.0050
+      G params → B: cost=9572.532  OPTIMAL  valid=0.0046
+      G params → C: cost=6013.839  OPTIMAL  valid=0.0052
+      G params → D: cost=3620.242  OPTIMAL  valid=0.0054
+      G params → E: cost=6180.703  OPTIMAL  valid=0.0054
+      G params → F: cost=6250.218  OPTIMAL  valid=0.0058
+      G params → H: cost=17376.131  OPTIMAL  valid=0.0019
+      G params → I: cost=2751.863  OPTIMAL  valid=0.0056
+      G params → J: cost=14140.530  OPTIMAL  valid=0.0031
+      G params → K: cost=12112.874  OPTIMAL  valid=0.0030
+      G params → L: cost=13170.943  OPTIMAL  valid=0.0029
+      G params → M: cost=12286.228  OPTIMAL  valid=0.0017
+      H params → A: cost=9947.085  OPTIMAL  valid=0.0050
+      H params → B: cost=9572.532  OPTIMAL  valid=0.0046
+      H params → C: cost=6013.839  OPTIMAL  valid=0.0052
+      H params → D: cost=3620.242  OPTIMAL  valid=0.0054
+      H params → E: cost=6180.703  OPTIMAL  valid=0.0054
+      H params → F: cost=6250.218  OPTIMAL  valid=0.0058
+      H params → G: cost=20344.013  OPTIMAL  valid=0.0012
+      H params → I: cost=2751.863  OPTIMAL  valid=0.0056
+      H params → J: cost=14140.530  OPTIMAL  valid=0.0031
+      H params → K: cost=12112.874  OPTIMAL  valid=0.0030
+      H params → L: cost=13170.943  OPTIMAL  valid=0.0029
+      H params → M: cost=12286.228  OPTIMAL  valid=0.0017
+      I params → A: cost=9947.085  OPTIMAL  valid=0.0050
+      I params → B: cost=9572.532  OPTIMAL  valid=0.0046
+      I params → C: cost=6013.839  OPTIMAL  valid=0.0052
+      I params → D: cost=3620.242  OPTIMAL  valid=0.0054
+      I params → E: cost=6180.703  OPTIMAL  valid=0.0054
+      I params → F: cost=6250.218  OPTIMAL  valid=0.0058
+      I params → G: cost=20344.013  OPTIMAL  valid=0.0012
+      I params → H: cost=17376.131  OPTIMAL  valid=0.0019
+      I params → J: cost=14140.530  OPTIMAL  valid=0.0031
+      I params → K: cost=12112.874  OPTIMAL  valid=0.0030
+      I params → L: cost=13170.943  OPTIMAL  valid=0.0029
+      I params → M: cost=12286.228  OPTIMAL  valid=0.0017
+      J params → A: cost=9947.085  OPTIMAL  valid=0.0050
+      J params → B: cost=9572.532  OPTIMAL  valid=0.0046
+      J params → C: cost=6013.839  OPTIMAL  valid=0.0052
+      J params → D: cost=3620.242  OPTIMAL  valid=0.0054
+      J params → E: cost=6180.703  OPTIMAL  valid=0.0054
+      J params → F: cost=6250.218  OPTIMAL  valid=0.0058
+      J params → G: cost=20344.013  OPTIMAL  valid=0.0012
+      J params → H: cost=17376.131  OPTIMAL  valid=0.0019
+      J params → I: cost=2751.863  OPTIMAL  valid=0.0056
+      J params → K: cost=12112.874  OPTIMAL  valid=0.0030
+      J params → L: cost=13170.943  OPTIMAL  valid=0.0029
+      J params → M: cost=12286.228  OPTIMAL  valid=0.0017
+      K params → A: cost=9947.085  OPTIMAL  valid=0.0050
+      K params → B: cost=9572.532  OPTIMAL  valid=0.0046
+      K params → C: cost=6013.839  OPTIMAL  valid=0.0052
+      K params → D: cost=3620.242  OPTIMAL  valid=0.0054
+      K params → E: cost=6180.703  OPTIMAL  valid=0.0054
+      K params → F: cost=6250.218  OPTIMAL  valid=0.0058
+      K params → G: cost=20344.013  OPTIMAL  valid=0.0012
+      K params → H: cost=17376.131  OPTIMAL  valid=0.0019
+      K params → I: cost=2751.863  OPTIMAL  valid=0.0056
+      K params → J: cost=14140.530  OPTIMAL  valid=0.0031
+      K params → L: cost=13170.943  OPTIMAL  valid=0.0029
+      K params → M: cost=12286.228  OPTIMAL  valid=0.0017
+      L params → A: cost=9947.085  OPTIMAL  valid=0.0050
+      L params → B: cost=9572.532  OPTIMAL  valid=0.0046
+      L params → C: cost=6013.839  OPTIMAL  valid=0.0052
+      L params → D: cost=3620.242  OPTIMAL  valid=0.0054
+      L params → E: cost=6180.703  OPTIMAL  valid=0.0054
+      L params → F: cost=6250.218  OPTIMAL  valid=0.0058
+      L params → G: cost=20344.013  OPTIMAL  valid=0.0012
+      L params → H: cost=17376.131  OPTIMAL  valid=0.0019
+      L params → I: cost=2751.863  OPTIMAL  valid=0.0056
+      L params → J: cost=14140.530  OPTIMAL  valid=0.0031
+      L params → K: cost=12112.874  OPTIMAL  valid=0.0030
+      L params → M: cost=12286.228  OPTIMAL  valid=0.0017
+      M params → A: cost=9947.085  OPTIMAL  valid=0.0050
+      M params → B: cost=9572.532  OPTIMAL  valid=0.0046
+      M params → C: cost=6013.839  OPTIMAL  valid=0.0052
+      M params → D: cost=3620.242  OPTIMAL  valid=0.0054
+      M params → E: cost=6180.703  OPTIMAL  valid=0.0054
+      M params → F: cost=6250.218  OPTIMAL  valid=0.0058
+      M params → G: cost=20344.013  OPTIMAL  valid=0.0012
+      M params → H: cost=17376.131  OPTIMAL  valid=0.0019
+      M params → I: cost=2751.863  OPTIMAL  valid=0.0056
+      M params → J: cost=14140.530  OPTIMAL  valid=0.0031
+      M params → K: cost=12112.874  OPTIMAL  valid=0.0030
+      M params → L: cost=13170.943  OPTIMAL  valid=0.0029
+
+  Config 3/7: reps=2_COBYLA_maxiter=100
+
+    2-customer group (4 qubits): ['S1', 'S2', 'S3']
+      S1 params → S2: cost=12323.023  OPTIMAL  valid=0.0554
+      S1 params → S3: cost=3927.866  OPTIMAL  valid=0.3475
+      S2 params → S1: cost=1321.644  OPTIMAL  valid=0.0537
+      S2 params → S3: cost=3927.866  OPTIMAL  valid=0.0642
+      S3 params → S1: cost=1321.644  OPTIMAL  valid=0.6118
+      S3 params → S2: cost=12323.023  OPTIMAL  valid=0.0590
+
+    3-customer group (9 qubits): ['T1', 'T2', 'T3']
+      T1 params → T2: cost=18874.387  OPTIMAL  valid=0.0125
+      T1 params → T3: cost=13458.699  OPTIMAL  valid=0.0047
+      T2 params → T1: cost=3611.981  OPTIMAL  valid=0.0102
+      T2 params → T3: cost=13458.699  OPTIMAL  valid=0.1043
+      T3 params → T1: cost=3611.981  OPTIMAL  valid=0.2202
+      T3 params → T2: cost=18874.387  OPTIMAL  valid=0.0489
+
+    4-customer group (16 qubits): ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M']
+      A params → B: cost=9572.532  OPTIMAL  valid=0.0001
+      A params → C: cost=6517.337  gap=8.37%  valid=0.0001
+      A params → D: cost=3626.506  gap=0.17%  valid=0.0002
+      A params → E: cost=inf  gap=inf%  valid=0.0000
+      A params → F: cost=6653.792  gap=6.46%  valid=0.0001
+      A params → G: cost=20344.013  OPTIMAL  valid=0.0000
+      A params → H: cost=17376.131  OPTIMAL  valid=0.0001
+      A params → I: cost=2751.863  OPTIMAL  valid=0.0001
+      A params → J: cost=14140.530  OPTIMAL  valid=0.0001
+      A params → K: cost=12201.939  gap=0.74%  valid=0.0001
+      A params → L: cost=16446.284  gap=24.87%  valid=0.0000
+      A params → M: cost=inf  gap=inf%  valid=0.0000
+      B params → A: cost=11086.697  gap=11.46%  valid=0.0000
+      B params → C: cost=6517.337  gap=8.37%  valid=0.0001
+      B params → D: cost=3621.789  gap=0.04%  valid=0.0000
+      B params → E: cost=6180.813  gap=0.00%  valid=0.0001
+      B params → F: cost=6259.608  gap=0.15%  valid=0.0000
+      B params → G: cost=23452.140  gap=15.28%  valid=0.0000
+      B params → H: cost=17883.453  gap=2.92%  valid=0.0001
+      B params → I: cost=inf  gap=inf%  valid=0.0000
+      B params → J: cost=14140.530  OPTIMAL  valid=0.0002
+      B params → K: cost=12112.874  OPTIMAL  valid=0.0001
+      B params → L: cost=14312.085  gap=8.66%  valid=0.0001
+      B params → M: cost=12452.141  gap=1.35%  valid=0.0002
+      C params → A: cost=9947.085  OPTIMAL  valid=0.0048
+      C params → B: cost=9572.532  OPTIMAL  valid=0.0048
+      C params → D: cost=3620.242  OPTIMAL  valid=0.0053
+      C params → E: cost=6180.703  OPTIMAL  valid=0.0050
+      C params → F: cost=6250.218  OPTIMAL  valid=0.0050
+      C params → G: cost=20344.013  OPTIMAL  valid=0.0021
+      C params → H: cost=17376.131  OPTIMAL  valid=0.0038
+      C params → I: cost=2751.863  OPTIMAL  valid=0.0055
+      C params → J: cost=14140.530  OPTIMAL  valid=0.0040
+      C params → K: cost=12112.874  OPTIMAL  valid=0.0049
+      C params → L: cost=13170.943  OPTIMAL  valid=0.0040
+      C params → M: cost=12286.228  OPTIMAL  valid=0.0030
+      D params → A: cost=9947.085  OPTIMAL  valid=0.0009
+      D params → B: cost=9572.532  OPTIMAL  valid=0.0012
+      D params → C: cost=6013.839  OPTIMAL  valid=0.0013
+      D params → E: cost=6180.703  OPTIMAL  valid=0.0013
+      D params → F: cost=6250.218  OPTIMAL  valid=0.0014
+      D params → G: cost=20344.013  OPTIMAL  valid=0.0001
+      D params → H: cost=17681.652  gap=1.76%  valid=0.0002
+      D params → I: cost=2751.863  OPTIMAL  valid=0.0020
+      D params → J: cost=14140.530  OPTIMAL  valid=0.0007
+      D params → K: cost=12112.874  OPTIMAL  valid=0.0005
+      D params → L: cost=13170.943  OPTIMAL  valid=0.0007
+      D params → M: cost=12286.228  OPTIMAL  valid=0.0004
+      E params → A: cost=9947.085  OPTIMAL  valid=0.0012
+      E params → B: cost=9572.532  OPTIMAL  valid=0.0014
+      E params → C: cost=6013.839  OPTIMAL  valid=0.0018
+      E params → D: cost=3620.242  OPTIMAL  valid=0.0023
+      E params → F: cost=6250.218  OPTIMAL  valid=0.0019
+      E params → G: cost=20344.013  OPTIMAL  valid=0.0001
+      E params → H: cost=17376.131  OPTIMAL  valid=0.0003
+      E params → I: cost=2751.863  OPTIMAL  valid=0.0022
+      E params → J: cost=14140.530  OPTIMAL  valid=0.0010
+      E params → K: cost=12112.874  OPTIMAL  valid=0.0005
+      E params → L: cost=13170.943  OPTIMAL  valid=0.0008
+      E params → M: cost=12286.228  OPTIMAL  valid=0.0003
+      F params → A: cost=9947.085  OPTIMAL  valid=0.0001
+      F params → B: cost=9572.532  OPTIMAL  valid=0.0003
+      F params → C: cost=6013.839  OPTIMAL  valid=0.0003
+      F params → D: cost=3620.242  OPTIMAL  valid=0.0002
+      F params → E: cost=6180.813  gap=0.00%  valid=0.0003
+      F params → G: cost=20344.013  OPTIMAL  valid=0.0002
+      F params → H: cost=17681.652  gap=1.76%  valid=0.0002
+      F params → I: cost=2894.118  gap=5.17%  valid=0.0002
+      F params → J: cost=14140.530  OPTIMAL  valid=0.0004
+      F params → K: cost=12201.939  gap=0.74%  valid=0.0002
+      F params → L: cost=14515.785  gap=10.21%  valid=0.0002
+      F params → M: cost=12452.141  gap=1.35%  valid=0.0002
+      G params → A: cost=11086.697  gap=11.46%  valid=0.0003
+      G params → B: cost=9572.532  OPTIMAL  valid=0.0004
+      G params → C: cost=6013.839  OPTIMAL  valid=0.0004
+      G params → D: cost=3620.242  OPTIMAL  valid=0.0004
+      G params → E: cost=6180.813  gap=0.00%  valid=0.0002
+      G params → F: cost=6250.218  OPTIMAL  valid=0.0003
+      G params → H: cost=17376.131  OPTIMAL  valid=0.0010
+      G params → I: cost=2751.863  OPTIMAL  valid=0.0003
+      G params → J: cost=14140.530  OPTIMAL  valid=0.0007
+      G params → K: cost=12112.874  OPTIMAL  valid=0.0006
+      G params → L: cost=13170.943  OPTIMAL  valid=0.0006
+      G params → M: cost=12286.228  OPTIMAL  valid=0.0007
+      H params → A: cost=9947.085  OPTIMAL  valid=0.0030
+      H params → B: cost=9572.532  OPTIMAL  valid=0.0021
+      H params → C: cost=6013.839  OPTIMAL  valid=0.0024
+      H params → D: cost=3620.242  OPTIMAL  valid=0.0012
+      H params → E: cost=6180.703  OPTIMAL  valid=0.0017
+      H params → F: cost=6250.218  OPTIMAL  valid=0.0020
+      H params → G: cost=20344.013  OPTIMAL  valid=0.0051
+      H params → I: cost=2751.863  OPTIMAL  valid=0.0016
+      H params → J: cost=14140.530  OPTIMAL  valid=0.0024
+      H params → K: cost=12112.874  OPTIMAL  valid=0.0035
+      H params → L: cost=13170.943  OPTIMAL  valid=0.0035
+      H params → M: cost=12286.228  OPTIMAL  valid=0.0031
+      I params → A: cost=9947.085  OPTIMAL  valid=0.0023
+      I params → B: cost=9572.532  OPTIMAL  valid=0.0021
+      I params → C: cost=6013.839  OPTIMAL  valid=0.0020
+      I params → D: cost=3620.242  OPTIMAL  valid=0.0023
+      I params → E: cost=6180.703  OPTIMAL  valid=0.0019
+      I params → F: cost=6250.218  OPTIMAL  valid=0.0025
+      I params → G: cost=20344.013  OPTIMAL  valid=0.0010
+      I params → H: cost=17376.131  OPTIMAL  valid=0.0018
+      I params → J: cost=14140.530  OPTIMAL  valid=0.0019
+      I params → K: cost=12112.874  OPTIMAL  valid=0.0018
+      I params → L: cost=13170.943  OPTIMAL  valid=0.0020
+      I params → M: cost=12286.228  OPTIMAL  valid=0.0012
+      J params → A: cost=9947.085  OPTIMAL  valid=0.0006
+      J params → B: cost=9572.532  OPTIMAL  valid=0.0007
+      J params → C: cost=6013.839  OPTIMAL  valid=0.0004
+      J params → D: cost=3620.242  OPTIMAL  valid=0.0004
+      J params → E: cost=6180.703  OPTIMAL  valid=0.0005
+      J params → F: cost=6250.218  OPTIMAL  valid=0.0004
+      J params → G: cost=20344.013  OPTIMAL  valid=0.0011
+      J params → H: cost=17376.131  OPTIMAL  valid=0.0013
+      J params → I: cost=2751.863  OPTIMAL  valid=0.0004
+      J params → K: cost=12112.874  OPTIMAL  valid=0.0012
+      J params → L: cost=13170.943  OPTIMAL  valid=0.0012
+      J params → M: cost=12286.228  OPTIMAL  valid=0.0010
+      K params → A: cost=9947.085  OPTIMAL  valid=0.0021
+      K params → B: cost=9572.532  OPTIMAL  valid=0.0017
+      K params → C: cost=6013.839  OPTIMAL  valid=0.0017
+      K params → D: cost=3620.242  OPTIMAL  valid=0.0015
+      K params → E: cost=6180.703  OPTIMAL  valid=0.0013
+      K params → F: cost=6250.218  OPTIMAL  valid=0.0017
+      K params → G: cost=20344.013  OPTIMAL  valid=0.0010
+      K params → H: cost=17376.131  OPTIMAL  valid=0.0017
+      K params → I: cost=2751.863  OPTIMAL  valid=0.0017
+      K params → J: cost=14140.530  OPTIMAL  valid=0.0014
+      K params → L: cost=13170.943  OPTIMAL  valid=0.0019
+      K params → M: cost=12286.228  OPTIMAL  valid=0.0012
+      L params → A: cost=9947.085  OPTIMAL  valid=0.0040
+      L params → B: cost=9572.532  OPTIMAL  valid=0.0038
+      L params → C: cost=6013.839  OPTIMAL  valid=0.0026
+      L params → D: cost=3620.242  OPTIMAL  valid=0.0026
+      L params → E: cost=6180.703  OPTIMAL  valid=0.0036
+      L params → F: cost=6250.218  OPTIMAL  valid=0.0033
+      L params → G: cost=20344.013  OPTIMAL  valid=0.0054
+      L params → H: cost=17376.131  OPTIMAL  valid=0.0054
+      L params → I: cost=2751.863  OPTIMAL  valid=0.0025
+      L params → J: cost=14140.530  OPTIMAL  valid=0.0046
+      L params → K: cost=12112.874  OPTIMAL  valid=0.0044
+      L params → M: cost=12286.228  OPTIMAL  valid=0.0048
+      M params → A: cost=9947.085  OPTIMAL  valid=0.0071
+      M params → B: cost=9572.532  OPTIMAL  valid=0.0073
+      M params → C: cost=6013.839  OPTIMAL  valid=0.0070
+      M params → D: cost=3620.242  OPTIMAL  valid=0.0070
+      M params → E: cost=6180.703  OPTIMAL  valid=0.0079
+      M params → F: cost=6250.218  OPTIMAL  valid=0.0066
+      M params → G: cost=20344.013  OPTIMAL  valid=0.0034
+      M params → H: cost=17376.131  OPTIMAL  valid=0.0058
+      M params → I: cost=2751.863  OPTIMAL  valid=0.0072
+      M params → J: cost=14140.530  OPTIMAL  valid=0.0060
+      M params → K: cost=12112.874  OPTIMAL  valid=0.0063
+      M params → L: cost=13170.943  OPTIMAL  valid=0.0072
+
+  Config 4/7: reps=2_ADAM_maxiter=80
+
+    2-customer group (4 qubits): ['S1', 'S2', 'S3']
+      S1 params → S2: cost=12323.023  OPTIMAL  valid=0.1817
+      S1 params → S3: cost=3927.866  OPTIMAL  valid=0.5220
+      S2 params → S1: cost=1321.644  OPTIMAL  valid=0.6833
+      S2 params → S3: cost=3927.866  OPTIMAL  valid=0.5220
+      S3 params → S1: cost=1321.644  OPTIMAL  valid=0.6833
+      S3 params → S2: cost=12323.023  OPTIMAL  valid=0.1817
+
+    3-customer group (9 qubits): ['T1', 'T2', 'T3']
+      T1 params → T2: cost=18874.387  OPTIMAL  valid=0.0285
+      T1 params → T3: cost=13458.699  OPTIMAL  valid=0.0032
+      T2 params → T1: cost=3611.981  OPTIMAL  valid=0.0399
+      T2 params → T3: cost=13458.699  OPTIMAL  valid=0.0032
+      T3 params → T1: cost=3611.981  OPTIMAL  valid=0.0399
+      T3 params → T2: cost=18874.387  OPTIMAL  valid=0.0285
+
+    4-customer group (16 qubits): ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M']
+      A params → B: cost=9572.532  OPTIMAL  valid=0.0013
+      A params → C: cost=6013.839  OPTIMAL  valid=0.0013
+      A params → D: cost=3620.242  OPTIMAL  valid=0.0009
+      A params → E: cost=6180.703  OPTIMAL  valid=0.0008
+      A params → F: cost=6250.218  OPTIMAL  valid=0.0008
+      A params → G: cost=20344.013  OPTIMAL  valid=0.0025
+      A params → H: cost=17376.131  OPTIMAL  valid=0.0029
+      A params → I: cost=2751.863  OPTIMAL  valid=0.0008
+      A params → J: cost=14140.530  OPTIMAL  valid=0.0015
+      A params → K: cost=12112.874  OPTIMAL  valid=0.0020
+      A params → L: cost=13170.943  OPTIMAL  valid=0.0020
+      A params → M: cost=12286.228  OPTIMAL  valid=0.0016
+      B params → A: cost=9947.085  OPTIMAL  valid=0.0020
+      B params → C: cost=6013.839  OPTIMAL  valid=0.0013
+      B params → D: cost=3620.242  OPTIMAL  valid=0.0009
+      B params → E: cost=6180.703  OPTIMAL  valid=0.0008
+      B params → F: cost=6250.218  OPTIMAL  valid=0.0008
+      B params → G: cost=20344.013  OPTIMAL  valid=0.0025
+      B params → H: cost=17376.131  OPTIMAL  valid=0.0029
+      B params → I: cost=2751.863  OPTIMAL  valid=0.0008
+      B params → J: cost=14140.530  OPTIMAL  valid=0.0015
+      B params → K: cost=12112.874  OPTIMAL  valid=0.0020
+      B params → L: cost=13170.943  OPTIMAL  valid=0.0020
+      B params → M: cost=12286.228  OPTIMAL  valid=0.0016
+      C params → A: cost=9947.085  OPTIMAL  valid=0.0020
+      C params → B: cost=9572.532  OPTIMAL  valid=0.0013
+      C params → D: cost=3620.242  OPTIMAL  valid=0.0009
+      C params → E: cost=6180.703  OPTIMAL  valid=0.0008
+      C params → F: cost=6250.218  OPTIMAL  valid=0.0008
+      C params → G: cost=20344.013  OPTIMAL  valid=0.0025
+      C params → H: cost=17376.131  OPTIMAL  valid=0.0029
+      C params → I: cost=2751.863  OPTIMAL  valid=0.0008
+      C params → J: cost=14140.530  OPTIMAL  valid=0.0015
+      C params → K: cost=12112.874  OPTIMAL  valid=0.0020
+      C params → L: cost=13170.943  OPTIMAL  valid=0.0020
+      C params → M: cost=12286.228  OPTIMAL  valid=0.0016
+      D params → A: cost=9947.085  OPTIMAL  valid=0.0020
+      D params → B: cost=9572.532  OPTIMAL  valid=0.0013
+      D params → C: cost=6013.839  OPTIMAL  valid=0.0013
+      D params → E: cost=6180.703  OPTIMAL  valid=0.0008
+      D params → F: cost=6250.218  OPTIMAL  valid=0.0008
+      D params → G: cost=20344.013  OPTIMAL  valid=0.0025
+      D params → H: cost=17376.131  OPTIMAL  valid=0.0029
+      D params → I: cost=2751.863  OPTIMAL  valid=0.0008
+      D params → J: cost=14140.530  OPTIMAL  valid=0.0015
+      D params → K: cost=12112.874  OPTIMAL  valid=0.0020
+      D params → L: cost=13170.943  OPTIMAL  valid=0.0020
+      D params → M: cost=12286.228  OPTIMAL  valid=0.0016
+      E params → A: cost=9947.085  OPTIMAL  valid=0.0020
+      E params → B: cost=9572.532  OPTIMAL  valid=0.0013
+      E params → C: cost=6013.839  OPTIMAL  valid=0.0013
+      E params → D: cost=3620.242  OPTIMAL  valid=0.0009
+      E params → F: cost=6250.218  OPTIMAL  valid=0.0008
+      E params → G: cost=20344.013  OPTIMAL  valid=0.0025
+      E params → H: cost=17376.131  OPTIMAL  valid=0.0029
+      E params → I: cost=2751.863  OPTIMAL  valid=0.0008
+      E params → J: cost=14140.530  OPTIMAL  valid=0.0015
+      E params → K: cost=12112.874  OPTIMAL  valid=0.0020
+      E params → L: cost=13170.943  OPTIMAL  valid=0.0020
+      E params → M: cost=12286.228  OPTIMAL  valid=0.0016
+      F params → A: cost=9947.085  OPTIMAL  valid=0.0020
+      F params → B: cost=9572.532  OPTIMAL  valid=0.0013
+      F params → C: cost=6013.839  OPTIMAL  valid=0.0013
+      F params → D: cost=3620.242  OPTIMAL  valid=0.0009
+      F params → E: cost=6180.703  OPTIMAL  valid=0.0008
+      F params → G: cost=20344.013  OPTIMAL  valid=0.0025
+      F params → H: cost=17376.131  OPTIMAL  valid=0.0029
+      F params → I: cost=2751.863  OPTIMAL  valid=0.0008
+      F params → J: cost=14140.530  OPTIMAL  valid=0.0015
+      F params → K: cost=12112.874  OPTIMAL  valid=0.0020
+      F params → L: cost=13170.943  OPTIMAL  valid=0.0020
+      F params → M: cost=12286.228  OPTIMAL  valid=0.0016
+      G params → A: cost=9947.085  OPTIMAL  valid=0.0020
+      G params → B: cost=9572.532  OPTIMAL  valid=0.0013
+      G params → C: cost=6013.839  OPTIMAL  valid=0.0013
+      G params → D: cost=3620.242  OPTIMAL  valid=0.0009
+      G params → E: cost=6180.703  OPTIMAL  valid=0.0008
+      G params → F: cost=6250.218  OPTIMAL  valid=0.0008
+      G params → H: cost=17376.131  OPTIMAL  valid=0.0029
+      G params → I: cost=2751.863  OPTIMAL  valid=0.0008
+      G params → J: cost=14140.530  OPTIMAL  valid=0.0015
+      G params → K: cost=12112.874  OPTIMAL  valid=0.0020
+      G params → L: cost=13170.943  OPTIMAL  valid=0.0020
+      G params → M: cost=12286.228  OPTIMAL  valid=0.0016
+      H params → A: cost=9947.085  OPTIMAL  valid=0.0020
+      H params → B: cost=9572.532  OPTIMAL  valid=0.0013
+      H params → C: cost=6013.839  OPTIMAL  valid=0.0013
+      H params → D: cost=3620.242  OPTIMAL  valid=0.0009
+      H params → E: cost=6180.703  OPTIMAL  valid=0.0008
+      H params → F: cost=6250.218  OPTIMAL  valid=0.0008
+      H params → G: cost=20344.013  OPTIMAL  valid=0.0025
+      H params → I: cost=2751.863  OPTIMAL  valid=0.0008
+      H params → J: cost=14140.530  OPTIMAL  valid=0.0015
+      H params → K: cost=12112.874  OPTIMAL  valid=0.0020
+      H params → L: cost=13170.943  OPTIMAL  valid=0.0020
+      H params → M: cost=12286.228  OPTIMAL  valid=0.0016
+      I params → A: cost=9947.085  OPTIMAL  valid=0.0020
+      I params → B: cost=9572.532  OPTIMAL  valid=0.0013
+      I params → C: cost=6013.839  OPTIMAL  valid=0.0013
+      I params → D: cost=3620.242  OPTIMAL  valid=0.0009
+      I params → E: cost=6180.703  OPTIMAL  valid=0.0008
+      I params → F: cost=6250.218  OPTIMAL  valid=0.0008
+      I params → G: cost=20344.013  OPTIMAL  valid=0.0025
+      I params → H: cost=17376.131  OPTIMAL  valid=0.0029
+      I params → J: cost=14140.530  OPTIMAL  valid=0.0015
+      I params → K: cost=12112.874  OPTIMAL  valid=0.0020
+      I params → L: cost=13170.943  OPTIMAL  valid=0.0020
+      I params → M: cost=12286.228  OPTIMAL  valid=0.0016
+      J params → A: cost=9947.085  OPTIMAL  valid=0.0020
+      J params → B: cost=9572.532  OPTIMAL  valid=0.0013
+      J params → C: cost=6013.839  OPTIMAL  valid=0.0013
+      J params → D: cost=3620.242  OPTIMAL  valid=0.0009
+      J params → E: cost=6180.703  OPTIMAL  valid=0.0008
+      J params → F: cost=6250.218  OPTIMAL  valid=0.0008
+      J params → G: cost=20344.013  OPTIMAL  valid=0.0025
+      J params → H: cost=17376.131  OPTIMAL  valid=0.0029
+      J params → I: cost=2751.863  OPTIMAL  valid=0.0008
+      J params → K: cost=12112.874  OPTIMAL  valid=0.0020
+      J params → L: cost=13170.943  OPTIMAL  valid=0.0020
+      J params → M: cost=12286.228  OPTIMAL  valid=0.0016
+      K params → A: cost=9947.085  OPTIMAL  valid=0.0020
+      K params → B: cost=9572.532  OPTIMAL  valid=0.0013
+      K params → C: cost=6013.839  OPTIMAL  valid=0.0013
+      K params → D: cost=3620.242  OPTIMAL  valid=0.0009
+      K params → E: cost=6180.703  OPTIMAL  valid=0.0008
+      K params → F: cost=6250.218  OPTIMAL  valid=0.0008
+      K params → G: cost=20344.013  OPTIMAL  valid=0.0025
+      K params → H: cost=17376.131  OPTIMAL  valid=0.0029
+      K params → I: cost=2751.863  OPTIMAL  valid=0.0008
+      K params → J: cost=14140.530  OPTIMAL  valid=0.0015
+      K params → L: cost=13170.943  OPTIMAL  valid=0.0020
+      K params → M: cost=12286.228  OPTIMAL  valid=0.0016
+      L params → A: cost=9947.085  OPTIMAL  valid=0.0020
+      L params → B: cost=9572.532  OPTIMAL  valid=0.0013
+      L params → C: cost=6013.839  OPTIMAL  valid=0.0013
+      L params → D: cost=3620.242  OPTIMAL  valid=0.0009
+      L params → E: cost=6180.703  OPTIMAL  valid=0.0008
+      L params → F: cost=6250.218  OPTIMAL  valid=0.0008
+      L params → G: cost=20344.013  OPTIMAL  valid=0.0025
+      L params → H: cost=17376.131  OPTIMAL  valid=0.0029
+      L params → I: cost=2751.863  OPTIMAL  valid=0.0008
+      L params → J: cost=14140.530  OPTIMAL  valid=0.0015
+      L params → K: cost=12112.874  OPTIMAL  valid=0.0020
+      L params → M: cost=12286.228  OPTIMAL  valid=0.0016
+      M params → A: cost=9947.085  OPTIMAL  valid=0.0020
+      M params → B: cost=9572.532  OPTIMAL  valid=0.0013
+      M params → C: cost=6013.839  OPTIMAL  valid=0.0013
+      M params → D: cost=3620.242  OPTIMAL  valid=0.0009
+      M params → E: cost=6180.703  OPTIMAL  valid=0.0008
+      M params → F: cost=6250.218  OPTIMAL  valid=0.0008
+      M params → G: cost=20344.013  OPTIMAL  valid=0.0025
+      M params → H: cost=17376.131  OPTIMAL  valid=0.0029
+      M params → I: cost=2751.863  OPTIMAL  valid=0.0008
+      M params → J: cost=14140.530  OPTIMAL  valid=0.0015
+      M params → K: cost=12112.874  OPTIMAL  valid=0.0020
+      M params → L: cost=13170.943  OPTIMAL  valid=0.0020
+
+  Config 5/7: reps=5_COBYLA_maxiter=100
+
+    2-customer group (4 qubits): ['S1', 'S2', 'S3']
+      S1 params → S2: cost=12323.023  OPTIMAL  valid=0.3296
+      S1 params → S3: cost=3927.866  OPTIMAL  valid=0.9062
+      S2 params → S1: cost=1321.644  OPTIMAL  valid=0.5646
+      S2 params → S3: cost=3927.866  OPTIMAL  valid=0.6156
+      S3 params → S1: cost=1321.644  OPTIMAL  valid=0.9629
+      S3 params → S2: cost=12323.023  OPTIMAL  valid=0.0177
+
+    3-customer group (9 qubits): ['T1', 'T2', 'T3']
+      T1 params → T2: cost=18874.387  OPTIMAL  valid=0.0135
+      T1 params → T3: cost=13458.699  OPTIMAL  valid=0.0463
+      T2 params → T1: cost=3611.981  OPTIMAL  valid=0.0740
+      T2 params → T3: cost=13458.699  OPTIMAL  valid=0.0113
+      T3 params → T1: cost=3611.981  OPTIMAL  valid=0.0494
+      T3 params → T2: cost=18874.387  OPTIMAL  valid=0.0261
+
+    4-customer group (16 qubits): ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M']
+      A params → B: cost=9572.532  OPTIMAL  valid=0.0110
+      A params → C: cost=6013.839  OPTIMAL  valid=0.0111
+      A params → D: cost=3620.242  OPTIMAL  valid=0.0121
+      A params → E: cost=6180.703  OPTIMAL  valid=0.0129
+      A params → F: cost=6250.218  OPTIMAL  valid=0.0114
+      A params → G: cost=20344.013  OPTIMAL  valid=0.0012
+      A params → H: cost=17376.131  OPTIMAL  valid=0.0031
+      A params → I: cost=2751.863  OPTIMAL  valid=0.0113
+      A params → J: cost=14140.530  OPTIMAL  valid=0.0083
+      A params → K: cost=12112.874  OPTIMAL  valid=0.0068
+      A params → L: cost=13170.943  OPTIMAL  valid=0.0069
+      A params → M: cost=12286.228  OPTIMAL  valid=0.0037
+      B params → A: cost=9947.085  OPTIMAL  valid=0.0285
+      B params → C: cost=6013.839  OPTIMAL  valid=0.0296
+      B params → D: cost=3620.242  OPTIMAL  valid=0.0447
+      B params → E: cost=6180.703  OPTIMAL  valid=0.0332
+      B params → F: cost=6250.218  OPTIMAL  valid=0.0262
+      B params → G: cost=20344.013  OPTIMAL  valid=0.0031
+      B params → H: cost=17376.131  OPTIMAL  valid=0.0086
+      B params → I: cost=2751.863  OPTIMAL  valid=0.0494
+      B params → J: cost=14140.530  OPTIMAL  valid=0.0060
+      B params → K: cost=12112.874  OPTIMAL  valid=0.0104
+      B params → L: cost=13170.943  OPTIMAL  valid=0.0136
+      B params → M: cost=12286.228  OPTIMAL  valid=0.0028
+      C params → A: cost=9947.085  OPTIMAL  valid=0.0855
+      C params → B: cost=9572.532  OPTIMAL  valid=0.1000
+      C params → D: cost=3620.242  OPTIMAL  valid=0.0708
+      C params → E: cost=6180.703  OPTIMAL  valid=0.0790
+      C params → F: cost=6250.218  OPTIMAL  valid=0.0892
+      C params → G: cost=20344.013  OPTIMAL  valid=0.0923
+      C params → H: cost=17376.131  OPTIMAL  valid=0.1028
+      C params → I: cost=2751.863  OPTIMAL  valid=0.0643
+      C params → J: cost=14140.530  OPTIMAL  valid=0.1187
+      C params → K: cost=12112.874  OPTIMAL  valid=0.1038
+      C params → L: cost=13170.943  OPTIMAL  valid=0.1046
+      C params → M: cost=12286.228  OPTIMAL  valid=0.1097
+      D params → A: cost=9947.085  OPTIMAL  valid=0.0053
+      D params → B: cost=9572.532  OPTIMAL  valid=0.0029
+      D params → C: cost=6013.839  OPTIMAL  valid=0.0072
+      D params → E: cost=6180.703  OPTIMAL  valid=0.0076
+      D params → F: cost=6250.218  OPTIMAL  valid=0.0071
+      D params → G: cost=20344.013  OPTIMAL  valid=0.0038
+      D params → H: cost=17376.131  OPTIMAL  valid=0.0011
+      D params → I: cost=2751.863  OPTIMAL  valid=0.0110
+      D params → J: cost=14140.530  OPTIMAL  valid=0.0004
+      D params → K: cost=12112.874  OPTIMAL  valid=0.0006
+      D params → L: cost=13170.943  OPTIMAL  valid=0.0011
+      D params → M: cost=12286.228  OPTIMAL  valid=0.0011
+      E params → A: cost=9947.085  OPTIMAL  valid=0.1028
+      E params → B: cost=9572.532  OPTIMAL  valid=0.0956
+      E params → C: cost=6013.839  OPTIMAL  valid=0.1192
+      E params → D: cost=3620.242  OPTIMAL  valid=0.1296
+      E params → F: cost=6250.218  OPTIMAL  valid=0.1149
+      E params → G: cost=20344.013  OPTIMAL  valid=0.0013
+      E params → H: cost=17376.131  OPTIMAL  valid=0.0255
+      E params → I: cost=2751.863  OPTIMAL  valid=0.1297
+      E params → J: cost=14140.530  OPTIMAL  valid=0.0556
+      E params → K: cost=12112.874  OPTIMAL  valid=0.0521
+      E params → L: cost=13170.943  OPTIMAL  valid=0.0575
+      E params → M: cost=12286.228  OPTIMAL  valid=0.0182
+      F params → A: cost=9947.085  OPTIMAL  valid=0.1053
+      F params → B: cost=9572.532  OPTIMAL  valid=0.1193
+      F params → C: cost=6013.839  OPTIMAL  valid=0.1258
+      F params → D: cost=3620.242  OPTIMAL  valid=0.1425
+      F params → E: cost=6180.703  OPTIMAL  valid=0.1380
+      F params → G: cost=20344.013  OPTIMAL  valid=0.0396
+      F params → H: cost=17376.131  OPTIMAL  valid=0.0728
+      F params → I: cost=2751.863  OPTIMAL  valid=0.1371
+      F params → J: cost=14140.530  OPTIMAL  valid=0.1025
+      F params → K: cost=12112.874  OPTIMAL  valid=0.0919
+      F params → L: cost=13170.943  OPTIMAL  valid=0.0940
+      F params → M: cost=12286.228  OPTIMAL  valid=0.0716
+      G params → A: cost=9947.085  OPTIMAL  valid=0.0199
+      G params → B: cost=9572.532  OPTIMAL  valid=0.0323
+      G params → C: cost=6013.839  OPTIMAL  valid=0.0208
+      G params → D: cost=3620.242  OPTIMAL  valid=0.0092
+      G params → E: cost=6180.703  OPTIMAL  valid=0.0158
+      G params → F: cost=6250.218  OPTIMAL  valid=0.0216
+      G params → H: cost=17376.131  OPTIMAL  valid=0.0373
+      G params → I: cost=2751.863  OPTIMAL  valid=0.0076
+      G params → J: cost=14140.530  OPTIMAL  valid=0.0489
+      G params → K: cost=12112.874  OPTIMAL  valid=0.0398
+      G params → L: cost=13170.943  OPTIMAL  valid=0.0348
+      G params → M: cost=12286.228  OPTIMAL  valid=0.0550
+      H params → A: cost=9947.085  OPTIMAL  valid=0.0034
+      H params → B: cost=9572.532  OPTIMAL  valid=0.0051
+      H params → C: cost=6013.839  OPTIMAL  valid=0.0022
+      H params → D: cost=3620.242  OPTIMAL  valid=0.0004
+      H params → E: cost=6180.703  OPTIMAL  valid=0.0008
+      H params → F: cost=6250.218  OPTIMAL  valid=0.0027
+      H params → G: cost=20344.013  OPTIMAL  valid=0.0210
+      H params → I: cost=2751.863  OPTIMAL  valid=0.0004
+      H params → J: cost=14140.530  OPTIMAL  valid=0.0096
+      H params → K: cost=12112.874  OPTIMAL  valid=0.0111
+      H params → L: cost=13170.943  OPTIMAL  valid=0.0087
+      H params → M: cost=12286.228  OPTIMAL  valid=0.0201
+      I params → A: cost=9947.085  OPTIMAL  valid=0.2125
+      I params → B: cost=9572.532  OPTIMAL  valid=0.2110
+      I params → C: cost=6013.839  OPTIMAL  valid=0.2133
+      I params → D: cost=3620.242  OPTIMAL  valid=0.1907
+      I params → E: cost=6180.703  OPTIMAL  valid=0.2053
+      I params → F: cost=6250.218  OPTIMAL  valid=0.2114
+      I params → G: cost=20344.013  OPTIMAL  valid=0.0664
+      I params → H: cost=17376.131  OPTIMAL  valid=0.1272
+      I params → J: cost=14140.530  OPTIMAL  valid=0.1863
+      I params → K: cost=12112.874  OPTIMAL  valid=0.1811
+      I params → L: cost=13170.943  OPTIMAL  valid=0.1829
+      I params → M: cost=12286.228  OPTIMAL  valid=0.1330
+      J params → A: cost=9947.085  OPTIMAL  valid=0.0907
+      J params → B: cost=9572.532  OPTIMAL  valid=0.1215
+      J params → C: cost=6013.839  OPTIMAL  valid=0.1075
+      J params → D: cost=3620.242  OPTIMAL  valid=0.1018
+      J params → E: cost=6180.703  OPTIMAL  valid=0.1166
+      J params → F: cost=6250.218  OPTIMAL  valid=0.1216
+      J params → G: cost=20344.013  OPTIMAL  valid=0.0717
+      J params → H: cost=17376.131  OPTIMAL  valid=0.0767
+      J params → I: cost=2751.863  OPTIMAL  valid=0.0880
+      J params → K: cost=12112.874  OPTIMAL  valid=0.1039
+      J params → L: cost=13170.943  OPTIMAL  valid=0.0960
+      J params → M: cost=12286.228  OPTIMAL  valid=0.1122
+      K params → A: cost=9947.085  OPTIMAL  valid=0.0232
+      K params → B: cost=9572.532  OPTIMAL  valid=0.0255
+      K params → C: cost=6013.839  OPTIMAL  valid=0.0155
+      K params → D: cost=3620.242  OPTIMAL  valid=0.0071
+      K params → E: cost=6180.703  OPTIMAL  valid=0.0114
+      K params → F: cost=6250.218  OPTIMAL  valid=0.0150
+      K params → G: cost=20344.013  OPTIMAL  valid=0.0223
+      K params → H: cost=17376.131  OPTIMAL  valid=0.0364
+      K params → I: cost=2751.863  OPTIMAL  valid=0.0060
+      K params → J: cost=14140.530  OPTIMAL  valid=0.0349
+      K params → L: cost=13170.943  OPTIMAL  valid=0.0343
+      K params → M: cost=12286.228  OPTIMAL  valid=0.0361
+      L params → A: cost=9947.085  OPTIMAL  valid=0.1543
+      L params → B: cost=9572.532  OPTIMAL  valid=0.1814
+      L params → C: cost=6013.839  OPTIMAL  valid=0.1592
+      L params → D: cost=3620.242  OPTIMAL  valid=0.1342
+      L params → E: cost=6180.703  OPTIMAL  valid=0.1553
+      L params → F: cost=6250.218  OPTIMAL  valid=0.1685
+      L params → G: cost=20344.013  OPTIMAL  valid=0.1053
+      L params → H: cost=17376.131  OPTIMAL  valid=0.1492
+      L params → I: cost=2751.863  OPTIMAL  valid=0.1204
+      L params → J: cost=14140.530  OPTIMAL  valid=0.1967
+      L params → K: cost=12112.874  OPTIMAL  valid=0.1740
+      L params → M: cost=12286.228  OPTIMAL  valid=0.1663
+      M params → A: cost=9947.085  OPTIMAL  valid=0.0037
+      M params → B: cost=9572.532  OPTIMAL  valid=0.0057
+      M params → C: cost=6013.839  OPTIMAL  valid=0.0063
+      M params → D: cost=3620.242  OPTIMAL  valid=0.0083
+      M params → E: cost=6180.703  OPTIMAL  valid=0.0087
+      M params → F: cost=6250.218  OPTIMAL  valid=0.0074
+      M params → G: cost=20344.013  OPTIMAL  valid=0.0037
+      M params → H: cost=17376.131  OPTIMAL  valid=0.0051
+      M params → I: cost=2751.863  OPTIMAL  valid=0.0076
+      M params → J: cost=14140.530  OPTIMAL  valid=0.0063
+      M params → K: cost=12112.874  OPTIMAL  valid=0.0038
+      M params → L: cost=13170.943  OPTIMAL  valid=0.0035
+
+  Config 6/7: reps=2_COBYLA_maxiter=50
+
+    2-customer group (4 qubits): ['S1', 'S2', 'S3']
+      S1 params → S2: cost=12323.023  OPTIMAL  valid=0.1265
+      S1 params → S3: cost=3927.866  OPTIMAL  valid=0.7131
+      S2 params → S1: cost=1321.644  OPTIMAL  valid=0.3341
+      S2 params → S3: cost=3927.866  OPTIMAL  valid=0.3955
+      S3 params → S1: cost=1321.644  OPTIMAL  valid=0.8844
+      S3 params → S2: cost=12323.023  OPTIMAL  valid=0.3047
+
+    3-customer group (9 qubits): ['T1', 'T2', 'T3']
+      T1 params → T2: cost=18874.387  OPTIMAL  valid=0.0540
+      T1 params → T3: cost=13458.699  OPTIMAL  valid=0.0926
+      T2 params → T1: cost=3611.981  OPTIMAL  valid=0.0384
+      T2 params → T3: cost=13458.699  OPTIMAL  valid=0.3385
+      T3 params → T1: cost=3611.981  OPTIMAL  valid=0.0869
+      T3 params → T2: cost=18874.387  OPTIMAL  valid=0.3047
+
+    4-customer group (16 qubits): ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M']
+      A params → B: cost=9572.532  OPTIMAL  valid=0.0233
+      A params → C: cost=6013.839  OPTIMAL  valid=0.0249
+      A params → D: cost=3620.242  OPTIMAL  valid=0.0324
+      A params → E: cost=6180.703  OPTIMAL  valid=0.0316
+      A params → F: cost=6250.218  OPTIMAL  valid=0.0272
+      A params → G: cost=20344.013  OPTIMAL  valid=0.0013
+      A params → H: cost=17376.131  OPTIMAL  valid=0.0069
+      A params → I: cost=2751.863  OPTIMAL  valid=0.0311
+      A params → J: cost=14140.530  OPTIMAL  valid=0.0168
+      A params → K: cost=12112.874  OPTIMAL  valid=0.0124
+      A params → L: cost=13170.943  OPTIMAL  valid=0.0122
+      A params → M: cost=12286.228  OPTIMAL  valid=0.0073
+      B params → A: cost=9947.085  OPTIMAL  valid=0.0153
+      B params → C: cost=6013.839  OPTIMAL  valid=0.0198
+      B params → D: cost=3620.242  OPTIMAL  valid=0.0281
+      B params → E: cost=6180.703  OPTIMAL  valid=0.0267
+      B params → F: cost=6250.218  OPTIMAL  valid=0.0223
+      B params → G: cost=20344.013  OPTIMAL  valid=0.0034
+      B params → H: cost=17376.131  OPTIMAL  valid=0.0052
+      B params → I: cost=2751.863  OPTIMAL  valid=0.0258
+      B params → J: cost=14140.530  OPTIMAL  valid=0.0146
+      B params → K: cost=12112.874  OPTIMAL  valid=0.0106
+      B params → L: cost=13170.943  OPTIMAL  valid=0.0093
+      B params → M: cost=12286.228  OPTIMAL  valid=0.0087
+      C params → A: cost=9947.085  OPTIMAL  valid=0.0289
+      C params → B: cost=9572.532  OPTIMAL  valid=0.0289
+      C params → D: cost=3620.242  OPTIMAL  valid=0.0325
+      C params → E: cost=6180.703  OPTIMAL  valid=0.0316
+      C params → F: cost=6250.218  OPTIMAL  valid=0.0301
+      C params → G: cost=20344.013  OPTIMAL  valid=0.0127
+      C params → H: cost=17376.131  OPTIMAL  valid=0.0218
+      C params → I: cost=2751.863  OPTIMAL  valid=0.0310
+      C params → J: cost=14140.530  OPTIMAL  valid=0.0271
+      C params → K: cost=12112.874  OPTIMAL  valid=0.0249
+      C params → L: cost=13170.943  OPTIMAL  valid=0.0254
+      C params → M: cost=12286.228  OPTIMAL  valid=0.0196
+      D params → A: cost=9947.085  OPTIMAL  valid=0.0103
+      D params → B: cost=9572.532  OPTIMAL  valid=0.0120
+      D params → C: cost=6013.839  OPTIMAL  valid=0.0139
+      D params → E: cost=6180.703  OPTIMAL  valid=0.0183
+      D params → F: cost=6250.218  OPTIMAL  valid=0.0147
+      D params → G: cost=20344.013  OPTIMAL  valid=0.0004
+      D params → H: cost=17376.131  OPTIMAL  valid=0.0024
+      D params → I: cost=2751.863  OPTIMAL  valid=0.0203
+      D params → J: cost=14140.530  OPTIMAL  valid=0.0065
+      D params → K: cost=12112.874  OPTIMAL  valid=0.0051
+      D params → L: cost=13170.943  OPTIMAL  valid=0.0050
+      D params → M: cost=12286.228  OPTIMAL  valid=0.0020
+      E params → A: cost=9947.085  OPTIMAL  valid=0.0212
+      E params → B: cost=9572.532  OPTIMAL  valid=0.0225
+      E params → C: cost=6013.839  OPTIMAL  valid=0.0220
+      E params → D: cost=3620.242  OPTIMAL  valid=0.0247
+      E params → F: cost=6250.218  OPTIMAL  valid=0.0225
+      E params → G: cost=20344.013  OPTIMAL  valid=0.0074
+      E params → H: cost=17376.131  OPTIMAL  valid=0.0142
+      E params → I: cost=2751.863  OPTIMAL  valid=0.0242
+      E params → J: cost=14140.530  OPTIMAL  valid=0.0200
+      E params → K: cost=12112.874  OPTIMAL  valid=0.0175
+      E params → L: cost=13170.943  OPTIMAL  valid=0.0183
+      E params → M: cost=12286.228  OPTIMAL  valid=0.0131
+      F params → A: cost=9947.085  OPTIMAL  valid=0.0213
+      F params → B: cost=9572.532  OPTIMAL  valid=0.0230
+      F params → C: cost=6013.839  OPTIMAL  valid=0.0251
+      F params → D: cost=3620.242  OPTIMAL  valid=0.0310
+      F params → E: cost=6180.703  OPTIMAL  valid=0.0302
+      F params → G: cost=20344.013  OPTIMAL  valid=0.0013
+      F params → H: cost=17376.131  OPTIMAL  valid=0.0067
+      F params → I: cost=2751.863  OPTIMAL  valid=0.0318
+      F params → J: cost=14140.530  OPTIMAL  valid=0.0157
+      F params → K: cost=12112.874  OPTIMAL  valid=0.0125
+      F params → L: cost=13170.943  OPTIMAL  valid=0.0137
+      F params → M: cost=12286.228  OPTIMAL  valid=0.0068
+      G params → A: cost=9947.085  OPTIMAL  valid=0.0367
+      G params → B: cost=9572.532  OPTIMAL  valid=0.0369
+      G params → C: cost=6013.839  OPTIMAL  valid=0.0360
+      G params → D: cost=3620.242  OPTIMAL  valid=0.0371
+      G params → E: cost=6180.703  OPTIMAL  valid=0.0364
+      G params → F: cost=6250.218  OPTIMAL  valid=0.0365
+      G params → H: cost=17376.131  OPTIMAL  valid=0.0377
+      G params → I: cost=2751.863  OPTIMAL  valid=0.0374
+      G params → J: cost=14140.530  OPTIMAL  valid=0.0368
+      G params → K: cost=12112.874  OPTIMAL  valid=0.0393
+      G params → L: cost=13170.943  OPTIMAL  valid=0.0381
+      G params → M: cost=12286.228  OPTIMAL  valid=0.0404
+      H params → A: cost=9947.085  OPTIMAL  valid=0.0278
+      H params → B: cost=9572.532  OPTIMAL  valid=0.0303
+      H params → C: cost=6013.839  OPTIMAL  valid=0.0304
+      H params → D: cost=3620.242  OPTIMAL  valid=0.0298
+      H params → E: cost=6180.703  OPTIMAL  valid=0.0306
+      H params → F: cost=6250.218  OPTIMAL  valid=0.0318
+      H params → G: cost=20344.013  OPTIMAL  valid=0.0233
+      H params → I: cost=2751.863  OPTIMAL  valid=0.0297
+      H params → J: cost=14140.530  OPTIMAL  valid=0.0300
+      H params → K: cost=12112.874  OPTIMAL  valid=0.0281
+      H params → L: cost=13170.943  OPTIMAL  valid=0.0280
+      H params → M: cost=12286.228  OPTIMAL  valid=0.0282
+      I params → A: cost=9947.085  OPTIMAL  valid=0.0193
+      I params → B: cost=9572.532  OPTIMAL  valid=0.0189
+      I params → C: cost=6013.839  OPTIMAL  valid=0.0238
+      I params → D: cost=3620.242  OPTIMAL  valid=0.0320
+      I params → E: cost=6180.703  OPTIMAL  valid=0.0284
+      I params → F: cost=6250.218  OPTIMAL  valid=0.0258
+      I params → G: cost=20344.013  OPTIMAL  valid=0.0006
+      I params → H: cost=17376.131  OPTIMAL  valid=0.0053
+      I params → J: cost=14140.530  OPTIMAL  valid=0.0125
+      I params → K: cost=12112.874  OPTIMAL  valid=0.0113
+      I params → L: cost=13170.943  OPTIMAL  valid=0.0105
+      I params → M: cost=12286.228  OPTIMAL  valid=0.0053
+      J params → A: cost=9947.085  OPTIMAL  valid=0.0435
+      J params → B: cost=9572.532  OPTIMAL  valid=0.0428
+      J params → C: cost=6013.839  OPTIMAL  valid=0.0397
+      J params → D: cost=3620.242  OPTIMAL  valid=0.0307
+      J params → E: cost=6180.703  OPTIMAL  valid=0.0345
+      J params → F: cost=6250.218  OPTIMAL  valid=0.0386
+      J params → G: cost=20344.013  OPTIMAL  valid=0.0569
+      J params → H: cost=17376.131  OPTIMAL  valid=0.0508
+      J params → I: cost=2751.863  OPTIMAL  valid=0.0321
+      J params → K: cost=12112.874  OPTIMAL  valid=0.0486
+      J params → L: cost=13170.943  OPTIMAL  valid=0.0476
+      J params → M: cost=12286.228  OPTIMAL  valid=0.0556
+      K params → A: cost=9947.085  OPTIMAL  valid=0.0286
+      K params → B: cost=9572.532  OPTIMAL  valid=0.0278
+      K params → C: cost=6013.839  OPTIMAL  valid=0.0277
+      K params → D: cost=3620.242  OPTIMAL  valid=0.0234
+      K params → E: cost=6180.703  OPTIMAL  valid=0.0258
+      K params → F: cost=6250.218  OPTIMAL  valid=0.0272
+      K params → G: cost=20344.013  OPTIMAL  valid=0.0336
+      K params → H: cost=17376.131  OPTIMAL  valid=0.0329
+      K params → I: cost=2751.863  OPTIMAL  valid=0.0238
+      K params → J: cost=14140.530  OPTIMAL  valid=0.0301
+      K params → L: cost=13170.943  OPTIMAL  valid=0.0306
+      K params → M: cost=12286.228  OPTIMAL  valid=0.0318
+      L params → A: cost=9947.085  OPTIMAL  valid=0.0284
+      L params → B: cost=9572.532  OPTIMAL  valid=0.0285
+      L params → C: cost=6013.839  OPTIMAL  valid=0.0285
+      L params → D: cost=3620.242  OPTIMAL  valid=0.0322
+      L params → E: cost=6180.703  OPTIMAL  valid=0.0321
+      L params → F: cost=6250.218  OPTIMAL  valid=0.0308
+      L params → G: cost=20344.013  OPTIMAL  valid=0.0216
+      L params → H: cost=17376.131  OPTIMAL  valid=0.0221
+      L params → I: cost=2751.863  OPTIMAL  valid=0.0329
+      L params → J: cost=14140.530  OPTIMAL  valid=0.0257
+      L params → K: cost=12112.874  OPTIMAL  valid=0.0247
+      L params → M: cost=12286.228  OPTIMAL  valid=0.0226
+      M params → A: cost=9947.085  OPTIMAL  valid=0.0246
+      M params → B: cost=9572.532  OPTIMAL  valid=0.0291
+      M params → C: cost=6013.839  OPTIMAL  valid=0.0235
+      M params → D: cost=3620.242  OPTIMAL  valid=0.0178
+      M params → E: cost=6180.703  OPTIMAL  valid=0.0220
+      M params → F: cost=6250.218  OPTIMAL  valid=0.0240
+      M params → G: cost=20344.013  OPTIMAL  valid=0.0417
+      M params → H: cost=17376.131  OPTIMAL  valid=0.0365
+      M params → I: cost=2751.863  OPTIMAL  valid=0.0169
+      M params → J: cost=14140.530  OPTIMAL  valid=0.0370
+      M params → K: cost=12112.874  OPTIMAL  valid=0.0327
+      M params → L: cost=13170.943  OPTIMAL  valid=0.0319
+
+  Config 7/7: reps=5_COBYLA_maxiter=50
+
+    2-customer group (4 qubits): ['S1', 'S2', 'S3']
+      S1 params → S2: cost=12323.023  OPTIMAL  valid=0.3332
+      S1 params → S3: cost=3927.866  OPTIMAL  valid=0.9136
+      S2 params → S1: cost=1321.644  OPTIMAL  valid=0.0160
+      S2 params → S3: cost=3927.866  OPTIMAL  valid=0.0791
+      S3 params → S1: cost=1321.644  OPTIMAL  valid=0.9873
+      S3 params → S2: cost=12323.023  OPTIMAL  valid=0.7039
+
+    3-customer group (9 qubits): ['T1', 'T2', 'T3']
+      T1 params → T2: cost=18874.387  OPTIMAL  valid=0.0165
+      T1 params → T3: cost=13458.699  OPTIMAL  valid=0.0393
+      T2 params → T1: cost=3611.981  OPTIMAL  valid=0.1526
+      T2 params → T3: cost=13458.699  OPTIMAL  valid=0.1760
+      T3 params → T1: cost=3611.981  OPTIMAL  valid=0.0837
+      T3 params → T2: cost=18874.387  OPTIMAL  valid=0.1083
+
+    4-customer group (16 qubits): ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M']
+      A params → B: cost=9572.532  OPTIMAL  valid=0.2808
+      A params → C: cost=6013.839  OPTIMAL  valid=0.2714
+      A params → D: cost=3620.242  OPTIMAL  valid=0.2460
+      A params → E: cost=6180.703  OPTIMAL  valid=0.2654
+      A params → F: cost=6250.218  OPTIMAL  valid=0.2745
+      A params → G: cost=20344.013  OPTIMAL  valid=0.2400
+      A params → H: cost=17376.131  OPTIMAL  valid=0.2749
+      A params → I: cost=2751.863  OPTIMAL  valid=0.2408
+      A params → J: cost=14140.530  OPTIMAL  valid=0.2866
+      A params → K: cost=12112.874  OPTIMAL  valid=0.2834
+      A params → L: cost=13170.943  OPTIMAL  valid=0.2837
+      A params → M: cost=12286.228  OPTIMAL  valid=0.2744
+      B params → A: cost=9947.085  OPTIMAL  valid=0.1546
+      B params → C: cost=6013.839  OPTIMAL  valid=0.1542
+      B params → D: cost=3620.242  OPTIMAL  valid=0.1448
+      B params → E: cost=6180.703  OPTIMAL  valid=0.1451
+      B params → F: cost=6250.218  OPTIMAL  valid=0.1459
+      B params → G: cost=20344.013  OPTIMAL  valid=0.0441
+      B params → H: cost=17376.131  OPTIMAL  valid=0.0937
+      B params → I: cost=2751.863  OPTIMAL  valid=0.1518
+      B params → J: cost=14140.530  OPTIMAL  valid=0.1164
+      B params → K: cost=12112.874  OPTIMAL  valid=0.1202
+      B params → L: cost=13170.943  OPTIMAL  valid=0.1257
+      B params → M: cost=12286.228  OPTIMAL  valid=0.0822
+      C params → A: cost=9947.085  OPTIMAL  valid=0.2912
+      C params → B: cost=9572.532  OPTIMAL  valid=0.3092
+      C params → D: cost=3620.242  OPTIMAL  valid=0.2417
+      C params → E: cost=6180.703  OPTIMAL  valid=0.2696
+      C params → F: cost=6250.218  OPTIMAL  valid=0.2940
+      C params → G: cost=20344.013  OPTIMAL  valid=0.2442
+      C params → H: cost=17376.131  OPTIMAL  valid=0.2824
+      C params → I: cost=2751.863  OPTIMAL  valid=0.2334
+      C params → J: cost=14140.530  OPTIMAL  valid=0.3244
+      C params → K: cost=12112.874  OPTIMAL  valid=0.3084
+      C params → L: cost=13170.943  OPTIMAL  valid=0.3048
+      C params → M: cost=12286.228  OPTIMAL  valid=0.3084
+      D params → A: cost=9947.085  OPTIMAL  valid=0.1244
+      D params → B: cost=9572.532  OPTIMAL  valid=0.1250
+      D params → C: cost=6013.839  OPTIMAL  valid=0.1217
+      D params → E: cost=6180.703  OPTIMAL  valid=0.1109
+      D params → F: cost=6250.218  OPTIMAL  valid=0.1194
+      D params → G: cost=20344.013  OPTIMAL  valid=0.1098
+      D params → H: cost=17376.131  OPTIMAL  valid=0.1154
+      D params → I: cost=2751.863  OPTIMAL  valid=0.0979
+      D params → J: cost=14140.530  OPTIMAL  valid=0.1298
+      D params → K: cost=12112.874  OPTIMAL  valid=0.1322
+      D params → L: cost=13170.943  OPTIMAL  valid=0.1301
+      D params → M: cost=12286.228  OPTIMAL  valid=0.1373
+      E params → A: cost=9947.085  OPTIMAL  valid=0.1674
+      E params → B: cost=9572.532  OPTIMAL  valid=0.1687
+      E params → C: cost=6013.839  OPTIMAL  valid=0.1649
+      E params → D: cost=3620.242  OPTIMAL  valid=0.1559
+      E params → F: cost=6250.218  OPTIMAL  valid=0.1660
+      E params → G: cost=20344.013  OPTIMAL  valid=0.1021
+      E params → H: cost=17376.131  OPTIMAL  valid=0.1466
+      E params → I: cost=2751.863  OPTIMAL  valid=0.1548
+      E params → J: cost=14140.530  OPTIMAL  valid=0.1665
+      E params → K: cost=12112.874  OPTIMAL  valid=0.1657
+      E params → L: cost=13170.943  OPTIMAL  valid=0.1660
+      E params → M: cost=12286.228  OPTIMAL  valid=0.1468
+      F params → A: cost=9947.085  OPTIMAL  valid=0.3984
+      F params → B: cost=9572.532  OPTIMAL  valid=0.3826
+      F params → C: cost=6013.839  OPTIMAL  valid=0.3928
+      F params → D: cost=3620.242  OPTIMAL  valid=0.3701
+      F params → E: cost=6180.703  OPTIMAL  valid=0.3787
+      F params → G: cost=20344.013  OPTIMAL  valid=0.1999
+      F params → H: cost=17376.131  OPTIMAL  valid=0.3152
+      F params → I: cost=2751.863  OPTIMAL  valid=0.3752
+      F params → J: cost=14140.530  OPTIMAL  valid=0.3556
+      F params → K: cost=12112.874  OPTIMAL  valid=0.3558
+      F params → L: cost=13170.943  OPTIMAL  valid=0.3656
+      F params → M: cost=12286.228  OPTIMAL  valid=0.2926
+      G params → A: cost=9947.085  OPTIMAL  valid=0.0803
+      G params → B: cost=9572.532  OPTIMAL  valid=0.0806
+      G params → C: cost=6013.839  OPTIMAL  valid=0.0697
+      G params → D: cost=3620.242  OPTIMAL  valid=0.0553
+      G params → E: cost=6180.703  OPTIMAL  valid=0.0624
+      G params → F: cost=6250.218  OPTIMAL  valid=0.0698
+      G params → H: cost=17376.131  OPTIMAL  valid=0.1077
+      G params → I: cost=2751.863  OPTIMAL  valid=0.0530
+      G params → J: cost=14140.530  OPTIMAL  valid=0.0954
+      G params → K: cost=12112.874  OPTIMAL  valid=0.0960
+      G params → L: cost=13170.943  OPTIMAL  valid=0.0973
+      G params → M: cost=12286.228  OPTIMAL  valid=0.1140
+      H params → A: cost=9947.085  OPTIMAL  valid=0.0083
+      H params → B: cost=9572.532  OPTIMAL  valid=0.0136
+      H params → C: cost=6013.839  OPTIMAL  valid=0.0121
+      H params → D: cost=3620.242  OPTIMAL  valid=0.0147
+      H params → E: cost=6180.703  OPTIMAL  valid=0.0161
+      H params → F: cost=6250.218  OPTIMAL  valid=0.0140
+      H params → G: cost=20344.013  OPTIMAL  valid=0.0083
+      H params → I: cost=2751.863  OPTIMAL  valid=0.0125
+      H params → J: cost=14140.530  OPTIMAL  valid=0.0129
+      H params → K: cost=12112.874  OPTIMAL  valid=0.0071
+      H params → L: cost=13170.943  OPTIMAL  valid=0.0066
+      H params → M: cost=12286.228  OPTIMAL  valid=0.0091
+      I params → A: cost=9947.085  OPTIMAL  valid=0.3906
+      I params → B: cost=9572.532  OPTIMAL  valid=0.3894
+      I params → C: cost=6013.839  OPTIMAL  valid=0.3672
+      I params → D: cost=3620.242  OPTIMAL  valid=0.2932
+      I params → E: cost=6180.703  OPTIMAL  valid=0.3313
+      I params → F: cost=6250.218  OPTIMAL  valid=0.3622
+      I params → G: cost=20344.013  OPTIMAL  valid=0.2767
+      I params → H: cost=17376.131  OPTIMAL  valid=0.3719
+      I params → J: cost=14140.530  OPTIMAL  valid=0.4057
+      I params → K: cost=12112.874  OPTIMAL  valid=0.4054
+      I params → L: cost=13170.943  OPTIMAL  valid=0.4076
+      I params → M: cost=12286.228  OPTIMAL  valid=0.3730
+      J params → A: cost=9947.085  OPTIMAL  valid=0.2146
+      J params → B: cost=9572.532  OPTIMAL  valid=0.2299
+      J params → C: cost=6013.839  OPTIMAL  valid=0.2106
+      J params → D: cost=3620.242  OPTIMAL  valid=0.1689
+      J params → E: cost=6180.703  OPTIMAL  valid=0.1920
+      J params → F: cost=6250.218  OPTIMAL  valid=0.2131
+      J params → G: cost=20344.013  OPTIMAL  valid=0.2357
+      J params → H: cost=17376.131  OPTIMAL  valid=0.2343
+      J params → I: cost=2751.863  OPTIMAL  valid=0.1646
+      J params → K: cost=12112.874  OPTIMAL  valid=0.2450
+      J params → L: cost=13170.943  OPTIMAL  valid=0.2359
+      J params → M: cost=12286.228  OPTIMAL  valid=0.2655
+      K params → A: cost=9947.085  OPTIMAL  valid=0.1353
+      K params → B: cost=9572.532  OPTIMAL  valid=0.1363
+      K params → C: cost=6013.839  OPTIMAL  valid=0.1228
+      K params → D: cost=3620.242  OPTIMAL  valid=0.0894
+      K params → E: cost=6180.703  OPTIMAL  valid=0.1054
+      K params → F: cost=6250.218  OPTIMAL  valid=0.1220
+      K params → G: cost=20344.013  OPTIMAL  valid=0.1463
+      K params → H: cost=17376.131  OPTIMAL  valid=0.1569
+      K params → I: cost=2751.863  OPTIMAL  valid=0.0907
+      K params → J: cost=14140.530  OPTIMAL  valid=0.1527
+      K params → L: cost=13170.943  OPTIMAL  valid=0.1551
+      K params → M: cost=12286.228  OPTIMAL  valid=0.1656
+      L params → A: cost=9947.085  OPTIMAL  valid=0.1082
+      L params → B: cost=9572.532  OPTIMAL  valid=0.1075
+      L params → C: cost=6013.839  OPTIMAL  valid=0.0922
+      L params → D: cost=3620.242  OPTIMAL  valid=0.0603
+      L params → E: cost=6180.703  OPTIMAL  valid=0.0760
+      L params → F: cost=6250.218  OPTIMAL  valid=0.0892
+      L params → G: cost=20344.013  OPTIMAL  valid=0.1590
+      L params → H: cost=17376.131  OPTIMAL  valid=0.1528
+      L params → I: cost=2751.863  OPTIMAL  valid=0.0620
+      L params → J: cost=14140.530  OPTIMAL  valid=0.1292
+      L params → K: cost=12112.874  OPTIMAL  valid=0.1422
+      L params → M: cost=12286.228  OPTIMAL  valid=0.1561
+      M params → A: cost=9947.085  OPTIMAL  valid=0.0796
+      M params → B: cost=9572.532  OPTIMAL  valid=0.0788
+      M params → C: cost=6013.839  OPTIMAL  valid=0.0706
+      M params → D: cost=3620.242  OPTIMAL  valid=0.0501
+      M params → E: cost=6180.703  OPTIMAL  valid=0.0587
+      M params → F: cost=6250.218  OPTIMAL  valid=0.0677
+      M params → G: cost=20344.013  OPTIMAL  valid=0.1086
+      M params → H: cost=17376.131  OPTIMAL  valid=0.1007
+      M params → I: cost=2751.863  OPTIMAL  valid=0.0515
+      M params → J: cost=14140.530  OPTIMAL  valid=0.0892
+      M params → K: cost=12112.874  OPTIMAL  valid=0.0984
+      M params → L: cost=13170.943  OPTIMAL  valid=0.0970
+
+================================================================================
+UNIVERSALITY SUMMARY
+================================================================================
+
+  Source     Size  Avg Gap on Others   Optimal Rate  Avg Valid
+  --------------------------------------------------------------
+  S1          2c               0.00%         100.0%    0.3709
+  S2          2c               0.00%         100.0%    0.2981
+  S3          2c               0.00%         100.0%    0.4486
+  T1          3c               0.00%         100.0%    0.0365
+  T2          3c               0.00%         100.0%    0.0822
+  T3          3c               0.00%         100.0%    0.0827
+  A           4c                inf%          91.7%    0.0432
+  B           4c                inf%          88.1%    0.0239
+  C           4c               0.00%         100.0%    0.0593
+  D           4c               0.02%          98.8%    0.0203
+  E           4c               0.00%         100.0%    0.0369
+  F           4c               0.23%          92.9%    0.0682
+  G           4c               0.14%          97.6%    0.0222
+  H           4c               0.00%         100.0%    0.0081
+  I           4c               0.00%         100.0%    0.0809
+  J           4c               0.00%         100.0%    0.0528
+  K           4c               0.00%         100.0%    0.0273
+  L           4c               0.00%         100.0%    0.0436
+  M           4c               0.00%         100.0%    0.0181
+
+  ── Best universal parameter source per size group ──
+  2-customer: S1 (2cust-near [17,26]) — avg gap 0.00%, optimal rate 100.0%
+  3-customer: T1 (3cust-compact [16,23,28]) — avg gap 0.00%, optimal rate 100.0%
+  4-customer: C (nodes [0,8,10,29,45]) — avg gap 0.00%, optimal rate 100.0%
+
+  ── Own params vs transferred params (4-customer group, avg across configs) ──
+  Target      Own Gap  Best Xfer   Best Src  Worst Xfer  Worst Src
+  -----------------------------------------------------------------
+  A             1.66%      0.00%          C       1.64%          B
+  B             0.00%      0.00%          A       0.00%          J
+  C             0.00%      0.00%          D       1.20%          A
+  D             0.00%      0.00%          C       0.02%          A
+  E             0.00%      0.00%          C        inf%          A
+  F             0.02%      0.00%          C       0.92%          A
+  G             0.00%      0.00%          A       2.18%          B
+  H             0.00%      0.00%          A       0.42%          B
+  I             0.00%      0.00%          A        inf%          B
+  J             0.00%      0.00%          A       0.00%          A
+  K             0.00%      0.00%          B       0.11%          A
+  L             0.00%      0.00%          C       3.55%          A
+  M             0.00%      0.00%          C        inf%          A
+
+Results saved to: exp6_results.json
+
+========================================================================================================================
+DETAILED COMPARISON TABLE: COLD START vs WARM START
+========================================================================================================================
+
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+Config 1/7: reps=2  optimizer=ADAM  maxiter=30  restarts=1
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+Instance   │    Cold Cost  Cold Gap%  Optimal?  Cold Time                                        Cold Params
+           │    Warm Cost  Warm Gap%  Optimal?  Warm Time                                        Warm Params   Source
+───────────┼────────────────────────────────────────────────────────────────────────────────────────────────────
+A          │     9947.085      0.00%       YES       0.5s  [2.3533, 5.9735, 4.5993, 3.7615]
+  (warm)   │     9947.085      0.00%       YES       0.5s  [2.3533, 5.9735, 4.5993, 3.7615]  ←     B
+B          │     9572.532      0.00%       YES       0.5s  [2.3533, 5.9735, 4.5993, 3.7615]
+  (warm)   │     9572.532      0.00%       YES       0.6s  [2.3533, 5.9735, 4.5993, 3.7615]  ←     A
+C          │     6013.839      0.00%       YES       0.5s  [2.3533, 5.9735, 4.5993, 3.7615]
+  (warm)   │            —          —         —          —  (no warm-start pair)
+D          │     3620.242      0.00%       YES       0.5s  [2.3533, 5.9735, 4.5993, 3.7615]
+  (warm)   │     3620.242      0.00%       YES       0.6s  [2.3533, 5.9735, 4.5993, 3.7615]  ←     E
+E          │     6180.703      0.00%       YES       0.5s  [2.3533, 5.9735, 4.5993, 3.7615]
+  (warm)   │     6180.703      0.00%       YES       0.5s  [2.3533, 5.9735, 4.5993, 3.7615]  ←     D
+F          │     6250.218      0.00%       YES       0.6s  [2.3533, 5.9735, 4.5993, 3.7615]
+  (warm)   │     6250.218      0.00%       YES       0.5s  [2.3533, 5.9735, 4.5993, 3.7615]  ←     D
+G          │    20344.013      0.00%       YES       0.5s  [2.3533, 5.9735, 4.5993, 3.7615]
+  (warm)   │    20344.013      0.00%       YES       0.5s  [2.3533, 5.9735, 4.5993, 3.7615]  ←     H
+H          │    17376.131      0.00%       YES       0.5s  [2.3533, 5.9735, 4.5993, 3.7615]
+  (warm)   │    17376.131      0.00%       YES       0.5s  [2.3533, 5.9735, 4.5993, 3.7615]  ←     G
+I          │     2751.863      0.00%       YES       0.5s  [2.3533, 5.9735, 4.5993, 3.7615]
+  (warm)   │     2751.863      0.00%       YES       0.6s  [2.3533, 5.9735, 4.5993, 3.7615]  ←     J
+J          │    14140.530      0.00%       YES       0.5s  [2.3533, 5.9735, 4.5993, 3.7615]
+  (warm)   │    14140.530      0.00%       YES       0.5s  [2.3533, 5.9735, 4.5993, 3.7615]  ←     I
+K          │    12112.874      0.00%       YES       0.5s  [2.3533, 5.9735, 4.5993, 3.7615]
+  (warm)   │    12112.874      0.00%       YES       0.5s  [2.3533, 5.9735, 4.5993, 3.7615]  ←     I
+L          │    13170.943      0.00%       YES       0.5s  [2.3533, 5.9735, 4.5993, 3.7615]
+  (warm)   │    13170.943      0.00%       YES       0.5s  [2.3533, 5.9735, 4.5993, 3.7615]  ←     K
+M          │    12286.228      0.00%       YES       0.5s  [2.3533, 5.9735, 4.5993, 3.7615]
+  (warm)   │    12286.228      0.00%       YES       0.5s  [2.3533, 5.9735, 4.5993, 3.7615]  ←     L
+S1         │     1321.644      0.00%       YES       0.1s  [2.3533, 5.9735, 4.5993, 3.7615]
+  (warm)   │     1321.644      0.00%       YES       0.1s  [2.3533, 5.9735, 4.5993, 3.7615]  ←    S2
+S2         │    12323.023      0.00%       YES       0.1s  [2.3533, 5.9735, 4.5993, 3.7615]
+  (warm)   │    12323.023      0.00%       YES       0.1s  [2.3533, 5.9735, 4.5993, 3.7615]  ←    S1
+S3         │     3927.866      0.00%       YES       0.1s  [2.3533, 5.9735, 4.5993, 3.7615]
+  (warm)   │     3927.866      0.00%       YES       0.1s  [2.3533, 5.9735, 4.5993, 3.7615]  ←    S1
+T1         │     3611.981      0.00%       YES       0.2s  [2.3533, 5.9735, 4.5993, 3.7615]
+  (warm)   │     3611.981      0.00%       YES       0.1s  [2.3533, 5.9735, 4.5993, 3.7615]  ←    T2
+T2         │    18874.387      0.00%       YES       0.1s  [2.3533, 5.9735, 4.5993, 3.7615]
+  (warm)   │    18874.387      0.00%       YES       0.1s  [2.3533, 5.9735, 4.5993, 3.7615]  ←    T1
+T3         │    13458.699      0.00%       YES       0.2s  [2.3533, 5.9735, 4.5993, 3.7615]
+  (warm)   │    13458.699      0.00%       YES       0.2s  [2.3533, 5.9735, 4.5993, 3.7615]  ←    T1
+
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+Config 2/7: reps=5  optimizer=ADAM  maxiter=30  restarts=1
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+Instance   │    Cold Cost  Cold Gap%  Optimal?  Cold Time                                        Cold Params
+           │    Warm Cost  Warm Gap%  Optimal?  Warm Time                                        Warm Params   Source
+───────────┼────────────────────────────────────────────────────────────────────────────────────────────────────
+A          │     9947.085      0.00%       YES       1.3s  [2.3533, 5.9735, 4.5993, 3.7615, 0.9803, 0.9801 ...]
+  (warm)   │     9947.085      0.00%       YES       1.4s  [2.3533, 5.9735, 4.5993, 3.7615, 0.9803, 0.9801 ...]  ←     B
+B          │     9572.532      0.00%       YES       1.3s  [2.3533, 5.9735, 4.5993, 3.7615, 0.9803, 0.9801 ...]
+  (warm)   │     9572.532      0.00%       YES       1.3s  [2.3533, 5.9735, 4.5993, 3.7615, 0.9803, 0.9801 ...]  ←     A
+C          │     6013.839      0.00%       YES       1.3s  [2.3533, 5.9735, 4.5993, 3.7615, 0.9803, 0.9801 ...]
+  (warm)   │            —          —         —          —  (no warm-start pair)
+D          │     3620.242      0.00%       YES       1.4s  [2.3533, 5.9735, 4.5993, 3.7615, 0.9803, 0.9801 ...]
+  (warm)   │     3620.242      0.00%       YES       1.3s  [2.3533, 5.9735, 4.5993, 3.7615, 0.9803, 0.9801 ...]  ←     E
+E          │     6180.703      0.00%       YES       1.4s  [2.3533, 5.9735, 4.5993, 3.7615, 0.9803, 0.9801 ...]
+  (warm)   │     6180.703      0.00%       YES       1.5s  [2.3533, 5.9735, 4.5993, 3.7615, 0.9803, 0.9801 ...]  ←     D
+F          │     6250.218      0.00%       YES       1.4s  [2.3533, 5.9735, 4.5993, 3.7615, 0.9803, 0.9801 ...]
+  (warm)   │     6250.218      0.00%       YES       1.3s  [2.3533, 5.9735, 4.5993, 3.7615, 0.9803, 0.9801 ...]  ←     D
+G          │    20344.013      0.00%       YES       1.4s  [2.3533, 5.9735, 4.5993, 3.7615, 0.9803, 0.9801 ...]
+  (warm)   │    20344.013      0.00%       YES       1.5s  [2.3533, 5.9735, 4.5993, 3.7615, 0.9803, 0.9801 ...]  ←     H
+H          │    17376.131      0.00%       YES       1.5s  [2.3533, 5.9735, 4.5993, 3.7615, 0.9803, 0.9801 ...]
+  (warm)   │    17376.131      0.00%       YES       1.5s  [2.3533, 5.9735, 4.5993, 3.7615, 0.9803, 0.9801 ...]  ←     G
+I          │     2751.863      0.00%       YES       1.4s  [2.3533, 5.9735, 4.5993, 3.7615, 0.9803, 0.9801 ...]
+  (warm)   │     2751.863      0.00%       YES       1.2s  [2.3533, 5.9735, 4.5993, 3.7615, 0.9803, 0.9801 ...]  ←     J
+J          │    14140.530      0.00%       YES       1.5s  [2.3533, 5.9735, 4.5993, 3.7615, 0.9803, 0.9801 ...]
+  (warm)   │    14140.530      0.00%       YES       1.3s  [2.3533, 5.9735, 4.5993, 3.7615, 0.9803, 0.9801 ...]  ←     I
+K          │    12112.874      0.00%       YES       1.4s  [2.3533, 5.9735, 4.5993, 3.7615, 0.9803, 0.9801 ...]
+  (warm)   │    12112.874      0.00%       YES       1.4s  [2.3533, 5.9735, 4.5993, 3.7615, 0.9803, 0.9801 ...]  ←     I
+L          │    13170.943      0.00%       YES       1.4s  [2.3533, 5.9735, 4.5993, 3.7615, 0.9803, 0.9801 ...]
+  (warm)   │    13170.943      0.00%       YES       1.3s  [2.3533, 5.9735, 4.5993, 3.7615, 0.9803, 0.9801 ...]  ←     K
+M          │    12286.228      0.00%       YES       1.4s  [2.3533, 5.9735, 4.5993, 3.7615, 0.9803, 0.9801 ...]
+  (warm)   │    12286.228      0.00%       YES       1.4s  [2.3533, 5.9735, 4.5993, 3.7615, 0.9803, 0.9801 ...]  ←     L
+S1         │     1321.644      0.00%       YES       0.2s  [2.3533, 5.9735, 4.5993, 3.7615, 0.9803, 0.9801 ...]
+  (warm)   │     1321.644      0.00%       YES       0.1s  [2.3533, 5.9735, 4.5993, 3.7615, 0.9803, 0.9801 ...]  ←    S2
+S2         │    12323.023      0.00%       YES       0.2s  [2.3533, 5.9735, 4.5993, 3.7615, 0.9803, 0.9801 ...]
+  (warm)   │    12323.023      0.00%       YES       0.2s  [2.3533, 5.9735, 4.5993, 3.7615, 0.9803, 0.9801 ...]  ←    S1
+S3         │     3927.866      0.00%       YES       0.1s  [2.3533, 5.9735, 4.5993, 3.7615, 0.9803, 0.9801 ...]
+  (warm)   │     3927.866      0.00%       YES       0.2s  [2.3533, 5.9735, 4.5993, 3.7615, 0.9803, 0.9801 ...]  ←    S1
+T1         │     3611.981      0.00%       YES       0.4s  [2.3533, 5.9735, 4.5993, 3.7615, 0.9803, 0.9801 ...]
+  (warm)   │     3611.981      0.00%       YES       0.3s  [2.3533, 5.9735, 4.5993, 3.7615, 0.9803, 0.9801 ...]  ←    T2
+T2         │    18874.387      0.00%       YES       0.4s  [2.3533, 5.9735, 4.5993, 3.7615, 0.9803, 0.9801 ...]
+  (warm)   │    18874.387      0.00%       YES       0.4s  [2.3533, 5.9735, 4.5993, 3.7615, 0.9803, 0.9801 ...]  ←    T1
+T3         │    13458.699      0.00%       YES       0.3s  [2.3533, 5.9735, 4.5993, 3.7615, 0.9803, 0.9801 ...]
+  (warm)   │    13458.699      0.00%       YES       0.4s  [2.3533, 5.9735, 4.5993, 3.7615, 0.9803, 0.9801 ...]  ←    T1
+
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+Config 3/7: reps=2  optimizer=COBYLA  maxiter=100  restarts=1
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+Instance   │    Cold Cost  Cold Gap%  Optimal?  Cold Time                                        Cold Params
+           │    Warm Cost  Warm Gap%  Optimal?  Warm Time                                        Warm Params   Source
+───────────┼────────────────────────────────────────────────────────────────────────────────────────────────────
+A          │    11102.844     11.62%        no       3.9s  [2.8943, 6.5328, 4.5872, 3.7258]
+  (warm)   │     9947.085      0.00%       YES       3.0s  [2.8109, 5.9472, 4.9013, 3.9094]  ←     B
+B          │     9572.532      0.00%       YES       4.2s  [2.8083, 5.9483, 4.8999, 3.9079]
+  (warm)   │     9572.532      0.00%       YES       3.3s  [2.8877, 6.5104, 4.6046, 3.7777]  ←     A
+C          │     6013.839      0.00%       YES       3.5s  [2.2091, 5.6994, 4.0973, 3.6647]
+  (warm)   │            —          —         —          —  (no warm-start pair)
+D          │     3620.242      0.00%       YES       3.5s  [2.2380, 6.1832, 3.9937, 3.6539]
+  (warm)   │     3620.242      0.00%       YES       3.6s  [2.2604, 6.1502, 4.1877, 3.5454]  ←     E
+E          │     6180.703      0.00%       YES       3.8s  [2.3159, 6.2116, 4.0414, 3.6792]
+  (warm)   │     6180.703      0.00%       YES       4.0s  [2.2273, 6.2209, 3.9909, 3.6883]  ←     D
+F          │     6259.608      0.15%        no       4.2s  [2.7579, 6.0371, 4.7975, 4.0027]
+  (warm)   │     6250.218      0.00%       YES       2.8s  [2.2379, 6.1833, 3.9937, 3.6539]  ←     D
+G          │    20344.013      0.00%       YES       3.6s  [2.2629, 5.8246, 4.1996, 3.6516]
+  (warm)   │    20344.013      0.00%       YES       3.3s  [2.3124, 5.9668, 4.4761, 3.8094]  ←     H
+H          │    17376.131      0.00%       YES       3.5s  [2.3134, 5.9592, 4.4693, 3.8300]
+  (warm)   │    17376.131      0.00%       YES       3.4s  [2.2674, 5.9539, 4.4100, 3.6116]  ←     G
+I          │     2751.863      0.00%       YES       3.5s  [2.3341, 5.9989, 4.1066, 3.6148]
+  (warm)   │     2751.863      0.00%       YES       3.7s  [1.5663, 5.8079, 3.1476, 3.5858]  ←     J
+J          │    14140.530      0.00%       YES       3.3s  [2.2543, 5.8367, 4.1797, 3.6641]
+  (warm)   │    14140.530      0.00%       YES       3.6s  [2.3587, 6.1047, 4.0294, 3.6182]  ←     I
+K          │    12112.874      0.00%       YES       3.9s  [2.2952, 5.9128, 4.0945, 3.7418]
+  (warm)   │    12112.874      0.00%       YES       3.6s  [2.2527, 5.9642, 4.0699, 3.5356]  ←     I
+L          │    13170.943      0.00%       YES       4.0s  [2.1871, 5.8993, 4.1879, 3.4657]
+  (warm)   │    13170.943      0.00%       YES       4.1s  [1.5741, 5.2044, 2.8226, 3.2973]  ←     K
+M          │    12286.228      0.00%       YES       3.7s  [2.2207, 5.9737, 4.1267, 3.7325]
+  (warm)   │    12286.228      0.00%       YES       3.1s  [2.1872, 5.8994, 4.1880, 3.4658]  ←     L
+S1         │     1321.644      0.00%       YES       0.6s  [3.4211, 6.0638, 4.3597, 3.8729]
+  (warm)   │     1321.644      0.00%       YES       0.5s  [4.1667, 7.4027, 5.1718, 3.7179]  ←    S2
+S2         │    12323.023      0.00%       YES       0.6s  [3.2216, 7.3132, 5.2256, 3.7827]
+  (warm)   │    12323.023      0.00%       YES       0.6s  [4.7255, 5.2346, 3.7877, 3.6668]  ←    S1
+S3         │     3927.866      0.00%       YES       0.6s  [1.9353, 6.0668, 4.5198, 3.5848]
+  (warm)   │     3927.866      0.00%       YES       0.6s  [3.9418, 5.8597, 4.2705, 4.8889]  ←    S1
+T1         │     3611.981      0.00%       YES       1.1s  [3.8024, 7.0757, 6.6902, 3.0044]
+  (warm)   │     3611.981      0.00%       YES       1.2s  [2.3499, 6.6183, 3.4898, 2.9887]  ←    T2
+T2         │    18874.387      0.00%       YES       1.2s  [2.4347, 7.0136, 4.5742, 3.8198]
+  (warm)   │    18874.387      0.00%       YES       1.1s  [3.7316, 6.9999, 6.9914, 3.0305]  ←    T1
+T3         │    13458.699      0.00%       YES       1.2s  [3.7868, 7.5339, 4.0623, 3.0994]
+  (warm)   │    13458.699      0.00%       YES       1.0s  [3.7934, 8.1025, 6.7389, 4.0661]  ←    T1
+
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+Config 4/7: reps=2  optimizer=ADAM  maxiter=80  restarts=2
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+Instance   │    Cold Cost  Cold Gap%  Optimal?  Cold Time                                        Cold Params
+           │    Warm Cost  Warm Gap%  Optimal?  Warm Time                                        Warm Params   Source
+───────────┼────────────────────────────────────────────────────────────────────────────────────────────────────
+A          │     9947.085      0.00%       YES       1.0s  [2.3533, 5.9735, 4.5993, 3.7615]
+  (warm)   │     9947.085      0.00%       YES       0.9s  [2.3533, 5.9735, 4.5993, 3.7615]  ←     B
+B          │     9572.532      0.00%       YES       1.0s  [2.3533, 5.9735, 4.5993, 3.7615]
+  (warm)   │     9572.532      0.00%       YES       0.9s  [2.3533, 5.9735, 4.5993, 3.7615]  ←     A
+C          │     6013.839      0.00%       YES       1.0s  [2.3533, 5.9735, 4.5993, 3.7615]
+  (warm)   │            —          —         —          —  (no warm-start pair)
+D          │     3620.242      0.00%       YES       0.9s  [2.3533, 5.9735, 4.5993, 3.7615]
+  (warm)   │     3620.242      0.00%       YES       1.0s  [2.3533, 5.9735, 4.5993, 3.7615]  ←     E
+E          │     6180.703      0.00%       YES       0.9s  [2.3533, 5.9735, 4.5993, 3.7615]
+  (warm)   │     6180.703      0.00%       YES       0.9s  [2.3533, 5.9735, 4.5993, 3.7615]  ←     D
+F          │     6250.218      0.00%       YES       1.0s  [2.3533, 5.9735, 4.5993, 3.7615]
+  (warm)   │     6250.218      0.00%       YES       1.0s  [2.3533, 5.9735, 4.5993, 3.7615]  ←     D
+G          │    20344.013      0.00%       YES       0.9s  [2.3533, 5.9735, 4.5993, 3.7615]
+  (warm)   │    20344.013      0.00%       YES       0.8s  [2.3533, 5.9735, 4.5993, 3.7615]  ←     H
+H          │    17376.131      0.00%       YES       0.9s  [2.3533, 5.9735, 4.5993, 3.7615]
+  (warm)   │    17376.131      0.00%       YES       1.0s  [2.3533, 5.9735, 4.5993, 3.7615]  ←     G
+I          │     2751.863      0.00%       YES       1.0s  [2.3533, 5.9735, 4.5993, 3.7615]
+  (warm)   │     2751.863      0.00%       YES       1.0s  [2.3533, 5.9735, 4.5993, 3.7615]  ←     J
+J          │    14140.530      0.00%       YES       0.9s  [2.3533, 5.9735, 4.5993, 3.7615]
+  (warm)   │    14140.530      0.00%       YES       0.9s  [2.3533, 5.9735, 4.5993, 3.7615]  ←     I
+K          │    12112.874      0.00%       YES       1.0s  [2.3533, 5.9735, 4.5993, 3.7615]
+  (warm)   │    12112.874      0.00%       YES       0.9s  [2.3533, 5.9735, 4.5993, 3.7615]  ←     I
+L          │    13170.943      0.00%       YES       1.0s  [2.3533, 5.9735, 4.5993, 3.7615]
+  (warm)   │    13170.943      0.00%       YES       1.0s  [2.3533, 5.9735, 4.5993, 3.7615]  ←     K
+M          │    12286.228      0.00%       YES       0.9s  [2.3533, 5.9735, 4.5993, 3.7615]
+  (warm)   │    12286.228      0.00%       YES       0.9s  [2.3533, 5.9735, 4.5993, 3.7615]  ←     L
+S1         │     1321.644      0.00%       YES       0.2s  [0.9803, 0.9801, 0.3650, 5.4423]
+  (warm)   │     1321.644      0.00%       YES       0.1s  [0.9803, 0.9801, 0.3650, 5.4423]  ←    S2
+S2         │    12323.023      0.00%       YES       0.1s  [0.9803, 0.9801, 0.3650, 5.4423]
+  (warm)   │    12323.023      0.00%       YES       0.1s  [0.9803, 0.9801, 0.3650, 5.4423]  ←    S1
+S3         │     3927.866      0.00%       YES       0.2s  [0.9803, 0.9801, 0.3650, 5.4423]
+  (warm)   │     3927.866      0.00%       YES       0.1s  [0.9803, 0.9801, 0.3650, 5.4423]  ←    S1
+T1         │     3611.981      0.00%       YES       0.3s  [0.9803, 0.9801, 0.3650, 5.4423]
+  (warm)   │     3611.981      0.00%       YES       0.2s  [0.9803, 0.9801, 0.3650, 5.4423]  ←    T2
+T2         │    18874.387      0.00%       YES       0.3s  [0.9803, 0.9801, 0.3650, 5.4423]
+  (warm)   │    18874.387      0.00%       YES       0.2s  [0.9803, 0.9801, 0.3650, 5.4423]  ←    T1
+T3         │    13458.699      0.00%       YES       0.3s  [0.9803, 0.9801, 0.3650, 5.4423]
+  (warm)   │    13458.699      0.00%       YES       0.3s  [0.9803, 0.9801, 0.3650, 5.4423]  ←    T1
+
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+Config 5/7: reps=5  optimizer=COBYLA  maxiter=100  restarts=1
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+Instance   │    Cold Cost  Cold Gap%  Optimal?  Cold Time                                        Cold Params
+           │    Warm Cost  Warm Gap%  Optimal?  Warm Time                                        Warm Params   Source
+───────────┼────────────────────────────────────────────────────────────────────────────────────────────────────
+A          │     9947.085      0.00%       YES      10.5s  [2.8557, 6.2106, 5.3574, 5.0482, 1.8574, 0.6918 ...]
+  (warm)   │     9947.085      0.00%       YES      10.1s  [3.0401, 6.2363, 5.5421, 4.4763, 1.7997, 0.7588 ...]  ←     B
+B          │     9572.532      0.00%       YES      10.8s  [3.1345, 6.2632, 5.4890, 4.5457, 1.8470, 0.6592 ...]
+  (warm)   │     9572.532      0.00%       YES       9.6s  [2.8452, 6.2189, 5.3640, 5.0374, 1.8652, 0.6867 ...]  ←     A
+C          │     6013.839      0.00%       YES      11.0s  [3.2613, 6.1583, 5.5099, 4.8933, 1.7481, 1.0637 ...]
+  (warm)   │            —          —         —          —  (no warm-start pair)
+D          │     3620.242      0.00%       YES      11.8s  [2.3772, 6.9599, 4.6131, 3.7685, 0.9943, 0.9455 ...]
+  (warm)   │     3620.242      0.00%       YES       9.4s  [3.6825, 6.4227, 4.9412, 4.5758, 1.6950, 0.6315 ...]  ←     E
+E          │     6180.703      0.00%       YES      10.7s  [3.6579, 6.4604, 4.9103, 4.5715, 1.6315, 0.6430 ...]
+  (warm)   │     6180.703      0.00%       YES      11.0s  [2.3423, 6.9682, 4.6324, 3.7184, 0.9843, 0.9488 ...]  ←     D
+F          │     6250.218      0.00%       YES      11.0s  [3.2471, 6.0938, 5.6143, 4.8780, 1.7293, 1.0362 ...]
+  (warm)   │     6250.218      0.00%       YES      11.2s  [2.3695, 6.9688, 4.5751, 3.7589, 0.9633, 0.9489 ...]  ←     D
+G          │    20344.013      0.00%       YES      11.6s  [3.5513, 6.0155, 5.6541, 3.6407, 1.3102, 0.9813 ...]
+  (warm)   │    20344.013      0.00%       YES      10.0s  [2.6430, 6.1774, 5.2871, 4.2655, 1.9133, 0.5886 ...]  ←     H
+H          │    17376.131      0.00%       YES      10.9s  [2.6164, 6.0681, 5.3625, 4.1689, 1.9761, 0.5645 ...]
+  (warm)   │    17376.131      0.00%       YES       9.7s  [3.6610, 5.9486, 5.6551, 3.6300, 1.3083, 0.9710 ...]  ←     G
+I          │     2751.863      0.00%       YES      11.0s  [2.5678, 6.4296, 4.7808, 3.2838, 1.7124, 0.4840 ...]
+  (warm)   │     2751.863      0.00%       YES       9.6s  [3.1989, 6.2158, 5.7651, 4.7835, 1.7874, 0.7158 ...]  ←     J
+J          │    14140.530      0.00%       YES      10.7s  [3.2107, 6.2058, 5.6525, 4.7926, 1.8079, 0.7793 ...]
+  (warm)   │    14140.530      0.00%       YES       9.8s  [2.5923, 6.3713, 4.7377, 3.2367, 1.7059, 0.4484 ...]  ←     I
+K          │    12112.874      0.00%       YES      10.6s  [2.7062, 6.3231, 5.9594, 4.6022, 1.9479, 0.7090 ...]
+  (warm)   │    12112.874      0.00%       YES      11.1s  [2.6576, 6.3200, 4.7746, 3.2342, 1.6700, 0.4512 ...]  ←     I
+L          │    13170.943      0.00%       YES      10.4s  [3.4322, 6.1210, 5.5051, 4.8020, 1.7329, 0.9849 ...]
+  (warm)   │    13170.943      0.00%       YES       9.6s  [2.7022, 6.3112, 5.9477, 4.6133, 1.9388, 0.7150 ...]  ←     K
+M          │    12286.228      0.00%       YES      11.9s  [3.3810, 6.9870, 5.6178, 3.6800, 1.0259, 0.9506 ...]
+  (warm)   │    12286.228      0.00%       YES       9.3s  [3.4075, 6.1121, 5.5014, 4.8838, 1.6342, 1.0194 ...]  ←     L
+S1         │     1321.644      0.00%       YES       1.6s  [3.2572, 5.2387, 4.5186, 3.7782, 2.1242, 0.8157 ...]
+  (warm)   │     1321.644      0.00%       YES       1.4s  [2.4712, 5.8357, 4.7014, 4.8808, 1.9039, 1.2566 ...]  ←    S2
+S2         │    12323.023      0.00%       YES       1.4s  [2.4067, 5.7207, 4.7109, 4.9429, 1.6795, 1.2018 ...]
+  (warm)   │    12323.023      0.00%       YES       1.4s  [3.2856, 5.0069, 4.5360, 3.7153, 2.2301, 0.8371 ...]  ←    S1
+S3         │     3927.866      0.00%       YES       1.6s  [2.4778, 6.6009, 4.5804, 3.8869, 0.9975, 0.9397 ...]
+  (warm)   │     3927.866      0.00%       YES       1.3s  [3.2461, 5.2469, 4.5478, 3.7431, 2.1607, 0.8670 ...]  ←    S1
+T1         │     3611.981      0.00%       YES       3.8s  [1.5526, 6.8647, 5.7309, 4.8227, 0.6890, 0.7963 ...]
+  (warm)   │     3611.981      0.00%       YES       2.8s  [4.4129, 6.3499, 4.5647, 4.6665, 1.2429, 0.6148 ...]  ←    T2
+T2         │    18874.387      0.00%       YES       3.1s  [3.5341, 6.2670, 4.5735, 4.1060, 1.2005, 0.7769 ...]
+  (warm)   │    18874.387      0.00%       YES       3.0s  [1.4072, 6.9639, 5.4050, 4.7986, 0.2759, 1.2018 ...]  ←    T1
+T3         │    13458.699      0.00%       YES       3.4s  [3.4341, 5.9566, 4.5424, 3.7459, 0.9778, 0.9470 ...]
+  (warm)   │    13458.699      0.00%       YES       3.0s  [1.4159, 6.9248, 5.6107, 4.7693, 0.7806, 0.5984 ...]  ←    T1
+
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+Config 6/7: reps=2  optimizer=COBYLA  maxiter=50  restarts=3
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+Instance   │    Cold Cost  Cold Gap%  Optimal?  Cold Time                                        Cold Params
+           │    Warm Cost  Warm Gap%  Optimal?  Warm Time                                        Warm Params   Source
+───────────┼────────────────────────────────────────────────────────────────────────────────────────────────────
+A          │     9947.085      0.00%       YES      10.8s  [1.7092, 0.9827, 0.5232, 6.3466]
+  (warm)   │     9947.085      0.00%       YES      10.7s  [1.7092, 0.9827, 0.5232, 6.3466]  ←     B
+B          │     9572.532      0.00%       YES       9.6s  [1.4533, 0.5174, 0.6911, 6.0628]
+  (warm)   │     9572.532      0.00%       YES      10.3s  [1.9157, 0.7889, 0.4938, 6.2529]  ←     A
+C          │     6013.839      0.00%       YES      11.8s  [1.9177, 0.7615, 0.4591, 6.2611]
+  (warm)   │            —          —         —          —  (no warm-start pair)
+D          │     3620.242      0.00%       YES      45.1s  [1.7469, 0.9503, 0.4013, 6.2517]
+  (warm)   │     3620.242      0.00%       YES       9.8s  [1.8744, 0.8101, 0.4425, 6.2230]  ←     E
+E          │     6180.703      0.00%       YES      10.8s  [1.8657, 0.7858, 0.4073, 6.2691]
+  (warm)   │     6180.703      0.00%       YES      10.3s  [1.8657, 0.7858, 0.4073, 6.2691]  ←     D
+F          │     6250.218      0.00%       YES      10.2s  [1.7323, 0.9765, 0.5194, 6.3352]
+  (warm)   │     6250.218      0.00%       YES      10.4s  [1.7715, 0.8944, 0.4372, 6.2958]  ←     D
+G          │    20344.013      0.00%       YES       9.8s  [2.6273, 0.0842, 0.4508, 6.0879]
+  (warm)   │    20344.013      0.00%       YES       9.9s  [2.6273, 0.0842, 0.4508, 6.0879]  ←     H
+H          │    17376.131      0.00%       YES      10.1s  [4.2674, 4.6547, 0.4694, 6.7792]
+  (warm)   │    17376.131      0.00%       YES       9.7s  [2.6239, 0.0795, 0.4494, 5.9630]  ←     G
+I          │     2751.863      0.00%       YES      11.1s  [1.7168, 0.9986, 0.5113, 6.3191]
+  (warm)   │     2751.863      0.00%       YES      10.5s  [2.4367, 0.2744, 0.4098, 6.2376]  ←     J
+J          │    14140.530      0.00%       YES      10.8s  [2.4079, 0.2442, 0.4346, 6.2669]
+  (warm)   │    14140.530      0.00%       YES      10.4s  [2.4079, 0.2442, 0.4346, 6.2669]  ←     I
+K          │    12112.874      0.00%       YES      11.2s  [2.5606, 0.1139, 0.4202, 6.3589]
+  (warm)   │    12112.874      0.00%       YES       9.8s  [2.5606, 0.1139, 0.4202, 6.3589]  ←     I
+L          │    13170.943      0.00%       YES      11.5s  [2.7761, -0.0692, 0.4621, 6.4909]
+  (warm)   │    13170.943      0.00%       YES      10.0s  [2.5782, 0.0945, 0.4185, 6.2342]  ←     K
+M          │    12286.228      0.00%       YES      10.7s  [4.2251, 4.5682, 0.6533, 7.0250]
+  (warm)   │    12286.228      0.00%       YES       9.2s  [2.7635, -0.0783, 0.4675, 6.3688]  ←     L
+S1         │     1321.644      0.00%       YES       1.8s  [0.9965, 1.1079, 0.4526, 5.3012]
+  (warm)   │     1321.644      0.00%       YES       1.7s  [1.0436, 2.6654, 0.4715, 5.2651]  ←    S2
+S2         │    12323.023      0.00%       YES       1.8s  [1.1073, 2.0491, 0.5252, 5.4893]
+  (warm)   │    12323.023      0.00%       YES       1.7s  [1.1073, 2.0491, 0.5252, 5.4893]  ←    S1
+S3         │     3927.866      0.00%       YES       1.8s  [1.1274, 0.9437, 0.5693, 5.2927]
+  (warm)   │     3927.866      0.00%       YES       1.7s  [1.0610, 1.2322, 0.4132, 5.2930]  ←    S1
+T1         │     3611.981      0.00%       YES       3.2s  [1.0295, 1.6839, 0.3226, 6.3268]
+  (warm)   │     3611.981      0.00%       YES       3.0s  [4.3125, 4.6626, 0.3527, 5.8522]  ←    T2
+T2         │    18874.387      0.00%       YES       3.3s  [4.3460, 4.4669, 0.3819, 6.0516]
+  (warm)   │    18874.387      0.00%       YES       3.0s  [1.1044, 1.7316, 0.4160, 5.6376]  ←    T1
+T3         │    13458.699      0.00%       YES       3.4s  [4.3507, 4.4810, 0.3709, 5.9574]
+  (warm)   │    13458.699      0.00%       YES       2.9s  [1.1640, 1.7304, 0.3276, 7.5910]  ←    T1
+
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+Config 7/7: reps=5  optimizer=COBYLA  maxiter=50  restarts=3
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+Instance   │    Cold Cost  Cold Gap%  Optimal?  Cold Time                                        Cold Params
+           │    Warm Cost  Warm Gap%  Optimal?  Warm Time                                        Warm Params   Source
+───────────┼────────────────────────────────────────────────────────────────────────────────────────────────────
+A          │     9947.085      0.00%       YES      16.5s  [1.1754, 6.2223, 4.9751, 1.5693, 1.6315, 0.3291 ...]
+  (warm)   │     9947.085      0.00%       YES      15.7s  [4.6536, 1.0540, 1.3253, 1.8577, 2.6313, 5.2738 ...]  ←     B
+B          │     9572.532      0.00%       YES      18.9s  [4.6712, 1.0850, 1.4067, 1.8983, 2.6573, 5.1573 ...]
+  (warm)   │     9572.532      0.00%       YES      16.1s  [1.1793, 6.2132, 4.9515, 1.5784, 1.6220, 0.3853 ...]  ←     A
+C          │     6013.839      0.00%       YES      17.7s  [4.7711, 0.6796, 1.7776, 1.7923, 2.6746, 4.8548 ...]
+  (warm)   │            —          —         —          —  (no warm-start pair)
+D          │     3620.242      0.00%       YES      17.8s  [4.7581, 0.6547, 1.7482, 1.8974, 2.6129, 4.9343 ...]
+  (warm)   │     3620.242      0.00%       YES      16.6s  [4.7932, 0.6628, 1.8243, 2.0219, 2.7396, 4.8571 ...]  ←     E
+E          │     6180.703      0.00%       YES      17.0s  [4.7929, 0.6611, 1.8220, 1.9373, 2.8326, 4.8572 ...]
+  (warm)   │     6180.703      0.00%       YES      17.3s  [4.7182, 0.5651, 1.6957, 1.8832, 2.6085, 4.8848 ...]  ←     D
+F          │     6250.218      0.00%       YES      16.9s  [4.7471, 0.6069, 1.7959, 2.1017, 2.7427, 4.7941 ...]
+  (warm)   │     6250.218      0.00%       YES      16.0s  [1.1711, 6.2413, 4.9237, 1.5395, 1.7483, 0.4527 ...]  ←     D
+G          │    20344.013      0.00%       YES      17.7s  [4.7746, 0.5114, 1.7869, 2.0656, 2.6863, 4.9638 ...]
+  (warm)   │    20344.013      0.00%       YES      17.8s  [4.7134, 0.8255, 1.6741, 1.7446, 2.6594, 5.2017 ...]  ←     H
+H          │    17376.131      0.00%       YES      16.9s  [4.7421, 0.9277, 1.5922, 1.8665, 2.6838, 5.1409 ...]
+  (warm)   │    17376.131      0.00%       YES      17.3s  [4.6958, 0.5692, 1.7794, 2.2883, 2.3558, 4.9209 ...]  ←     G
+I          │     2751.863      0.00%       YES      17.3s  [4.7287, 0.5728, 1.7782, 2.1645, 2.7735, 4.9079 ...]
+  (warm)   │     2751.863      0.00%       YES      15.8s  [4.7627, 0.5898, 1.7906, 2.1408, 2.3961, 4.8587 ...]  ←     J
+J          │    14140.530      0.00%       YES      17.6s  [4.7465, 0.6625, 1.7983, 2.0949, 2.5002, 4.8688 ...]
+  (warm)   │    14140.530      0.00%       YES      16.1s  [4.7293, 0.5323, 1.7878, 2.1887, 2.7111, 4.9150 ...]  ←     I
+K          │    12112.874      0.00%       YES      16.9s  [4.7816, 0.6360, 1.6777, 2.0222, 2.8998, 5.0061 ...]
+  (warm)   │    12112.874      0.00%       YES      14.3s  [4.7296, 0.5833, 1.8187, 2.1488, 2.7060, 4.9310 ...]  ←     I
+L          │    13170.943      0.00%       YES      16.3s  [4.7411, 0.6181, 1.7550, 2.2986, 2.6383, 5.1566 ...]
+  (warm)   │    13170.943      0.00%       YES      15.5s  [4.7512, 0.5302, 1.6669, 1.9710, 2.9389, 4.8475 ...]  ←     K
+M          │    12286.228      0.00%       YES      16.9s  [4.7353, 0.5951, 1.7275, 2.0640, 2.7687, 4.9996 ...]
+  (warm)   │    12286.228      0.00%       YES      16.0s  [4.7228, 0.5502, 1.7581, 2.2784, 2.6622, 5.1280 ...]  ←     L
+S1         │     1321.644      0.00%       YES       2.0s  [3.2464, 5.2297, 4.5205, 3.7731, 2.1333, 0.8136 ...]
+  (warm)   │     1321.644      0.00%       YES       2.0s  [3.2464, 5.2297, 4.5205, 3.7731, 2.1333, 0.8136 ...]  ←    S2
+S2         │    12323.023      0.00%       YES       2.1s  [4.9423, 0.9862, 2.0777, 2.3785, 2.7996, 5.9865 ...]
+  (warm)   │    12323.023      0.00%       YES       1.9s  [2.9869, 4.9968, 4.2655, 3.5644, 1.7106, 0.4851 ...]  ←    S1
+S3         │     3927.866      0.00%       YES       2.1s  [1.2404, 7.2092, 5.1960, 1.4027, 1.0693, 1.0455 ...]
+  (warm)   │     3927.866      0.00%       YES       1.9s  [3.2816, 5.2334, 4.5907, 3.7385, 2.2574, 0.8763 ...]  ←    S1
+T1         │     3611.981      0.00%       YES       4.2s  [4.6176, 0.6116, 1.7731, 2.0758, 2.8730, 4.8533 ...]
+  (warm)   │     3611.981      0.00%       YES       4.3s  [0.0016, 6.7420, 6.0761, 1.4688, 1.7372, 1.0654 ...]  ←    T2
+T2         │    18874.387      0.00%       YES       4.4s  [0.0731, 6.7706, 6.1301, 1.6222, 1.7330, 1.1044 ...]
+  (warm)   │    18874.387      0.00%       YES       4.2s  [4.6359, 0.6953, 1.6700, 2.2419, 4.1546, 4.8541 ...]  ←    T1
+T3         │    13458.699      0.00%       YES       4.3s  [5.1593, 0.6996, 1.5241, 2.0095, 2.4049, 4.0719 ...]
+  (warm)   │    13458.699      0.00%       YES       4.3s  [4.6730, 0.8621, 1.8219, 1.9888, 2.9448, 5.5779 ...]  ←    T1
+
+========================================================================================================================
+AGGREGATE: Cold vs Warm per Config (averaged across all targets with warm-start pairs)
+========================================================================================================================
+Config                                        │ Cold AvgGap Cold OptRate Cold AvgTime │ Warm AvgGap Warm OptRate Warm AvgTime │  Delta Gap
+──────────────────────────────────────────────┼───────────────────────────────────────┼───────────────────────────────────────┼──────────
+reps=2   ADAM maxiter=30  restarts=1          │       0.00%       100.0%         0.4s │       0.00%       100.0%         0.4s │     +0.00%
+reps=5   ADAM maxiter=30  restarts=1          │       0.00%       100.0%         1.0s │       0.00%       100.0%         1.0s │     +0.00%
+reps=2 COBYLA maxiter=100 restarts=1          │       0.65%        88.9%         2.8s │       0.00%       100.0%         2.6s │     -0.65%
+reps=2   ADAM maxiter=80  restarts=2          │       0.00%       100.0%         0.7s │       0.00%       100.0%         0.7s │     +0.00%
+reps=5 COBYLA maxiter=100 restarts=1          │       0.00%       100.0%         8.2s │       0.00%       100.0%         7.4s │     +0.00%
+reps=2 COBYLA maxiter=50  restarts=3          │       0.00%       100.0%         9.8s │       0.00%       100.0%         7.5s │     +0.00%
+reps=5 COBYLA maxiter=50  restarts=3          │       0.00%       100.0%        12.5s │       0.00%       100.0%        11.8s │     +0.00%
+
+
+████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████
+█  FINAL COMPREHENSIVE RESULTS: COLD START vs WARM START (ALL PHASES, ALL CONFIGS)
+████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████
+
+┌─────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│  PHASE 1 vs PHASE 2: Cold-Start vs Warm-Start Optimization                                                    │
+├──────────────────────────────────────┬──────────────────────────────────┬──────────────────────────────────┬─────┤
+│ Config                               │     COLD START                   │     WARM START                   │Delta│
+│                                      │ OptRate  AvgGap  AvgTime Failures│ OptRate  AvgGap  AvgTime Failures│ Gap │
+├──────────────────────────────────────┼──────────────────────────────────┼──────────────────────────────────┼─────┤
+│ r=2 ADAM   mi=30  re=1               │  100.0%   0.00%    0.4s       0 │  100.0%   0.00%    0.4s       0 │+0.00│
+│ r=5 ADAM   mi=30  re=1               │  100.0%   0.00%    1.0s       0 │  100.0%   0.00%    1.0s       0 │+0.00│
+│ r=2 COBYLA mi=100 re=1               │   89.5%   0.62%    2.8s       2 │  100.0%   0.00%    2.6s       0 │-0.62│
+│ r=2 ADAM   mi=80  re=2               │  100.0%   0.00%    0.7s       0 │  100.0%   0.00%    0.7s       0 │+0.00│
+│ r=5 COBYLA mi=100 re=1               │  100.0%   0.00%    8.3s       0 │  100.0%   0.00%    7.4s       0 │+0.00│
+│ r=2 COBYLA mi=50  re=3               │  100.0%   0.00%    9.9s       0 │  100.0%   0.00%    7.5s       0 │+0.00│
+│ r=5 COBYLA mi=50  re=3               │  100.0%   0.00%   12.8s       0 │  100.0%   0.00%   11.8s       0 │+0.00│
+└──────────────────────────────────────┴──────────────────────────────────┴──────────────────────────────────┴─────┘
+
+┌─────────────────────────────────────────────────────────────────────────────────────────┐
+│  PHASE 3: Parameter Universality — Transfer Success (no re-optimization)                │
+├──────────────────────────────────────┬───────────────┬───────────────┬──────────────────┤
+│ Config                               │ 2-cust (4q)   │ 3-cust (9q)   │ 4-cust (16q)     │
+│                                      │ OptR  AvgGap  │ OptR  AvgGap  │ OptR    AvgGap   │
+├──────────────────────────────────────┼───────────────┼───────────────┼──────────────────┤
+│ r=2 ADAM   mi=30  re=1               │  100%   0.00% │  100%   0.00% │  100%   0.00%    │
+│ r=5 ADAM   mi=30  re=1               │  100%   0.00% │  100%   0.00% │  100%   0.00%    │
+│ r=2 COBYLA mi=100 re=1               │  100%   0.00% │  100%   0.00% │   83%   inf%     │
+│ r=2 ADAM   mi=80  re=2               │  100%   0.00% │  100%   0.00% │  100%   0.00%    │
+│ r=5 COBYLA mi=100 re=1               │  100%   0.00% │  100%   0.00% │  100%   0.00%    │
+│ r=2 COBYLA mi=50  re=3               │  100%   0.00% │  100%   0.00% │  100%   0.00%    │
+│ r=5 COBYLA mi=50  re=3               │  100%   0.00% │  100%   0.00% │  100%   0.00%    │
+└──────────────────────────────────────┴───────────────┴───────────────┴──────────────────┘
+
+┌────────────────────────────────────────────────────────────────────────────────────┐
+│  COMBINED VERDICT                                                                  │
+├──────────────────────────────────────┬────────┬────────┬────────┬──────────────────┤
+│ Config                               │Cold Opt│Warm Opt│Univ Opt│ Warm-Start Value │
+├──────────────────────────────────────┼────────┼────────┼────────┼──────────────────┤
+│ r=2 ADAM   mi=30  re=1               │ 100.0% │ 100.0% │ 100.0% │ No improvement   │
+│ r=5 ADAM   mi=30  re=1               │ 100.0% │ 100.0% │ 100.0% │ No improvement   │
+│ r=2 COBYLA mi=100 re=1               │  89.5% │ 100.0% │  84.5% │ RESCUED FAILURES │
+│ r=2 ADAM   mi=80  re=2               │ 100.0% │ 100.0% │ 100.0% │ No improvement   │
+│ r=5 COBYLA mi=100 re=1               │ 100.0% │ 100.0% │ 100.0% │ No improvement   │
+│ r=2 COBYLA mi=50  re=3               │ 100.0% │ 100.0% │ 100.0% │ No improvement   │
+│ r=5 COBYLA mi=50  re=3               │ 100.0% │ 100.0% │ 100.0% │ No improvement   │
+└──────────────────────────────────────┴────────┴────────┴────────┴──────────────────┘
+
+================================================================================
+CONCLUSION
+================================================================================
+
+1. PARAMETER UNIVERSALITY IS STRONG at 4 customers (16 qubits):
+   ADAM-based configs converge to *identical* optimal parameters across all
+   instances of the same size, proving the QAOA landscape has a single
+   dominant basin. COBYLA-based configs find distinct local minima but
+   still achieve 0% gap in most cases.
+
+2. WARM-START MATTERS WHEN THE OPTIMIZER BUDGET IS TIGHT:
+   The only config where cold-start failed (reps=2 COBYLA maxiter=100,
+   restarts=1) was fully rescued by warm-starting from a solved neighbor
+   — raising opt rate from 88.9% to 100%. This demonstrates warm-start's
+   value as a safety net for budget-constrained optimization.
+
+3. SUFFICIENT BUDGET ELIMINATES THE WARM-START ADVANTAGE:
+   Configs with restarts=3 or reps=5 achieved 100% cold-start accuracy,
+   making warm-start redundant for solution quality — though it can still
+   provide a modest speed-up.
+
+4. DIRECT PARAMETER TRANSFER (Phase 3) WORKS PERFECTLY for ADAM but
+   degrades under COBYLA: some COBYLA-optimized parameters produce inf%
+   gaps when transferred to other instances, while ADAM parameters
+   transfer with 0% gap universally. This suggests ADAM finds more
+   "universal" minima in the QAOA landscape.
+
+5. PRACTICAL RECOMMENDATION: For the hybrid VRP decomposition pipeline,
+   use warm-start with ADAM reps=2 maxiter=30. It is fast (0.4s/instance),
+   always optimal, and parameters transfer perfectly between instances.
+
+
+Phase 4 (25-qubit) skipped — too slow for simulator.
+
+DONE.
